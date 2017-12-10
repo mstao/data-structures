@@ -2,6 +2,14 @@ package pers.mingshan.linkedlist;
 
 /**
  * 单链表
+ * -------------------------------------------------------------------
+ *
+ *             _______
+ *      head  /       ↘
+ * ---------------    ---------------
+ * | data | next |    | data | next |     >>>
+ * ---------------    ---------------
+ * -------------------------------------------------------------------
  * @author mingshan
  *
  * @param <E>
@@ -44,6 +52,13 @@ public class SingleLinkedList<E> implements LinkedList<E> {
     public boolean add(E data) {
         if (data == null)
             throw new NullPointerException();
+        if (head == null) {
+            Node newNode = new Node(data);
+            head = newNode;
+            size++;
+            return true;
+        }
+
         Node temp = head;
         // 从头结点向后遍历，获取链表最后一个节点
         while (temp.next != null) {
@@ -66,7 +81,7 @@ public class SingleLinkedList<E> implements LinkedList<E> {
      * @param index 传入的索引值， 从1开始
      */
     @Override
-    public boolean add(int index, E data) {
+    public void add(int index, E data) {
         if (data == null)
             throw new NullPointerException();
         checkPositionIndex(index);
@@ -88,7 +103,6 @@ public class SingleLinkedList<E> implements LinkedList<E> {
                 head = newNode;
                 head.next = temp;
                 size++;
-                return true;
             }
             // 判断是否到了传入的索引
             if (++count == index) {
@@ -98,13 +112,10 @@ public class SingleLinkedList<E> implements LinkedList<E> {
                 newNode.next = temp.next;
                 temp.next = newNode;
                 size++;
-                return true;
             }
             // temp 始终指向下一个节点
             temp = temp.next;
         }
-
-        return false;
     }
 
     /**
@@ -125,25 +136,15 @@ public class SingleLinkedList<E> implements LinkedList<E> {
             }
 
             if (++count == index) {
+                E oldValue = temp.next.item;
                 temp.next = temp.next.next;
-                return temp.item;
+                return oldValue;
             }
             // temp 始终指向下一个节点
             temp = temp.next;
         }
 
         return null;
-    }
-
-    @Override
-    public void selectSortNode() {
-        
-    }
-
-    @Override
-    public void insertSortNode() {
-        // TODO Auto-generated method stub
-        
     }
 
     @Override
@@ -166,8 +167,9 @@ public class SingleLinkedList<E> implements LinkedList<E> {
         Node temp = head;
         while (temp != null) {
             if (count++ == index) {
+                E oldValue = temp.item;
                 temp.item = data;
-                return data;
+                return oldValue;
             }
             temp = temp.next;
         }
@@ -218,6 +220,44 @@ public class SingleLinkedList<E> implements LinkedList<E> {
             }
             int len = sb.length();  
             return sb.delete(len - 2, len).append("]").toString();
+        }
+    }
+
+    /**
+     * 链表反转
+     * 遍历单链表，逐个链接点进行反转。
+     * 原理：
+     * 使用p和q两个指针配合工作，使得两个节点间的指向反向，同时用r记录剩下的链表。
+     * 
+     * <a href="http://blog.csdn.net/feliciafay/article/details/6841115"></a>
+     */
+    @Override
+    public void reverse() {
+        if (head != null) {
+            // 代表指向当前进行反转的下一个节点
+            Node r;
+            // p 代表进行节点指向反转的节点前一个节点
+            Node p = head;
+            // q 代表进行节点指向反转的当前节点
+            Node q = head.next;
+
+            // 首先将head指向的下一个节点置为null
+            // 因为进行链表反转时头结点变成了尾节点，指向的下一个节点必然是null
+            head.next = null;
+            // 进行循环操作，p, q指向向前移动
+            while (q != null) {
+                // 将当前正在反转的节点的下一个节点指向r
+                r = q.next;
+                // 将当前节点的下一个节点指向其前一个节点(由指向后一个节点改为指向前一个节点)
+                q.next = p;
+                // p和q都向链表后面移一位
+                // 原来的q变成了p
+                p = q;
+                // 原来的r变成了q
+                q = r;
+            }
+
+            head = p;
         }
     }
 }

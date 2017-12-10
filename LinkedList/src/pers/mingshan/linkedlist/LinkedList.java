@@ -19,7 +19,7 @@ public interface LinkedList<E> {
      * 设置某个结点的的值
      * @param index 传入的索引值， 从1开始
      * @param data 要插入的元素
-     * @return 节点的值
+     * @return 旧的节点的值
      */
     E set(int index, E data);
 
@@ -29,7 +29,7 @@ public interface LinkedList<E> {
      * @param data 要插入的元素
      * @return 插入是否成功
      */
-    boolean add(int index, E data);
+    void add(int index, E data);
 
     /**
      * 添加结点
@@ -41,7 +41,7 @@ public interface LinkedList<E> {
     /**
      * 根据index移除结点
      * @param index 传入的索引值， 从1开始
-     * @return 成功返回移除结点的值，否则返回null
+     * @return 移除成功返回{@code true}, 失败返回 {@code false}
      */
     E remove(int index);
 
@@ -64,15 +64,6 @@ public interface LinkedList<E> {
      */
     boolean contains(E data);
 
-    /**
-     * 选择排序对链表进行排序
-     */
-    void selectSortNode();
-
-    /**
-     * 插入排序对链表进行排序
-     */
-    void insertSortNode();
     
     /**
      * 获取链表长度
@@ -85,4 +76,9 @@ public interface LinkedList<E> {
      * @return 链表为空返回{@code true}, 不为空返回 {@code false}
      */
     boolean isEmpty();
+
+    /**
+     * 链表反转
+     */
+    void reverse();
 }
