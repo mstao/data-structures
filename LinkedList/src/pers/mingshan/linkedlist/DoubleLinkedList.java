@@ -1,5 +1,7 @@
 package pers.mingshan.linkedlist;
 
+import java.util.NoSuchElementException;
+
 /**
  * 双向链表
  * 当链表只有一个节点时，first和last均指向该节点
@@ -88,6 +90,28 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
         return true;
     }
 
+    /**
+     * 返回头节点的值
+     * @return
+     */
+    public E getFirst() {
+        Node f = first;
+        if (f == null)
+            throw new NoSuchElementException();
+        return f.item;
+    }
+
+    /**
+     * 返回尾节点的值
+     * @return
+     */
+    public E getLast() {
+        Node l = last;
+        if (l == null)
+            throw new NoSuchElementException();
+        return l.item;
+    }
+
     @Override
     public E remove(int index) {
         checkElementIndex(index);
@@ -174,8 +198,38 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
 
     @Override
     public void reverse() {
-        // TODO Auto-generated method stub
-        
+        if (first != null) {
+            // 代表指向当前进行反转的下一个节点
+            Node r;
+            // p 代表进行节点指向反转的节点前一个节点
+            Node p = first;
+            // q 代表进行节点指向反转的当前节点
+            Node q = first.next;
+
+            // 首先将head指向的下一个节点置为null
+            // 因为进行链表反转时头结点变成了尾节点，指向的下一个节点必然是null
+            first.next = null;
+            // 进行循环操作，p, q指向向前移动
+            while (q != null) {
+                // 将当前正在反转的节点的下一个节点指向r
+                r = q.next;
+                // 将当前节点的下一个节点指向其前一个节点(由指向后一个节点改为指向前一个节点)
+                q.next = p;
+                // 将当前节点的prev改为指向下一个节点
+                p.prev = q;
+                // p和q都向链表后面移一位
+                // 原来的q变成了p
+                p = q;
+                // 原来的r变成了q
+                q = r;
+            }
+            // 将最后一个节点的prev指向为null
+            p.prev = null;
+            // 将原来的头节点置为尾节点
+            last = first;
+            // 将最后一个节点置为头节点
+            first = p;
+        }
     }
 
     public void addFirst(E data) {

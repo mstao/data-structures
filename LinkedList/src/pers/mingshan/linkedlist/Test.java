@@ -30,11 +30,12 @@ public class Test {
        
        
        // --------------double
-       LinkedList<String> list3 = new DoubleLinkedList<>();
+       DoubleLinkedList<String> list3 = new DoubleLinkedList<>();
        list3.add("a1");
        list3.add("a2");
        list3.add("a3");
-       list3.remove(0);
+       //list3.remove(0);
+       list3.reverse();
        System.out.println(list3.toString());
     }
 }
