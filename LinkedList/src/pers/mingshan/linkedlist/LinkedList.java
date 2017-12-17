@@ -41,7 +41,7 @@ public interface LinkedList<E> {
     /**
      * 根据index移除结点
      * @param index 传入的索引值， 从1开始
-     * @return 移除成功返回{@code true}, 失败返回 {@code false}
+     * @return 移除成功返回该索引处的旧值
      */
     E remove(int index);
 
