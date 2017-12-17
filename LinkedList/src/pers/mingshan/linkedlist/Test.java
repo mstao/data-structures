@@ -37,5 +37,6 @@ public class Test {
        //list3.remove(0);
        list3.reverse();
        System.out.println(list3.toString());
+       
     }
 }

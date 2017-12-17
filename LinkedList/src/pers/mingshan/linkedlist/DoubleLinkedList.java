@@ -4,33 +4,33 @@ import java.util.NoSuchElementException;
 
 /**
  * 双向链表
- * 当链表只有一个节点时，first和last均指向该节点
+ * 当链表只有一个结点时，first和last均指向该结点
  * 
  * @author mingshan
  *
  * @param <E>
  */
 public class DoubleLinkedList<E> implements LinkedList<E> {
-    // 链表节点数量
-    transient int size = 0;
+    // 链表结点数量
+    private int size = 0;
 
     // 指向头结点
-    transient Node first;
+    private Node first;
 
-    // 指向尾节点
-    transient Node last;
+    // 指向尾结点
+    private Node last;
 
     /**
-     * 内部Node，用于存储链表的节点
+     * 内部Node，用于存储链表的结点
      * @author mingshan
      *
      */
     private class Node {
-        // 存储节点的值
+        // 存储结点的值
         E item;
-        // 指向节点的前驱节点
+        // 指向结点的前驱结点
         Node next;
-        // 指向节点的后继节点
+        // 指向结点的后继结点
         Node prev;
 
         Node(Node prev, E element, Node next) {
@@ -45,7 +45,7 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
     @Override
     public E get(int index) {
         checkElementIndex(index);
-        // 获取其索引的节点
+        // 获取其索引的结点
         Node node = node(index);
         return node.item;
     }
@@ -56,9 +56,9 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
             throw new NullPointerException();
         checkPositionIndex(index);
 
-        // 获取原来在该索引位置上的节点
+        // 获取原来在该索引位置上的结点
         Node oldNode = node(index);
-        // 获取原来节点的值
+        // 获取原来结点的值
         E oldValue = oldNode.item;
         // 更新值
         oldNode.item = data;
@@ -71,12 +71,12 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
             throw new NullPointerException();
         checkPositionIndex(index);
 
-        // 判断在该索引的节点是不是尾节点
+        // 判断在该索引的结点是不是尾结点
         if (size == index) {
-            // 将当前节点作为尾节点
+            // 将当前结点作为尾结点
             linkLast(data);
         } else {
-            // 将节点插入到指定位置index(原来的节点之前)
+            // 将结点插入到指定位置index(原来的结点之前)
             linkBefore(index, data);
         }
     }
@@ -85,13 +85,13 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
     public boolean add(E data) {
         if (data == null)
             throw new NullPointerException();
-        // 将当前节点作为尾节点
+        // 将当前结点作为尾结点
         linkLast(data);
         return true;
     }
 
     /**
-     * 返回头节点的值
+     * 返回头结点的值
      * @return
      */
     public E getFirst() {
@@ -102,7 +102,7 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
     }
 
     /**
-     * 返回尾节点的值
+     * 返回尾结点的值
      * @return
      */
     public E getLast() {
@@ -116,38 +116,38 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
     public E remove(int index) {
         checkElementIndex(index);
 
-        // 获取在该索引位置上的节点
+        // 获取在该索引位置上的结点
         Node c = node(index);
         E element = c.item;
         Node prev = c.prev;
         Node next = c.next;
 
-        // 代表头节点
+        // 代表头结点
         if (prev == null) {
-            // 将下一个节点置为头节点
+            // 将下一个结点置为头结点
             first = next;
-            // 将下一个节点的前驱节点置为null
+            // 将下一个结点的前驱结点置为null
             next.prev = null;
-            // 将原来头节点的后继节点置为null
+            // 将原来头结点的后继结点置为null
             c.next = null;
         } else if (next == null) {
-            // 移除尾节点
+            // 移除尾结点
             last = prev;
-            // 前一个节点的后继节点置为null
+            // 前一个结点的后继结点置为null
             prev.next = null;
-            // 将原来尾节点的前驱节点置为null
+            // 将原来尾结点的前驱结点置为null
             c.prev = null;
         } else {
             // 属于一般情况
-            // 将前一个节点的后继节点置为原节点的后继节点
+            // 将前一个结点的后继结点置为原结点的后继结点
             prev.next = next;
-            // 将后一个节点的前驱节点置为原节点的前驱节点
+            // 将后一个结点的前驱结点置为原结点的前驱结点
             next.prev = prev;
-            // 切断当前删除的节点的前驱和后继节点
+            // 切断当前删除的结点的前驱和后继结点
             c.prev = null;
             c.next = null;
         }
-        // 代表头节点
+        // 代表头结点
 /*        if (prev == null) {
             first = next;
         } else {
@@ -199,23 +199,23 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
     @Override
     public void reverse() {
         if (first != null) {
-            // 代表指向当前进行反转的下一个节点
+            // 代表指向当前进行反转的下一个结点
             Node r;
-            // p 代表进行节点指向反转的节点前一个节点
+            // p 代表进行结点指向反转的结点前一个结点
             Node p = first;
-            // q 代表进行节点指向反转的当前节点
+            // q 代表进行结点指向反转的当前结点
             Node q = first.next;
 
-            // 首先将head指向的下一个节点置为null
-            // 因为进行链表反转时头结点变成了尾节点，指向的下一个节点必然是null
+            // 首先将head指向的下一个结点置为null
+            // 因为进行链表反转时头结点变成了尾结点，指向的下一个结点必然是null
             first.next = null;
             // 进行循环操作，p, q指向向前移动
             while (q != null) {
-                // 将当前正在反转的节点的下一个节点指向r
+                // 将当前正在反转的结点的下一个结点指向r
                 r = q.next;
-                // 将当前节点的下一个节点指向其前一个节点(由指向后一个节点改为指向前一个节点)
+                // 将当前结点的下一个结点指向其前一个结点(由指向后一个结点改为指向前一个结点)
                 q.next = p;
-                // 将当前节点的prev改为指向下一个节点
+                // 将当前结点的prev改为指向下一个结点
                 p.prev = q;
                 // p和q都向链表后面移一位
                 // 原来的q变成了p
@@ -223,11 +223,11 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
                 // 原来的r变成了q
                 q = r;
             }
-            // 将最后一个节点的prev指向为null
+            // 将最后一个结点的prev指向为null
             p.prev = null;
-            // 将原来的头节点置为尾节点
+            // 将原来的头结点置为尾结点
             last = first;
-            // 将最后一个节点置为头节点
+            // 将最后一个结点置为头结点
             first = p;
         }
     }
@@ -237,7 +237,7 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
     }
 
     /**
-     * 将当前节点作为头结点
+     * 将当前结点作为头结点
      */
     private void linkFirst(E data) {
         final Node f = first;
@@ -253,7 +253,7 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
     }
 
     /**
-     * 将当前节点作为尾节点
+     * 将当前结点作为尾结点
      * @param e
      */
     private void linkLast(E data) {
@@ -263,14 +263,14 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
         if (l == null) {
             first = newNode;
         } else {
-            // 原来的尾节点指向新节点
+            // 原来的尾结点指向新结点
             l.next = newNode;
         }
         size++;
     }
 
     /**
-     * 将节点插入到指定位置index(原来的节点之前)
+     * 将结点插入到指定位置index(原来的结点之前)
      * @param index
      * @param data
      */
@@ -278,12 +278,12 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
         Node curr = node(index);
         Node pred = curr.prev;
         Node newNode = new Node(pred, data, curr);
+        curr.prev = newNode;
 
         if (pred == null) {
             first = newNode;
         } else {
             pred.next = newNode;
-            curr.prev = newNode;
         }
         size++;
     }
@@ -295,6 +295,10 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
     private void checkElementIndex(int index) {
         if (!isElementIndex(index))
             throw new IndexOutOfBoundsException("查找元素位置不合法");
+    }
+
+    private boolean isElementIndex(int index) {
+        return index >= 0 && index < size;
     }
 
     /**
@@ -310,12 +314,9 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
         return index >= 0 && index <= size;
     }
 
-    private boolean isElementIndex(int index) {
-        return index >= 0 && index < size;
-    }
 
     /**
-     * 根据索引获取节点
+     * 根据索引获取结点
      * @param index
      * @return
      */
@@ -329,7 +330,7 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
 
             return temp;
         } else {
-            // 如果当前索引值大于当前链表长度的一半，那么从尾节点反向遍历
+            // 如果当前索引值大于当前链表长度的一半，那么从尾结点反向遍历
             Node temp = last;
             for (int i = size - 1; i > index; i--) {
                 temp = temp.prev;
