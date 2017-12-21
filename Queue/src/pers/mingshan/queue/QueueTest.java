@@ -1,6 +1,7 @@
 package pers.mingshan.queue;
 
-import java.util.LinkedList;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
 
 public class QueueTest {
 
@@ -35,7 +36,7 @@ public class QueueTest {
         //再次加入一个元素  
         queue2.offer("eeee");
         System.out.println(queue2);
-        
-        LinkedList l = new LinkedList();
+
+        BlockingQueue<String> s = new ArrayBlockingQueue<>(10);
     }
 }

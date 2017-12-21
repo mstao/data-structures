@@ -1,6 +1,5 @@
 package pers.mingshan.stack;
 
-import java.io.Serializable;
 import java.util.Arrays;
 import java.util.EmptyStackException;
 
@@ -10,9 +9,7 @@ import java.util.EmptyStackException;
  * @author mingshan
  *
  */
-public class Stack<E> implements Serializable {
-    private static final long serialVersionUID = 5667186392752356473L;
-
+public class Stack<E> {
     // 存放栈内元素的数组，默认大小为10
     private Object[] elementData;
     // 元素的数量
@@ -20,6 +17,11 @@ public class Stack<E> implements Serializable {
     // 指定要增加的容量大小
     private int capacityIncrement;
 
+    /**
+     * 通过传入自定义的值来初始化数组
+     * @param initialCapacity 数组容初始量
+     * @param capacityIncrement 扩容增加的容量
+     */
     public Stack(int initialCapacity, int capacityIncrement) {
         super();
         if (initialCapacity < 0)
@@ -29,10 +31,17 @@ public class Stack<E> implements Serializable {
         this.capacityIncrement = capacityIncrement;
     }
 
+    /**
+     * 通过传入自定义的值来初始化数组
+     * @param initialCapacity 数组初始容量
+     */
     public Stack(int initialCapacity) {
         this(initialCapacity, 0);
     }
 
+    /**
+     * 构造方法初始化数组容量
+     */
     public Stack() {
         this(10);
     }
@@ -86,7 +95,7 @@ public class Stack<E> implements Serializable {
     /**
      * 返回对象在堆栈中的位置，以 0 为基数。
      * @param element
-     * @return 元素第一次出现的位置
+     * @return 元素第一次出现的位置，找不到返回-1
      */
     public int search(Object element) {
         int z = elementCount - 1;
@@ -115,7 +124,7 @@ public class Stack<E> implements Serializable {
     }
 
     /**
-     * 向栈内添加元素
+     * 向栈顶添加元素
      * @param obj
      */
     private void addElement(E obj) {
@@ -124,7 +133,7 @@ public class Stack<E> implements Serializable {
     }
 
     /**
-     * 确保栈容量
+     * 确保栈容量，扩容
      * @param minCapacity 
      */
     private void ensureCapacity(int minCapacity) {

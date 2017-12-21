@@ -12,6 +12,10 @@ public class LinkQueue<E> implements Queue<E>, Serializable {
     private static final long serialVersionUID = -1134881933704209286L;
     private final AtomicInteger size = new AtomicInteger();
     private final int capacity;
+    // 队列的头节点
+    private Node head;
+    // 队列的尾节点
+    private Node tail;
 
     private class Node {
         private E data;
@@ -21,11 +25,6 @@ public class LinkQueue<E> implements Queue<E>, Serializable {
             this.data = data;
         }
     }
-
-    // 队列的头节点
-    private Node head;
-    // 队列的尾节点
-    private Node tail;
 
     public LinkQueue() {
         this(Integer.MAX_VALUE);
@@ -40,8 +39,9 @@ public class LinkQueue<E> implements Queue<E>, Serializable {
     public LinkQueue(E element) {
         this(Integer.MAX_VALUE);
         // 初始Node，只有一个节点
-        head = new Node(element);
-        tail = head;
+        Node newNode = new Node(element);
+        head.next = newNode;
+        tail = newNode;
         size.incrementAndGet();
     }
 
@@ -59,11 +59,11 @@ public class LinkQueue<E> implements Queue<E>, Serializable {
             throw new NullPointerException();
         if (size.get() == capacity)
             return false;
+        Node newNode = new Node(e);
         if (head == null) {
-            head = new Node(e);
-            tail = head;
+            head.next = newNode;
+            tail = newNode;
         } else {
-            Node newNode = new Node(e);
             tail.next = newNode;
             tail = newNode;
         }
@@ -75,8 +75,8 @@ public class LinkQueue<E> implements Queue<E>, Serializable {
     @Override
     public E poll() {
         if (!isEmpty()) {
-            Node node = head;
-            head = head.next;
+            Node node = head.next;
+            head.next = node.next;
             size.decrementAndGet();
             return node.data;
         }
@@ -87,7 +87,7 @@ public class LinkQueue<E> implements Queue<E>, Serializable {
     @Override
     public E peek() {
         if (!isEmpty()) {
-            return head.data;
+            return head.next.data;
         }
 
         return null;
@@ -105,7 +105,7 @@ public class LinkQueue<E> implements Queue<E>, Serializable {
 
     @Override
     public void clear() {
-        head = null;
+        head.next = null;
         tail = null;
         size.set(0);
     }
@@ -116,7 +116,7 @@ public class LinkQueue<E> implements Queue<E>, Serializable {
             return "[]";
         } else {
             StringBuilder sb = new StringBuilder("[");
-            for (Node current = head; current != null; current = current.next) {
+            for (Node current = head.next; current != null; current = current.next) {
                 sb.append(current.data.toString() + ", ");
             }
             int len = sb.length();  
