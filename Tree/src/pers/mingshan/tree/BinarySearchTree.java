@@ -57,7 +57,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
         }
 
         Node<E> node = root;
-        // 按照规则进行遍历二叉树
+        // 按照先序进行遍历二叉树
         while (node != null) {
             // 如过新结点的值比父节点的值小
             if (node.item.compareTo(newNode.item) > 0) {
@@ -225,12 +225,12 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
 
     @Override
     public boolean contains(E value) {
+        // 先序遍历二叉树
         Node<E> node = root;
         if (root.item.compareTo(value) == 0) {
             return true;
         }
 
-        // 按照规则进行遍历二叉树
         while (node != null) {
             // 如果当前值比父节点的值小
             if (node.item.compareTo(value) > 0) {
