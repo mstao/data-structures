@@ -1,5 +1,7 @@
 package pers.mingshan.algorithm;
+
 /**
+ * KMP 实现
  * 
  * @author mingshan
  *
@@ -15,7 +17,7 @@ public class KmpTest {
         int k = 0;
         int i = 0;
         for (i = 0, k = 0; i < slen; i++) {
-            // ptr和str不匹配，且k>-1（表示ptr和str有部分匹配）
+            // ptr和str不匹配，且k>0（表示ptr和str有部分匹配）
             while (k > 0 && ptr[k] != str[i])
                 k = next[k - 1];//往前回溯
             if (ptr[k] == str[i])
