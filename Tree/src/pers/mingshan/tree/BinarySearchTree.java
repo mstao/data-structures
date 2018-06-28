@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * 二叉树
+ * 二叉搜索树
  * 
  * 二叉搜索树，一个结点的左结点的值必须小于此结点的值，右结点的值大于或等于此结点的值
  * 下面是搜索步骤：

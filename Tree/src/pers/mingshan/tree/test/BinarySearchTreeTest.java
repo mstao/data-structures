@@ -1,10 +1,18 @@
-package pers.mingshan.tree;
+package pers.mingshan.tree.test;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class TreeTest {
-    BinarySearchTree<Integer> tree = new BinarySearchTree<>();
+import pers.mingshan.tree.BinarySearchTree;
+
+/**
+ * 二叉搜索树test
+ * 
+ * @author mingshan
+ *
+ */
+public class BinarySearchTreeTest {
+    final BinarySearchTree<Integer> tree = new BinarySearchTree<>();
 
     /**
      *            10
