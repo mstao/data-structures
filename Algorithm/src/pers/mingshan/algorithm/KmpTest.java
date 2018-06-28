@@ -8,6 +8,16 @@ package pers.mingshan.algorithm;
  */
 public class KmpTest {
 
+    public static void main(String[] args) {
+        String source = "123456abc789abc";
+        String search = "abc";
+        System.out.println(kmp(source, search));
+        int[] next = kmpNext(search);
+        for (int a : next) {
+            System.out.println(a);
+        }
+    }
+
     public static int kmp(String sourceStr, String searchStr) {
         int[] next = kmpNext(searchStr);
         char[] str = sourceStr.toCharArray();
@@ -19,25 +29,15 @@ public class KmpTest {
         for (i = 0, k = 0; i < slen; i++) {
             // ptr和str不匹配，且k>0（表示ptr和str有部分匹配）
             while (k > 0 && ptr[k] != str[i])
-                k = next[k - 1];//往前回溯
+                k = next[k - 1];// 往前回溯
             if (ptr[k] == str[i])
                 k = k + 1;
-            //说明k移动到ptr的最末端
+            // 说明k移动到ptr的最末端
             if (k == plen) {
-                return i - plen + 1;//返回相应的位置
+                return i - plen + 1;// 返回相应的位置
             }
         }
         return -1;
-    }
-
-    public static void main(String[] args) {
-        String source = "123456abc789abc";
-        String search = "abc";
-        System.out.println(kmp(source, search));
-        int[] next = kmpNext(search);
-        for (int a : next) {
-            System.out.println(a);
-        }
     }
 
     private static int[] kmpNext(String str) {
