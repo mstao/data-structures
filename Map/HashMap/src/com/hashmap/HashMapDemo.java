@@ -5,7 +5,7 @@ import java.util.List;
 
 public class HashMapDemo<K, V> implements Map<K, V> {
     // 默认大小
-    static final int DEFAULT_INITIAL_CAPACITY = 11;
+    static final int DEFAULT_INITIAL_CAPACITY = 16;
     // 默认负载因子
     static final float DEFAULT_LOAD_FACTOR = 0.75f;
     // 定义数组大小
@@ -17,7 +17,7 @@ public class HashMapDemo<K, V> implements Map<K, V> {
     // 定义Map 骨架 只要数组
     private Entry<K, V>[] table = null;
 
-    public HashMapDemo(){
+    public HashMapDemo() {
         this(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
     }
 
@@ -35,7 +35,7 @@ public class HashMapDemo<K, V> implements Map<K, V> {
     }
 
     /**
-     * 快取
+     * 快存
      */
     @Override
     public V put(K k, V v) {
@@ -44,15 +44,15 @@ public class HashMapDemo<K, V> implements Map<K, V> {
             up2Size();
         }
         // 通过key来存储位置
-        int index = getIndex(k,table.length);
+        int index = getIndex(k, table.length);
         Entry<K,V> entry = table[index];
         if (entry == null) {
-            table[index] = new Entry<K, V>(k,v,null);
+            table[index] = new Entry<K, V>(k, v, null);
             useSize++;
         } else if (entry != null) {
-             //entry!=null
-             table[index] = new Entry<K, V>(k,v,entry);
+             table[index] = new Entry<K, V>(k, v, entry);
         }
+
         return table[index].getValue();
     }
 
@@ -85,7 +85,7 @@ public class HashMapDemo<K, V> implements Map<K, V> {
      * 增大容量，这里扩容两倍
      */
     private void up2Size() {
-        Entry<K, V>[] newTable =new Entry[2 * this.length];
+        Entry<K, V>[] newTable = new Entry[2 * this.length];
         // 原来数组有非常多的Entry对象，由于Entry对象散列，需要再次散列
         againHash(newTable);
     }
@@ -96,7 +96,7 @@ public class HashMapDemo<K, V> implements Map<K, V> {
      */
     private void againHash(Entry<K, V>[] newTable) {
         // 将数组里面的对象封装到List
-        List<Entry<K,V>> entryList = new ArrayList<Entry<K,V>>();
+        List<Entry<K, V>> entryList = new ArrayList<Entry<K, V>>();
 
         for (int i = 0; i < table.length; i++) {
             if (table[i] == null) {
@@ -108,7 +108,7 @@ public class HashMapDemo<K, V> implements Map<K, V> {
             useSize = 0;
             this.length = 2 * this.length;
             table = newTable;
-            for (Entry<K,V> entry : entryList) {
+            for (Entry<K, V> entry : entryList) {
                 if (entry.next!=null) {
                     //形成链表关系取消掉
                     entry.next=null;
@@ -140,31 +140,68 @@ public class HashMapDemo<K, V> implements Map<K, V> {
     @SuppressWarnings("unchecked")
     @Override
     public V get(K k) {
-        int index = getIndex(k,table.length);
+        int index = getIndex(k, table.length);
         if (table[index] == null) {
-            return (V) new NullPointerException();
+            throw new NullPointerException();
         }
-        return findValueByEntryKey(k,table[index]);
+        return findValueByEntryKey(k, table[index]);
     }
 
     private V findValueByEntryKey(K k, Entry<K, V> entry) {
         if (k == entry.getKey() || k.equals(entry.getKey())) {
             return entry.getValue();
         } else if(entry.next != null) {
-            return findValueByEntryKey(k,entry.next);
+            return findValueByEntryKey(k, entry.next);
         }
         return entry.getValue();
     }
 
-    static class Entry<K, V> implements Map.Entry<K,V> {
+    /**
+     * 移除
+     * @param k
+     */
+    @Override
+    public V remove(K k) {
+        int index = getIndex(k, table.length);
+        Entry<K, V> e = table[index];
+        Entry<K, V> prev = null;
+        if (e == null) {
+            return null;
+        }
+        
+        while (e != null && (!(k == e.getKey() ||
+                (k != null && k.equals(k))))) {
+            prev = e;
+            e = e.next;
+        }
+
+        Entry<K, V> next = e.next;
+        if (prev != null && next != null) {
+            prev.next = next;
+        } else if (prev != null && next == null) {
+            prev.next = null;
+        } else if (prev == null && next != null) {
+            // Node is the head
+            table[index] = next;
+        } else {
+            // prev==null && next==null
+            table[index] = null;
+        }
+
+        useSize--;
+
+        return e.v;
+    }
+
+    static class Entry<K, V> implements Map.Entry<K, V> {
         K k;
         V v;
-        Entry<K,V> next;
+        Entry<K, V> next;
 
-        public Entry(K k,V v,Entry<K,V> next){
-            this.k=k;
-            this.v=v;
-            this.next=next;
+        public Entry(K k,V v,Entry<K, V> next){
+            this.k = k;
+            this.v = v;
+            this.next = next;
         }
 
         public K getKey() {
