@@ -8,7 +8,7 @@ public class Test {
         hashmap.put("cx", "ccccccc");
 
         System.out.println(hashmap.get("han"));
-        hashmap.remove("dd");
+        System.out.println(hashmap.remove("dd"));
         System.out.println(hashmap.get("dd"));
     }
 }

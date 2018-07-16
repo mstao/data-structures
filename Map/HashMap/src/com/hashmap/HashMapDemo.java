@@ -21,6 +21,7 @@ public class HashMapDemo<K, V> implements Map<K, V> {
         this(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
     }
 
+    @SuppressWarnings("unchecked")
     public HashMapDemo(int length, float loadFactor) {
         if (length < 0) {
             throw new IllegalArgumentException("参数不能为负数" + length);
@@ -84,6 +85,7 @@ public class HashMapDemo<K, V> implements Map<K, V> {
     /**
      * 增大容量，这里扩容两倍
      */
+    @SuppressWarnings("unchecked")
     private void up2Size() {
         Entry<K, V>[] newTable = new Entry[2 * this.length];
         // 原来数组有非常多的Entry对象，由于Entry对象散列，需要再次散列
@@ -137,7 +139,6 @@ public class HashMapDemo<K, V> implements Map<K, V> {
     /**
      * 快取
      */
-    @SuppressWarnings("unchecked")
     @Override
     public V get(K k) {
         int index = getIndex(k, table.length);
@@ -148,12 +149,14 @@ public class HashMapDemo<K, V> implements Map<K, V> {
     }
 
     private V findValueByEntryKey(K k, Entry<K, V> entry) {
-        if (k == entry.getKey() || k.equals(entry.getKey())) {
-            return entry.getValue();
-        } else if(entry.next != null) {
-            return findValueByEntryKey(k, entry.next);
+        Entry<K, V> e = entry;
+        while (e != null) {
+            if (k == e.getKey() || k.equals(e.getKey()))
+                return e.getValue();
+            e = e.next;
         }
-        return entry.getValue();
+
+        return null;
     }
 
     /**
@@ -165,14 +168,15 @@ public class HashMapDemo<K, V> implements Map<K, V> {
         int index = getIndex(k, table.length);
         Entry<K, V> e = table[index];
         Entry<K, V> prev = null;
-        if (e == null) {
-            return null;
-        }
         
         while (e != null && (!(k == e.getKey() ||
-                (k != null && k.equals(k))))) {
+                (k != null && k.equals(e.getKey()))))) {
             prev = e;
             e = e.next;
+        }
+
+        if (e == null) {
+            return null;
         }
 
         Entry<K, V> next = e.next;
