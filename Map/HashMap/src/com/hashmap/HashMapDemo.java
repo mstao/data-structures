@@ -32,7 +32,7 @@ public class HashMapDemo<K, V> implements Map<K, V> {
 
         this.length = length;
         this.loadFactor = loadFactor;
-        this.table = new Entry[length];
+        this.table = (Entry<K, V>[])new Entry[length];
     }
 
     /**
@@ -51,7 +51,7 @@ public class HashMapDemo<K, V> implements Map<K, V> {
             table[index] = new Entry<K, V>(k, v, null);
             useSize++;
         } else if (entry != null) {
-             table[index] = new Entry<K, V>(k, v, entry);
+            table[index] = new Entry<K, V>(k, v, entry);
         }
 
         return table[index].getValue();
@@ -87,7 +87,7 @@ public class HashMapDemo<K, V> implements Map<K, V> {
      */
     @SuppressWarnings("unchecked")
     private void up2Size() {
-        Entry<K, V>[] newTable = new Entry[2 * this.length];
+        Entry<K, V>[] newTable = (Entry<K,V>[])new Entry[2 * this.length];
         // 原来数组有非常多的Entry对象，由于Entry对象散列，需要再次散列
         againHash(newTable);
     }
