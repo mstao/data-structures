@@ -11,7 +11,7 @@ public class HashMapDemo<K, V> implements Map<K, V> {
     // 定义数组大小
     private int length;
     // 扩容标准 所使用的数组数量/数组长度 > 0.75
-    final float loadFactor;
+    private float loadFactor;
     // 使用数组位置的总量
     private int useSize;
     // 定义Map 骨架 只要数组
@@ -26,7 +26,7 @@ public class HashMapDemo<K, V> implements Map<K, V> {
         if (length < 0) {
             throw new IllegalArgumentException("参数不能为负数" + length);
         }
-        if (loadFactor <= 0 || Double.isNaN(loadFactor)) {
+        if (loadFactor <= 0 || Float.isNaN(loadFactor)) {
             throw new IllegalArgumentException("扩容标准必须为大于0的数字" + length);
         }
 
@@ -40,7 +40,7 @@ public class HashMapDemo<K, V> implements Map<K, V> {
      */
     @Override
     public V put(K k, V v) {
-        if (useSize> this.length * this.loadFactor) {
+        if (useSize > this.length * this.loadFactor) {
             // 需要扩容
             up2Size();
         }
@@ -49,10 +49,10 @@ public class HashMapDemo<K, V> implements Map<K, V> {
         Entry<K,V> entry = table[index];
         if (entry == null) {
             table[index] = new Entry<K, V>(k, v, null);
-            useSize++;
         } else if (entry != null) {
             table[index] = new Entry<K, V>(k, v, entry);
         }
+        useSize++;
 
         return table[index].getValue();
     }
@@ -77,9 +77,9 @@ public class HashMapDemo<K, V> implements Map<K, V> {
      * @param hashCode
      * @return
      */
-    private int hash(int hashCode) {
-        hashCode = hashCode ^ ((hashCode >>> 20) ^ (hashCode >>> 12));
-        return hashCode ^ ((hashCode >>> 7) ^ (hashCode >>> 4));
+    private int hash(Object key) {
+        int h;
+        return (key == null) ? 0 : (h = key.hashCode()) ^ (h >>> 16);
     }
 
     /**
@@ -111,11 +111,11 @@ public class HashMapDemo<K, V> implements Map<K, V> {
             this.length = 2 * this.length;
             table = newTable;
             for (Entry<K, V> entry : entryList) {
-                if (entry.next!=null) {
+                if (entry.next != null) {
                     //形成链表关系取消掉
-                    entry.next=null;
+                    entry.next = null;
                 }
-                put(entry.getKey(),entry.getValue());
+                put(entry.getKey(), entry.getValue());
             }
         }
     }
