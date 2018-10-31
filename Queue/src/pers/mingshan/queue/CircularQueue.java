@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 /**
- * 环形队列
+ * 循环队列
  * 
  * @author mingshan
  *
