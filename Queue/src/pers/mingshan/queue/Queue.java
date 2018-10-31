@@ -12,7 +12,7 @@ public interface Queue<E> {
      * @param e 将要添加的元素
      * @return
      */
-    boolean add(E e);
+    boolean add(E e) throws IllegalStateException;
 
     /**
      * 添加元素。成功时返回 true，如果当前没有可用的空间，则返回 false，不会抛异常

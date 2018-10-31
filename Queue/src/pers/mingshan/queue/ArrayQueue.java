@@ -2,6 +2,7 @@ package pers.mingshan.queue;
 
 import java.io.Serializable;
 import java.util.Arrays;
+import java.util.Objects;
 
 /**
  * 顺序队列
@@ -13,7 +14,7 @@ public class ArrayQueue<E> implements Queue<E>, Serializable {
     private static final long serialVersionUID = -5343093498654305994L;
 
     // 队列内部数组默认容量
-    private static final int DEFAULT_SIZE = 10;
+    private static final int DEFAULT_CAPACITY = 10;
 
     // 队列内部数组的容量
     private int capacity;
@@ -31,7 +32,7 @@ public class ArrayQueue<E> implements Queue<E>, Serializable {
      * 默认构造函数初始化
      */
     public ArrayQueue() {
-        capacity = DEFAULT_SIZE;
+        capacity =  DEFAULT_CAPACITY;
         elements = new Object[capacity];
     }
 
@@ -49,7 +50,7 @@ public class ArrayQueue<E> implements Queue<E>, Serializable {
      * @param e 队列的第一个元素
      */
     public ArrayQueue(E e) {
-        this.capacity = DEFAULT_SIZE;
+        this.capacity =  DEFAULT_CAPACITY;
         elements = new Object[capacity];
         elements[0] = e;
         tail++;
@@ -69,17 +70,14 @@ public class ArrayQueue<E> implements Queue<E>, Serializable {
 
     @Override
     public boolean add(E e) {
-        if (e != null) {
-            // 获取当前的数组的长度
-            int oldLength = elements.length;
-            // 如果原来数组的长度小于当前需要的长度，那么直接抛异常IllegalStateException
-            if (oldLength < tail + 1) {
-                throw new IllegalStateException("Queue full");
-            } else {
-                elements[tail++] = e;
-            }
+        Objects.requireNonNull(e);
+        // 获取当前的数组的长度
+        int oldLength = elements.length;
+        // 如果原来数组的长度小于当前需要的长度，那么直接抛异常IllegalStateException
+        if (oldLength < tail + 1) {
+            throw new IllegalStateException("Queue full");
         } else {
-            throw new NullPointerException();
+            elements[tail++] = e;
         }
 
         return true;
@@ -87,17 +85,14 @@ public class ArrayQueue<E> implements Queue<E>, Serializable {
 
     @Override
     public boolean offer(E e) {
-        if (e != null) {
-            // 获取当前的数组的长度
-            int oldLength = elements.length;
-            // 如果原来数组的长度小于当前需要的长度，那么直接抛异常IllegalStateException
-            if (oldLength < tail + 1) {
-                return false;
-            } else {
-                elements[tail++] = e;
-            }
+        Objects.requireNonNull(e);
+        // 获取当前的数组的长度
+        int oldLength = elements.length;
+        // 如果原来数组的长度小于当前需要的长度，那么直接抛异常IllegalStateException
+        if (oldLength < tail + 1) {
+            return false;
         } else {
-            throw new NullPointerException();
+            elements[tail++] = e;
         }
 
         return false;
@@ -139,7 +134,7 @@ public class ArrayQueue<E> implements Queue<E>, Serializable {
 
     @Override
     public void clear() {
-        //将底层数组所有元素赋为null  
+        // 将底层数组所有元素赋为null  
         Arrays.fill(elements, null);
         head = 0;
         tail = 0;

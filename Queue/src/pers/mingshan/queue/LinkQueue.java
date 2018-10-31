@@ -1,6 +1,7 @@
 package pers.mingshan.queue;
 
 import java.io.Serializable;
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicInteger;
 
 /**
@@ -55,8 +56,8 @@ public class LinkQueue<E> implements Queue<E>, Serializable {
 
     @Override
     public boolean offer(E e) {
-        if (e == null)
-            throw new NullPointerException();
+        Objects.requireNonNull(e);
+
         if (size.get() == capacity)
             return false;
         Node newNode = new Node(e);
