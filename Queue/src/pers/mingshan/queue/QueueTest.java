@@ -1,8 +1,5 @@
 package pers.mingshan.queue;
 
-import java.util.concurrent.ArrayBlockingQueue;
-import java.util.concurrent.BlockingQueue;
-
 public class QueueTest {
 
     public static void main(String[] args) {
@@ -37,6 +34,17 @@ public class QueueTest {
         queue2.offer("eeee");
         System.out.println(queue2);
 
-        BlockingQueue<String> s = new ArrayBlockingQueue<>(10);
+        // -------------------
+        Queue<String> queue3 = new CircularQueue<String>();
+        queue3.add("a");
+        queue3.add("b");
+        queue3.add("c");
+        queue3.add("d");
+        queue3.add("c");
+        queue3.add("d");
+        queue3.add("c");
+        System.out.println(queue3.poll());
+        queue3.add("t");
+        System.out.println("queue3 = " + queue3);
     }
 }
