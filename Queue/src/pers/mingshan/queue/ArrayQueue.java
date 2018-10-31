@@ -68,34 +68,53 @@ public class ArrayQueue<E> implements Queue<E>, Serializable {
         tail++;
     }
 
+    /**
+     * 由于数组队列存在假溢出问题，所谓要进行数据搬运
+     */
     @Override
     public boolean add(E e) {
         Objects.requireNonNull(e);
-        // 获取当前的数组的长度
-        int oldLength = elements.length;
-        // 如果原来数组的长度小于当前需要的长度，那么直接抛异常IllegalStateException
-        if (oldLength < tail + 1) {
-            throw new IllegalStateException("Queue full");
-        } else {
-            elements[tail++] = e;
+
+        if (tail == capacity) {
+            if (head == 0) {
+                // 证明队列是满的
+                throw new IllegalStateException("Queue full");
+            }
+            // 如果head 不等于0，证明head之前的空间是空着的，所以需要进行数据搬运
+            for (int i = head; i < tail; i++) {
+                elements[i - head] = elements[i];
+            }
+            // 搬运完更新head 和 tail
+            head = 0;
+            tail = elements.length;
         }
 
+        // 正常操作
+        elements[tail++] = e;
         return true;
     }
 
     @Override
     public boolean offer(E e) {
         Objects.requireNonNull(e);
-        // 获取当前的数组的长度
-        int oldLength = elements.length;
-        // 如果原来数组的长度小于当前需要的长度，那么直接抛异常IllegalStateException
-        if (oldLength < tail + 1) {
-            return false;
-        } else {
-            elements[tail++] = e;
+
+        if (tail == capacity) {
+            if (head == 0) {
+                // 证明队列是满的
+                return false;
+            }
+            // 如果head 不等于0，证明head之前的空间是空着的，所以需要进行数据搬运
+            for (int i = head; i < tail; i++) {
+                elements[i - head] = elements[i];
+            }
+            // 搬运完更新head 和 tail
+            head = 0;
+            tail = elements.length;
         }
 
-        return false;
+        // 正常操作
+        elements[tail++] = e;
+        return true;
     }
 
     @SuppressWarnings("unchecked")
@@ -149,8 +168,8 @@ public class ArrayQueue<E> implements Queue<E>, Serializable {
             for (int i = head; i < tail; i++) {  
               sb.append(elements[i].toString() + ", ");
             }
-            int len = sb.length();  
-            return sb.delete(len - 2, len).append("]").toString();  
+            int len = sb.length();
+            return sb.delete(len - 2, len).append("]").toString();
         }
     }
 }
