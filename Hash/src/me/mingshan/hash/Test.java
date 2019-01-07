@@ -1,4 +1,4 @@
-package com.hashmap;
+package me.mingshan.hash;
 
 public class Test {
     public static void main(String[] args){

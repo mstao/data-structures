@@ -1,4 +1,4 @@
-package com.hashmap;
+package me.mingshan.hash;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,7 +74,7 @@ public class HashMapDemo<K, V> implements Map<K, V> {
 
     /**
      * 创建自己的hash算法
-     * @param hashCode
+     * @param key
      * @return
      */
     private int hash(Object key) {
