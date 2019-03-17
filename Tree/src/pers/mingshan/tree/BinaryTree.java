@@ -5,7 +5,7 @@ import java.util.Stack;
 /**
  * @author mingshan
  */
-public class BinaryTree<E> {
+public class BinaryTree<E> implements Tree<E> {
     // 根结点
     private Node<E> root;
     // 二叉树结点数量
@@ -226,5 +226,30 @@ public class BinaryTree<E> {
             }
 
         }
+    }
+
+    @Override
+    public boolean add(E value) {
+        return false;
+    }
+
+    @Override
+    public E remove(E value) {
+        return null;
+    }
+
+    @Override
+    public void clear() {
+
+    }
+
+    @Override
+    public boolean contains(E value) {
+        return false;
+    }
+
+    @Override
+    public int size() {
+        return size;
     }
 }
