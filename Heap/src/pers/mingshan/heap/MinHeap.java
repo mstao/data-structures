@@ -11,7 +11,7 @@ public class MinHeap<T extends Comparable<T>> extends Heap<T> {
     }
 
     @Override
-    public T getHeadValue() {
+    public T get(int index) {
         // TODO Auto-generated method stub
         return null;
     }

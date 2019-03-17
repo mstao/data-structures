@@ -1,4 +1,4 @@
-package pers.mingshan.algorithm;
+package me.mingshan.algorithm.string;
 
 /**
  * KMP 实现

@@ -20,7 +20,7 @@ public interface IHeap<T extends Comparable<T>> {
      * 
      * @return head
      */
-    T getHeadValue();
+    T get(int index);
 
     /**
      * 移除某个元素

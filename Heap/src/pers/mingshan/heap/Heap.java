@@ -12,6 +12,7 @@ package pers.mingshan.heap;
  *   <li>LEFT(i) return 2i </li>
  *   <li>RIGHT(i) return 2i + 1 </li>
  * </ul>
+ * 
  * @author mingshan
  *
  * @param <T>
