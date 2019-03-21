@@ -5,7 +5,7 @@ import java.util.Stack;
 /**
  * @author mingshan
  */
-public class BinaryTree<E> implements Tree<E> {
+public class BinaryTree<E extends Comparable<E>> implements Tree<E> {
     // 根结点
     private Node<E> root;
     // 二叉树结点数量
@@ -46,17 +46,20 @@ public class BinaryTree<E> implements Tree<E> {
         node2.left = node5;
         node2.right = node6;
 
+        Node node10 = new Node(node4, 8);
+        node4.left = node10;
+
         return root;
     }
 
     /**
-     * 先序遍历：
+     * 前序遍历：
      *
      * 对于当前结点，先输出该结点，然后输出它的左孩子，最后输出它的右孩子
      */
 
     /**
-     * 先序遍历（递归）
+     * 前序遍历（递归）
      *
      * @param node
      */
@@ -71,7 +74,7 @@ public class BinaryTree<E> implements Tree<E> {
     }
 
     /**
-     * 先序遍历（非递归）<br/>
+     * 前序遍历（非递归）<br/>
      *
      * <ul>
      *  <li>1. 对于任何结点node，如果该结点不为空，打印当前节点将自己压入栈内，然后将当前结点的左子结点赋值给node，直至node为null</li>
@@ -131,9 +134,9 @@ public class BinaryTree<E> implements Tree<E> {
      * 中序遍历（非递归）
      *
      * <ul>
- *       <li>1. 对于任何结点node，如果该结点不为空，将当前结点的左子结点赋值给node，直至node为null</li>
- *       <li>2. 若左子结点为空，栈顶节点出栈，输出该结点后将该结点的右子结点置为node</li>
- *       <li>3. 重复1，2操作</li>
+     *  <li>1. 对于任何结点node，如果该结点不为空，将当前结点的左子结点赋值给node，直至node为null</li>
+     *  <li>2. 若左子结点为空，栈顶节点出栈，输出该结点后将该结点的右子结点置为node</li>
+     *  <li>3. 重复1，2操作</li>
      * </ul>
      *
      * @param node
@@ -205,12 +208,10 @@ public class BinaryTree<E> implements Tree<E> {
         stack.push(node);
 
         while (!stack.isEmpty()) {
-
             node = stack.peek();
 
-            if ((node.left == null && node.right == null)
-                    || (node.right == null && pre == pre.left)
-                    || (pre == node.right)) {
+            if ((node.left == null && node.right == null) ||
+                    (pre != null && (pre == node.left || pre == node.right))) {
                 System.out.println(node);
                 pre = node;
                 stack.pop();
