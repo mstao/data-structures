@@ -39,4 +39,14 @@ public class BinaryTreeTest {
     public void test6() {
         tree.postOrderNonRec(root);
     }
+
+    @Test
+    public void test7() {
+        System.out.println(tree.getDepth(root));
+    }
+
+    @Test
+    public void test8() {
+        System.out.println(tree.countLeafNode(root));
+    }
 }

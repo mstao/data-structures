@@ -1,5 +1,6 @@
 package pers.mingshan.tree;
 
+import java.util.Objects;
 import java.util.Stack;
 
 /**
@@ -227,6 +228,51 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E> {
             }
 
         }
+    }
+
+    /**
+     * 计算二叉树的深度
+     * @param node 当前结点点
+     * @return 二叉树的深度
+     */
+    public int getDepth(Node node) {
+        if (node == null)
+            return 0;
+
+        int m = getDepth(node.left);
+        int n = getDepth(node.right);
+
+        return m > n ? m + 1 : n + 1;
+    }
+
+
+    /**
+     * 计算结点的数量
+     *
+     * @param node 当前结点
+     * @return 结点的数量
+     */
+    public int countNode(Node node) {
+        if (node == null)
+            return 0;
+        return countNode(node.left) + countNode(node.right) + 1;
+    }
+
+    /**
+     * 计算叶子结点的数量
+     *
+     * @param node 当前结点
+     * @return 结点的数量
+     */
+    public int countLeafNode(Node node) {
+        if (node == null)
+            return 0;
+
+        if (node.left == null && node.right == null) {
+            return 1;
+        }
+
+        return countLeafNode(node.left) + countLeafNode(node.right);
     }
 
     @Override
