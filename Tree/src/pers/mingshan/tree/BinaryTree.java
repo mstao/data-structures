@@ -204,14 +204,14 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E> {
         }
 
         Stack<Node> stack = new Stack<>();
-        Node pre = null;
+        Node pre = root;
         stack.push(node);
 
         while (!stack.isEmpty()) {
             node = stack.peek();
 
             if ((node.left == null && node.right == null) ||
-                    (pre != null && (pre == node.left || pre == node.right))) {
+                    (node.right == null && pre == node.left) || (pre == node.right)) {
                 System.out.println(node);
                 pre = node;
                 stack.pop();
