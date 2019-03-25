@@ -1,12 +1,16 @@
 package pers.mingshan.tree;
 
 import java.util.Objects;
+import java.util.Queue;
 import java.util.Stack;
+import java.util.concurrent.ArrayBlockingQueue;
+import java.util.concurrent.BlockingQueue;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * @author mingshan
  */
-public class BinaryTree<E extends Comparable<E>> implements Tree<E> {
+public class BinaryTree<E extends Comparable<E>> {
     // 根结点
     private Node<E> root;
     // 二叉树结点数量
@@ -231,6 +235,34 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E> {
     }
 
     /**
+     * 层次遍历
+     *
+     * @param node 根结点
+     */
+    public void levelTraverse(Node node) throws InterruptedException {
+        if(node == null) {
+            return;
+        }
+
+        BlockingQueue<Node> queue = new LinkedBlockingQueue<>();
+        queue.add(node);
+
+        while (!queue.isEmpty()) {
+            Node item = queue.take();
+            System.out.println(item);
+
+            if (item.left != null) {
+                queue.add(item.left);
+            }
+
+            if (item.right != null) {
+                queue.add(item.right);
+            }
+        }
+    }
+
+
+    /**
      * 计算二叉树的深度
      * @param node 当前结点点
      * @return 二叉树的深度
@@ -275,28 +307,70 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E> {
         return countLeafNode(node.left) + countLeafNode(node.right);
     }
 
-    @Override
-    public boolean add(E value) {
+
+    /**
+     * 获取二叉树第k层结点的数量
+     *
+     * @param node 根结点
+     * @param k 第k层
+     * @return 结点的数量
+     */
+    public int countKLevelNode(Node node, int k) {
+        if (node == null || k <= 0) {
+            return 0;
+        }
+
+        if (k == 1) {
+            return 1;
+        }
+
+        return countKLevelNode(node.left, k - 1) + countKLevelNode(node.right, k - 1);
+    }
+
+
+    /**
+     * 获取二叉树第k层叶子结点的个数
+     *
+     * @param node 根结点
+     * @param k 第k层
+     * @return 结点的数量
+     */
+    public int countKLevelLeafNode(Node node, int k) {
+        if (node == null || k <= 0) {
+            return 0;
+        }
+
+        if (k == 1) {
+            if (node.left == null && node.right == null) {
+                return 1;
+            } else {
+                return 0;
+            }
+        }
+
+        return countKLevelNode(node.left, k - 1) + countKLevelNode(node.right, k - 1);
+    }
+
+    /**
+     * 判断一个结点是否在二叉树内
+     *
+     * @param root 根结点
+     * @param node 要检测的结点
+     * @return 返回{@code true}，在；返回{@code false}，不在
+     */
+    public boolean isNodeInTree(Node root, Node node) {
+        if (root == null || node == null) {
+            return false;
+        }
+
+        if (root.item == node.item) {
+            return true;
+        }
+
+        if (isNodeInTree(root.left, node) || isNodeInTree(root.right, node)) {
+            return true;
+        }
+
         return false;
-    }
-
-    @Override
-    public E remove(E value) {
-        return null;
-    }
-
-    @Override
-    public void clear() {
-
-    }
-
-    @Override
-    public boolean contains(E value) {
-        return false;
-    }
-
-    @Override
-    public int size() {
-        return size;
     }
 }
