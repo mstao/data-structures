@@ -373,4 +373,58 @@ public class BinaryTree<E extends Comparable<E>> {
 
         return false;
     }
+
+    /**
+     * 获取给定结点的父结点
+     *
+     * @param root 根结点
+     * @param curr 给定结点
+     * @return 给定结点的父结点
+     */
+    public Node getParent(Node root, Node curr) {
+        if (root == null || curr == null) {
+            return null;
+        }
+
+        if (root == curr) {
+            return null;
+        }
+
+        Stack<Node> stack = new Stack<>();
+        stack.push(root);
+        root = root.left;
+
+        while (root != null || !stack.isEmpty()) {
+
+            while (root != null) {
+                if (root.left.item == curr.item || root.right.item == curr.item) {
+                    return root;
+                }
+                stack.push(root);         // 入栈
+                root = root.left;         // 遍历左孩子
+            }
+
+            root = stack.pop();
+            root = root.right;
+        }
+
+        return null;
+    }
+
+
+    public void display(Node node) {
+        if (node == null) {
+            return;
+        }
+
+        String outputString = "";
+        outputString += node.left == null ? "." : node.left.item;
+        outputString += "->" + node.item + "<-";
+        outputString += node.right == null ? "." : node.right.item;
+
+        System.out.println(outputString);
+
+        this.display(node.left);
+        this.display(node.right);
+    }
 }

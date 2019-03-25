@@ -70,4 +70,15 @@ public class BinaryTreeTest {
         BinaryTree.Node node = new BinaryTree.Node(null, 4);
         System.out.println(tree.isNodeInTree(root, node));
     }
+
+    @Test
+    public void test13() {
+        BinaryTree.Node node = new BinaryTree.Node(null, 4);
+        System.out.println(tree.getParent(root, node));
+    }
+
+    @Test
+    public void test14() {
+        tree.display(root);
+    }
 }
