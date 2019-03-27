@@ -411,6 +411,122 @@ public class BinaryTree<E extends Comparable<E>> {
         return null;
     }
 
+    /**
+     * 二叉树的镜像 - 递归
+     *
+     * @param node 根结点
+     */
+    public void mirrorRec(Node node) {
+        if (node == null) {
+            return;
+        }
+
+        // 交换左右子树
+        Node temp = node.left;
+        node.left = node.right;
+        node.right = temp;
+
+        // 对交换后的左右子树继续进行镜像处理
+        mirrorRec(node.left);
+        mirrorRec(node.right);
+    }
+
+    /**
+     * 二叉树的镜像 - 非递归，采用先序遍历
+     *
+     * @param node 根结点
+     */
+    public void mirrorNonRec(Node node) {
+        if (node == null) {
+            return;
+        }
+
+        // 交换左右子树
+        swap(node);
+
+
+        Stack<Node> stack = new Stack<>();
+        stack.push(node);
+        node = node.left;
+
+        while (node != null || !stack.isEmpty()) {
+
+            while (node != null) {
+                // 交换左右子树
+                swap(node);
+
+                stack.push(node);         // 入栈
+                node = node.left;         // 遍历左孩子
+            }
+
+            node = stack.pop();
+            node = node.right;
+        }
+    }
+
+    private void swap(Node node) {
+        // 交换左右子树
+        Node temp = node.left;
+        node.left = node.right;
+        node.right = temp;
+    }
+
+
+    /**
+     * 最低公共祖先，即LCA(Lowest Common Ancestor）,此种情况假设节点没有父结点的指针
+     *
+     *
+     * @param root 根结点
+     * @param node1 节点1
+     * @param node2 节点2
+     * @return 最低公共祖先
+     */
+    public Node findLCA(Node root, Node node1, Node node2) {
+        if (root == null) {
+            return null;
+        }
+
+        if (node1 == root || node2 == root) {
+            return root;
+        }
+
+        Node temp1 = findLCA(root.left, node1, node2);
+        Node temp2 = findLCA(root.right, node1, node2);
+        if (temp1 != null && temp2 != null) {
+            return root;
+        }
+
+        return temp1 != null ? temp1 : temp2;
+    }
+
+
+    /**
+     * 最低公共祖先，即LCA(Lowest Common Ancestor）,此种情况假设节点拥有父结点的指针
+     *
+     *
+     * @param root 根结点
+     * @param node1 节点1
+     * @param node2 节点2
+     * @return 最低公共祖先
+     */
+    public Node findLCA2(Node root, Node node1, Node node2) {
+        if (root == null) {
+            return null;
+        }
+
+        if (node1 == root || node2 == root) {
+            return root;
+        }
+
+        Node temp1 = findLCA(root.left, node1, node2);
+        Node temp2 = findLCA(root.right, node1, node2);
+        if (temp1 != null && temp2 != null) {
+            return root;
+        }
+
+        return temp1 != null ? temp1 : temp2;
+    }
+
 
     public void display(Node node) {
         if (node == null) {

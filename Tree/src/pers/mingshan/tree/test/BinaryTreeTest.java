@@ -81,4 +81,16 @@ public class BinaryTreeTest {
     public void test14() {
         tree.display(root);
     }
+
+    @Test
+    public void test15() throws InterruptedException {
+        tree.mirrorRec(root);
+        tree.levelTraverse(root);
+    }
+
+    @Test
+    public void test16() throws InterruptedException {
+        tree.mirrorNonRec(root);
+        tree.levelTraverse(root);
+    }
 }
