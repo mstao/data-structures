@@ -435,11 +435,10 @@ public class BinaryTree<E extends Comparable<E>> {
         queue.add(node);
 
         while (!queue.isEmpty()) {
-
+            ++level;
             cntNode = 0; //当前层节点数计数器归0
             curLevelNodesTotal = queue.size();//当前层的节点总数
 
-            ++level;
             // 如果层数等于指定层数，遍历该层的结点，判断叶子结点
             if(level == k) {
                 int leafCount = 0;
