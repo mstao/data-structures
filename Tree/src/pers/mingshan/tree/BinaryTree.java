@@ -387,11 +387,10 @@ public class BinaryTree<E extends Comparable<E>> {
         queue.add(node);
 
         while (!queue.isEmpty()) {
-
+            ++level;
             cntNode = 0; //当前层节点数计数器归0
             curLevelNodesTotal = queue.size();//当前层的节点总数
 
-            ++level;
             if (level == k)//如果层数已大于指定层数，则退出
                 break;
 
