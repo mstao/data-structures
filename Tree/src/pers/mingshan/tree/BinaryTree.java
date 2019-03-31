@@ -1,8 +1,6 @@
 package pers.mingshan.tree;
 
-import java.util.Objects;
-import java.util.Queue;
-import java.util.Stack;
+import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -19,8 +17,8 @@ public class BinaryTree<E extends Comparable<E>> {
     public static class Node<E extends Comparable<E>> {
         E item;
         Node<E> parent;
-        Node<E> left;
-        Node<E> right;
+        public Node<E> left;
+        public Node<E> right;
 
         public Node (Node<E> parent, E item) {
             this.parent = parent;
@@ -261,6 +259,48 @@ public class BinaryTree<E extends Comparable<E>> {
         }
     }
 
+    /**
+     * 层次遍历
+     *
+     * @param node 根结点
+     */
+    public void levelTraversePerLine(Node node) throws InterruptedException {
+        if(node == null) {
+            return;
+        }
+
+        int curLevelCount = 1; // 当前层结点数量
+        int nextLevelCount = 0; // 下一层结点数量
+
+        BlockingQueue<Node> queue = new LinkedBlockingQueue<>();
+        queue.add(node);
+
+        while (!queue.isEmpty()) {
+            Node item = queue.take();
+            System.out.println(item);
+            System.out.println(curLevelCount);
+            curLevelCount--;
+
+            if (item.left != null) {
+                queue.add(item.left);
+                nextLevelCount++;
+            }
+
+            if (item.right != null) {
+                queue.add(item.right);
+                nextLevelCount++;
+            }
+
+            if(0 == curLevelCount)
+            {
+                System.out.println();
+                curLevelCount = nextLevelCount;
+                nextLevelCount = 0;
+            }
+
+        }
+    }
+
 
     /**
      * 计算二叉树的深度
@@ -327,6 +367,54 @@ public class BinaryTree<E extends Comparable<E>> {
         return countKLevelNode(node.left, k - 1) + countKLevelNode(node.right, k - 1);
     }
 
+    /**
+     * 获取二叉树第k层结点的数量 - 非递归
+     *
+     * @param node 根结点
+     * @param k 第k层
+     * @return 结点的数量
+     */
+    public int countKLevelNodeNonRec(Node node, int k) throws InterruptedException {
+        if(node == null) {
+            return 0;
+        }
+
+        int level = 0;    //当前层计数器
+        int cntNode = 0;  //当前层节点数计数器
+        int curLevelNodesTotal = 0; //当前层节点总数
+
+        BlockingQueue<Node> queue = new LinkedBlockingQueue<>();
+        queue.add(node);
+
+        while (!queue.isEmpty()) {
+
+            cntNode = 0; //当前层节点数计数器归0
+            curLevelNodesTotal = queue.size();//当前层的节点总数
+
+            ++level;
+            if (level == k)//如果层数已大于指定层数，则退出
+                break;
+
+            while (cntNode < curLevelNodesTotal) {
+
+                ++cntNode;//记录当前层的节点数
+                node = queue.take();
+
+                //将当前层节点的左右结点均入队，即将下一层节点入队
+                if(node.left != null)
+                    queue.add(node.left);
+                if(node.right != null)
+                    queue.add(node.right);
+            }
+        }
+
+        while(!queue.isEmpty())
+            queue.clear();//清空队列
+        if(level == k)
+            return curLevelNodesTotal;
+
+        return 0;
+    }
 
     /**
      * 获取二叉树第k层叶子结点的个数
@@ -335,20 +423,51 @@ public class BinaryTree<E extends Comparable<E>> {
      * @param k 第k层
      * @return 结点的数量
      */
-    public int countKLevelLeafNode(Node node, int k) {
-        if (node == null || k <= 0) {
+    public int countKLevelLeafNode(Node node, int k) throws InterruptedException {
+        if(node == null) {
             return 0;
         }
 
-        if (k == 1) {
-            if (node.left == null && node.right == null) {
-                return 1;
-            } else {
-                return 0;
+        int level = 0;    //当前层计数器
+        int cntNode = 0;  //当前层节点数计数器
+        int curLevelNodesTotal = 0; //当前层节点总数
+
+        BlockingQueue<Node> queue = new LinkedBlockingQueue<>();
+        queue.add(node);
+
+        while (!queue.isEmpty()) {
+
+            cntNode = 0; //当前层节点数计数器归0
+            curLevelNodesTotal = queue.size();//当前层的节点总数
+
+            ++level;
+            // 如果层数等于指定层数，遍历该层的结点，判断叶子结点
+            if(level == k) {
+                int leafCount = 0;
+                while(!queue.isEmpty()) {
+                    node = queue.take();
+                    if (node.left == null && node.right == null) {
+                        ++leafCount;
+                    }
+                }
+
+                return leafCount;
+            }
+
+            while (cntNode < curLevelNodesTotal) {
+
+                ++cntNode;//记录当前层的节点数
+                node = queue.take();
+
+                //将当前层节点的左右结点均入队，即将下一层节点入队
+                if(node.left != null)
+                    queue.add(node.left);
+                if(node.right != null)
+                    queue.add(node.right);
             }
         }
 
-        return countKLevelNode(node.left, k - 1) + countKLevelNode(node.right, k - 1);
+        return 0;
     }
 
     /**
@@ -518,14 +637,67 @@ public class BinaryTree<E extends Comparable<E>> {
             return root;
         }
 
-        Node temp1 = findLCA(root.left, node1, node2);
-        Node temp2 = findLCA(root.right, node1, node2);
-        if (temp1 != null && temp2 != null) {
-            return root;
+        List<Node> queue1 = new LinkedList<>();
+        while (node1.parent != null) {
+            node1 = node1.parent;
+            queue1.add(node1);
         }
 
-        return temp1 != null ? temp1 : temp2;
+        List<Node> queue2 = new LinkedList<>();
+        while (node2.parent != null) {
+            node2 = node2.parent;
+            queue2.add(node2);
+        }
+
+        return getFirstCommonNode(queue1, queue2);
     }
+
+    /**
+     * 两个链表的第一个公共结点
+     *
+     * @param queue1
+     * @param queue2
+     * @return
+     */
+    private Node getFirstCommonNode(List<Node> queue1, List<Node> queue2) {
+        for (int i = 0; i < queue1.size(); i++) {
+            for (int j = 0; j < queue1.size(); j++) {
+                if (queue1.get(i) == queue2.get(j)) {
+                    return queue1.get(i);
+                }
+            }
+        }
+
+        return null;
+
+//        int len1 = queue1.size();
+//        int len2 = queue2.size();
+//
+//        int n = Math.abs(len1 - len2);
+//
+//        List<Node> curr1; // 代表长的链表
+//        List<Node> curr2; // 代表短的链表
+//
+//        if (len1 > len2) {
+//            curr1 = queue1;
+//            curr2 = queue2;
+//        } else {
+//            curr1 = queue2;
+//            curr2 = queue1;
+//        }
+//
+//        Node node = curr1.get(n - 1);
+//
+//
+//        for (int i = 0; i < queue1.size(); i++) {
+//            for (int j = 0; j < queue1.size(); j++) {
+//                if (queue1.get(i) == queue2.get(j)) {
+//                    return queue1.get(i);
+//                }
+//            }
+//        }
+    }
+
 
 
     public void display(Node node) {

@@ -46,6 +46,11 @@ public class BinaryTreeTest {
     }
 
     @Test
+    public void test71() throws InterruptedException {
+        tree.levelTraversePerLine(root);
+    }
+
+    @Test
     public void test8() {
         System.out.println(tree.getDepth(root));
     }
@@ -61,8 +66,13 @@ public class BinaryTreeTest {
     }
 
     @Test
-    public void test11() {
-        System.out.println(tree.countKLevelLeafNode(root, 3));
+    public void test11() throws InterruptedException {
+        System.out.println(tree.countKLevelLeafNode(root, 2));
+    }
+
+    @Test
+    public void test111() throws InterruptedException {
+        System.out.println(tree.countKLevelNodeNonRec(root, 4));
     }
 
     @Test
@@ -92,5 +102,51 @@ public class BinaryTreeTest {
     public void test16() throws InterruptedException {
         tree.mirrorNonRec(root);
         tree.levelTraverse(root);
+    }
+
+    @Test
+    public void test17() throws InterruptedException {
+        BinaryTree.Node root = new BinaryTree.Node(null, 1);
+        BinaryTree.Node node1 = new BinaryTree.Node(root, 2);
+        BinaryTree.Node node2 = new BinaryTree.Node(root, 3);
+        root.left = node1;
+        root.right = node2;
+
+        BinaryTree.Node node3 = new BinaryTree.Node(node1, 4);
+        BinaryTree.Node node4 = new BinaryTree.Node(node1, 5);
+        node1.left = node3;
+        node1.right = node4;
+
+        BinaryTree.Node node5 = new BinaryTree.Node(node2, 6);
+        BinaryTree.Node node6 = new BinaryTree.Node(node2, 7);
+        node2.left = node5;
+        node2.right = node6;
+
+        BinaryTree.Node node10 = new BinaryTree.Node(node4, 8);
+        node4.left = node10;
+        System.out.println(tree.findLCA(root, node3, node10));
+    }
+
+    @Test
+    public void test18() throws InterruptedException {
+        BinaryTree.Node root = new BinaryTree.Node(null, 1);
+        BinaryTree.Node node1 = new BinaryTree.Node(root, 2);
+        BinaryTree.Node node2 = new BinaryTree.Node(root, 3);
+        root.left = node1;
+        root.right = node2;
+
+        BinaryTree.Node node3 = new BinaryTree.Node(node1, 4);
+        BinaryTree.Node node4 = new BinaryTree.Node(node1, 5);
+        node1.left = node3;
+        node1.right = node4;
+
+        BinaryTree.Node node5 = new BinaryTree.Node(node2, 6);
+        BinaryTree.Node node6 = new BinaryTree.Node(node2, 7);
+        node2.left = node5;
+        node2.right = node6;
+
+        BinaryTree.Node node10 = new BinaryTree.Node(node4, 8);
+        node4.left = node10;
+        System.out.println(tree.findLCA2(root, node3, node10));
     }
 }
