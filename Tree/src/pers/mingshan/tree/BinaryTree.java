@@ -15,14 +15,46 @@ public class BinaryTree<E extends Comparable<E>> {
     private int size;
 
     public static class Node<E extends Comparable<E>> {
-        E item;
-        Node<E> parent;
-        public Node<E> left;
-        public Node<E> right;
+        private E item;
+        private Node<E> parent;
+        private Node<E> left;
+        private Node<E> right;
 
         public Node (Node<E> parent, E item) {
             this.parent = parent;
             this.item = item;
+        }
+
+        public E getItem() {
+            return item;
+        }
+
+        public void setItem(E item) {
+            this.item = item;
+        }
+
+        public Node<E> getParent() {
+            return parent;
+        }
+
+        public void setParent(Node<E> parent) {
+            this.parent = parent;
+        }
+
+        public Node<E> getLeft() {
+            return left;
+        }
+
+        public void setLeft(Node<E> left) {
+            this.left = left;
+        }
+
+        public Node<E> getRight() {
+            return right;
+        }
+
+        public void setRight(Node<E> right) {
+            this.right = right;
         }
 
         @Override

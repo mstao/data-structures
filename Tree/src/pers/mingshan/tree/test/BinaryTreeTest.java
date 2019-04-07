@@ -109,21 +109,21 @@ public class BinaryTreeTest {
         BinaryTree.Node root = new BinaryTree.Node(null, 1);
         BinaryTree.Node node1 = new BinaryTree.Node(root, 2);
         BinaryTree.Node node2 = new BinaryTree.Node(root, 3);
-        root.left = node1;
-        root.right = node2;
+        root.setLeft(node1);
+        root.setRight(node2);
 
         BinaryTree.Node node3 = new BinaryTree.Node(node1, 4);
         BinaryTree.Node node4 = new BinaryTree.Node(node1, 5);
-        node1.left = node3;
-        node1.right = node4;
+        node1.setLeft(node3);
+        node1.setRight(node4);
 
         BinaryTree.Node node5 = new BinaryTree.Node(node2, 6);
         BinaryTree.Node node6 = new BinaryTree.Node(node2, 7);
-        node2.left = node5;
-        node2.right = node6;
+        node2.setLeft(node5);
+        node2.setRight(node6);
 
         BinaryTree.Node node10 = new BinaryTree.Node(node4, 8);
-        node4.left = node10;
+        node4.setLeft(node10);
         System.out.println(tree.findLCA(root, node3, node10));
     }
 
@@ -132,21 +132,21 @@ public class BinaryTreeTest {
         BinaryTree.Node root = new BinaryTree.Node(null, 1);
         BinaryTree.Node node1 = new BinaryTree.Node(root, 2);
         BinaryTree.Node node2 = new BinaryTree.Node(root, 3);
-        root.left = node1;
-        root.right = node2;
+        root.setLeft(node1);
+        root.setRight(node2);
 
         BinaryTree.Node node3 = new BinaryTree.Node(node1, 4);
         BinaryTree.Node node4 = new BinaryTree.Node(node1, 5);
-        node1.left = node3;
-        node1.right = node4;
+        node1.setLeft(node3);
+        node1.setRight(node4);
 
         BinaryTree.Node node5 = new BinaryTree.Node(node2, 6);
         BinaryTree.Node node6 = new BinaryTree.Node(node2, 7);
-        node2.left = node5;
-        node2.right = node6;
+        node2.setLeft(node5);
+        node2.setRight(node6);
 
         BinaryTree.Node node10 = new BinaryTree.Node(node4, 8);
-        node4.left = node10;
+        node4.setLeft(node10);
         System.out.println(tree.findLCA2(root, node3, node10));
     }
 }
