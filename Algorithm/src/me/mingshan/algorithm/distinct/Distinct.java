@@ -18,6 +18,12 @@ public class Distinct {
         user1.setCity("郑州");
         user1.setSchool("郑州大学");
 
+        User user5 = new User();
+        user1.setId("1");
+        user1.setName("李华");
+        user1.setCity("郑州");
+        user1.setSchool("郑州大学");
+
         User user2 = new User();
         user2.setId("2");
         user2.setName("李华");
@@ -41,6 +47,7 @@ public class Distinct {
         users.add(user2);
         users.add(user3);
         users.add(user4);
+        users.add(user5);
         List<User> users2 = streamDistinct(users, user -> user.getName() + "," + user.getCity());
         //users2.stream().forEach(System.out::println);
 
