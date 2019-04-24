@@ -60,7 +60,7 @@ public class Distinct {
     }
 
     /**
-     * 计算重复数据
+     * 计算非重复数据
      *
      * @param source 源集合
      * @param keyExtractor key生成Function接口，例如： {@code user -> user.getName() + "," + user.getCity()}
@@ -75,7 +75,7 @@ public class Distinct {
     }
 
     /**
-     * 重复key生成方式
+     * key生成方式
      *
      * @param keyExtractor key生成Function接口
      * @param <T> 泛型参数
