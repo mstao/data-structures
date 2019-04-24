@@ -51,10 +51,8 @@ public class Distinct {
         List<User> users2 = streamDistinct(users, user -> user.getName() + "," + user.getCity());
         //users2.stream().forEach(System.out::println);
 
-        ArrayList<User> tempList = new ArrayList<>();
-        tempList.addAll(users);
-        tempList.removeAll(users2);
-        tempList.stream().forEach(System.out::println);
+        List<User> repeat = getRepeatData(users, users2);
+        repeat.stream().forEach(System.out::println);
 
         System.out.println("---");
         users.stream().forEach(System.out::println);
@@ -75,4 +73,13 @@ public class Distinct {
     }
 
 
+    public static <T> List<T> getRepeatData(List<T> source, List<T> distinctSource) {
+        Objects.requireNonNull(source);
+        Objects.requireNonNull(distinctSource);
+
+        ArrayList<T> tempList = new ArrayList<>();
+        tempList.addAll(source);
+        tempList.removeAll(distinctSource);
+        return tempList;
+    }
 }
