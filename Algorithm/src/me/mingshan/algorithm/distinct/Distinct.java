@@ -18,12 +18,6 @@ public class Distinct {
         user1.setCity("郑州");
         user1.setSchool("郑州大学");
 
-        User user5 = new User();
-        user1.setId("1");
-        user1.setName("李华");
-        user1.setCity("郑州");
-        user1.setSchool("郑州大学");
-
         User user2 = new User();
         user2.setId("2");
         user2.setName("李华");
@@ -47,7 +41,7 @@ public class Distinct {
         users.add(user2);
         users.add(user3);
         users.add(user4);
-        users.add(user5);
+
         List<User> users2 = streamDistinct(users, user -> user.getName() + "," + user.getCity());
         //users2.stream().forEach(System.out::println);
 
@@ -56,8 +50,23 @@ public class Distinct {
 
         System.out.println("---");
         users.stream().forEach(System.out::println);
+
+        System.out.println("---");
+
+        List<User> repeatData = getRepeatData(users, user -> user.getName() + "," + user.getCity());
+        if (repeatData != null) {
+            repeatData.stream().forEach(System.out::println);
+        }
     }
 
+    /**
+     * 计算重复数据
+     *
+     * @param source 源集合
+     * @param keyExtractor key生成Function接口，例如： {@code user -> user.getName() + "," + user.getCity()}
+     * @param <T> 泛型参数
+     * @return 去重后的集合
+     */
     public static <T> List<T> streamDistinct(List<T> source, Function<? super T, ?> keyExtractor) {
         Objects.requireNonNull(source);
 
@@ -65,6 +74,13 @@ public class Distinct {
                 .collect(Collectors.toList());
     }
 
+    /**
+     * 重复key生成方式
+     *
+     * @param keyExtractor key生成Function接口
+     * @param <T> 泛型参数
+     * @return {@code Predicate<T>}
+     */
     public static <T> Predicate<T> distinctByKey(Function<? super T, ?> keyExtractor) {
         Objects.requireNonNull(keyExtractor);
 
@@ -73,9 +89,40 @@ public class Distinct {
     }
 
 
+    /**
+     * 给定两个集合，获取其差集
+     *
+     * @param source 源集合
+     * @param distinctSource 另一个集合
+     * @param <T> 泛型参数
+     * @return 差集
+     */
     public static <T> List<T> getRepeatData(List<T> source, List<T> distinctSource) {
         Objects.requireNonNull(source);
         Objects.requireNonNull(distinctSource);
+
+        ArrayList<T> tempList = new ArrayList<>();
+        tempList.addAll(source);
+        tempList.removeAll(distinctSource);
+        return tempList;
+    }
+
+    /**
+     * 获取一个集合重复的数据，没有重复返回{@code null}
+     *
+     * @param source 源集合
+     * @param keyExtractor key生成Function接口，例如： {@code user -> user.getName() + "," + user.getCity()}
+     * @param <T> 泛型参数
+     * @return 重复的数据集合（去重后）
+     */
+    public static <T> List<T> getRepeatData(List<T> source, Function<? super T, ?> keyExtractor) {
+        Objects.requireNonNull(source);
+        Objects.requireNonNull(keyExtractor);
+
+        List<T> distinctSource = streamDistinct(source, keyExtractor);
+        if (distinctSource.size() == source.size()) {
+            return null;
+        }
 
         ArrayList<T> tempList = new ArrayList<>();
         tempList.addAll(source);
