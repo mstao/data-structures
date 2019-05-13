@@ -1,4 +1,4 @@
-package pers.mingshan.heap;
+package me.mingshan.heap;
 
 /**
  * 堆 接口
@@ -23,12 +23,12 @@ public interface IHeap<T extends Comparable<T>> {
     T get(int index);
 
     /**
-     * 移除某个元素
+     * 移除元素
      * 
      * @param value
      * @return 移除的元素
      */
-    T remove(T value);
+    T remove();
 
     /**
      * 清空堆

@@ -1,4 +1,4 @@
-package pers.mingshan.heap;
+package me.mingshan.heap;
 
 import java.util.Collection;
 
@@ -17,7 +17,7 @@ public class MinHeap<T extends Comparable<T>> extends Heap<T> {
     }
 
     @Override
-    public T remove(T value) {
+    public T remove() {
         // TODO Auto-generated method stub
         return null;
     }
@@ -47,7 +47,7 @@ public class MinHeap<T extends Comparable<T>> extends Heap<T> {
     }
 
     @Override
-    public void heapify(T[] a, int i, int heapLength) {
+    public void buildHeap(T[] array) {
         // TODO Auto-generated method stub
         
     }
