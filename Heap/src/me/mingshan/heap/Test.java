@@ -4,8 +4,8 @@ public class Test {
 
     public static void main(String[] args) {
         Integer[] data = {12, 6, 4, 9, 1, 5, 14, 3};
+        //Heap<Integer> heap = new MaxHeap<>( data,20);
         Heap<Integer> heap = new MaxHeap<>(20);
-        //heap.buildHeap(data);
 
         System.out.printf("== 依次添加: ");
         for(int i = 0; i < data.length; i++) {

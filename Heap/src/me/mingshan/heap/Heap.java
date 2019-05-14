@@ -49,10 +49,4 @@ public abstract class Heap<T extends Comparable<T>> implements IHeap<T> {
             return -1;
         return i / 2;
     }
-
-    /**
-     * 建堆
-     * @param array
-     */
-    public abstract void buildHeap(T[] array);
 }

@@ -23,22 +23,23 @@ public class MaxHeap<T extends Comparable<T>> extends Heap<T> {
         this.data = (T[]) new Comparable[capacity + 1];
     }
 
-    public MaxHeap(T[] data, int n) {
-        this.capacity = n;
-        this.count = n;
-        buildHeap(data);
-    }
-
-    @Override
-    public void buildHeap(T[] array) {
+    public MaxHeap(T[] data, int capacity) {
         if (capacity <= 0) {
             throw new IllegalArgumentException("capacity must not be 0");
         }
-        data = (T[]) new Comparable[capacity];
-        for (int i = 1; i <= count; i++) {
-            data[i] = array[i];
+        if (capacity <= data.length) {
+            throw new IllegalArgumentException("capacity must greater than the length of data");
         }
-        for (int k = parent(count); k >= 0 ; k--) {
+        this.capacity = capacity;
+        this.count = data.length;
+        buildHeap(data);
+    }
+
+    private void buildHeap(T[] array) {
+        data = (T[]) new Comparable[capacity];
+        this.count =  array.length;
+        System.arraycopy(array, 0, data, 1, count);
+        for (int k = count; k > 0 ; k--) {
             heapUp(k);
         }
     }
@@ -73,10 +74,10 @@ public class MaxHeap<T extends Comparable<T>> extends Heap<T> {
             int left = left(i);
             int right = right(i);
             if (left <= n
-                    && this.data[left].compareTo(this.data[maxPos]) == 1) {
+                    && this.data[left].compareTo(this.data[maxPos]) > 0) {
                 maxPos = left;
             } else if (right <= n
-                    && this.data[right].compareTo(this.data[maxPos]) == 1) {
+                    && this.data[right].compareTo(this.data[maxPos]) > 0) {
                 maxPos = right;
             }
 
@@ -171,7 +172,7 @@ public class MaxHeap<T extends Comparable<T>> extends Heap<T> {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 1; i <= this.count; i++)
-            sb.append(data[i] + " ");
+            sb.append(data[i]).append(" ");
 
         return sb.toString();
     }
