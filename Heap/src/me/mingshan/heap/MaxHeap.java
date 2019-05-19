@@ -74,10 +74,10 @@ public class MaxHeap<T extends Comparable<T>> extends Heap<T> {
             int left = left(i);
             int right = right(i);
             if (left <= n
-                    && this.data[left].compareTo(this.data[maxPos]) > 0) {
+                    && this.data[i].compareTo(this.data[left]) < 0) {
                 maxPos = left;
             } else if (right <= n
-                    && this.data[right].compareTo(this.data[maxPos]) > 0) {
+                    && this.data[maxPos].compareTo(this.data[right]) < 0) {
                 maxPos = right;
             }
 
