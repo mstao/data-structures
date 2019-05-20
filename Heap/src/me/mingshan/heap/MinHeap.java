@@ -82,18 +82,13 @@ public class MinHeap<T extends Comparable<T>> extends Heap<T> {
             int maxPos = i;
             int left = left(i);
             int right = right(i);
-            if (left <= n
-                    && this.data[left].compareTo(this.data[maxPos]) < 0) {
+            if (left <= n && this.data[i].compareTo(this.data[left]) > 0)
                 maxPos = left;
-            } else if (right <= n
-                    && this.data[right].compareTo(this.data[maxPos]) < 0) {
+            if (right <= n && this.data[maxPos].compareTo(this.data[right]) > 0)
                 maxPos = right;
-            }
-
-            if (maxPos == i) {
+            if (maxPos == i)
                 break;
-            }
-            swap(maxPos, i);
+            swap(i, maxPos);
             i = maxPos;
         }
     }
