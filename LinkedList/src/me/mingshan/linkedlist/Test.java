@@ -1,4 +1,4 @@
-package pers.mingshan.linkedlist;
+package me.mingshan.linkedlist;
 /**
  * 链表测试
  * @author mingshan
