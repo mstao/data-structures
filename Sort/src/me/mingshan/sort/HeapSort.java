@@ -96,7 +96,6 @@ public class HeapSort {
     public static void sort(int[] data, int n) {
         buildMaxHeap(data, n);
         int k = n;
-        print(data);
         while (k > 1) {
             swap(data, 1, k);
             --k;

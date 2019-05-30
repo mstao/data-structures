@@ -1,4 +1,4 @@
-package pers.mingshan.queue;
+package me.mingshan.queue;
 
 public class QueueTest {
 

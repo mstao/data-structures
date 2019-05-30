@@ -1,4 +1,4 @@
-package pers.mingshan.queue;
+package me.mingshan.queue;
 
 import java.io.Serializable;
 import java.util.Objects;

@@ -1,4 +1,4 @@
-package pers.mingshan.queue;
+package me.mingshan.queue;
 
 /**
  * 对 {@link Queue1} 的优化，将队列基本结构抽象成静态内部类Queue，

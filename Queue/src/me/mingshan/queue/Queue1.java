@@ -1,4 +1,4 @@
-package pers.mingshan.queue;
+package me.mingshan.queue;
 
 /**
  * 现在有一列数 ： 6 3 1 7 5 8 9 2 4
