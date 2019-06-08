@@ -4,8 +4,8 @@ package me.mingshan.linkedlist;
  * 跳表
  * 
  */
+@SuppressWarnings("unchecked")
 public class SkipList<T> {
-
     // 最高层数
     private final int MAX_LEVEL;
     // 当前层数
@@ -37,11 +37,19 @@ public class SkipList<T> {
     }
 
     // 内部类
-    class Node<T> {
+    private static class Node<T> {
         int key;
         T value;
-        Node[] forward;
-        
+        /**
+         * 每一层单链表指针：
+         * 0：最底层
+         * ......
+         * i：第i层节点
+         *
+         * p = p.forwards[i] 表示第i层下一个节点
+         */
+        Node<T>[] forward;
+
         public Node(int key, T value, int level) {
             this.key = key;
             this.value = value;
@@ -66,17 +74,22 @@ public class SkipList<T> {
     }
 
     public void insert(int searchKey, T newValue) {
+        // update数组为层级索引，插入新节点需要在索引建立层数
         Node<T>[] update = new Node[MAX_LEVEL];
         Node<T> curNode = listHead;
 
+        // record every level largest value which smaller than insert value in update[]
+        // 在update中纪录每一层中 小于value值的最大节点
         for (int i = listLevel - 1; i >= 0; i--) {
             while (curNode.forward[i].key < searchKey) {
                 curNode = curNode.forward[i];
             }
-            // curNode.key < searchKey <= curNode.forward[i].key
+            // use update save node in search path
             update[i] = curNode;
         }
 
+        // in search path node next node become new node forwords(next)
+        // 插入newNode 串联每一个层级的索引
         curNode = curNode.forward[0];
 
         if (curNode.key == searchKey) {
@@ -84,6 +97,7 @@ public class SkipList<T> {
         } else {
             int lvl = randomLevel();
 
+            // 随机的层数有可能会大于当前跳表的层数，那么多余的那部分层数对应的update[i]置为sl->head,后面用来初始化
             if (listLevel < lvl) {
                 for (int i = listLevel; i < lvl; i++) {
                     update[i] = listHead;
@@ -93,7 +107,10 @@ public class SkipList<T> {
 
             Node<T> newNode = new Node<T>(searchKey, newValue, lvl);
 
+            // 逐层更新节点的指针(这里的层指的是随机的层，比如当前有4层，然后随机的层为2，则只会将新节点插入下面的两层)
+            // 如果当前跳表层是4，随机的为6，则会把5、6层也赋值，用到update[i] = sl->head;这里的结果。
             for (int i = 0; i < lvl; i++) {
+                // 这里就是说随机几层，就用到update中的那几层，插入到update[i]对应的节点之后
                 newNode.forward[i] = update[i].forward[i];
                 update[i].forward[i] = newNode;
             }
@@ -149,18 +166,16 @@ public class SkipList<T> {
 
     public static void main(String[] args) {
         SkipList<Integer> sl = new SkipList<Integer>();
-        sl.insert(20, 20);
-        sl.insert(5, 5);
-        sl.insert(10, 10);
         sl.insert(1, 1);
-        sl.insert(100, 100);
-        sl.insert(80, 80);
-        sl.insert(60, 60);
-        sl.insert(30, 30);
+        sl.insert(3, 3);
+        sl.insert(5, 5);
+        sl.insert(6, 6);
+        sl.insert(8, 8);
+        sl.insert(9, 9);
+        sl.insert(2, 2);
         sl.print();
         System.out.println("---");
-        sl.delete(20);
-        sl.delete(100);
+ 
         sl.print();
     }
 }
