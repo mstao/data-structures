@@ -36,7 +36,11 @@ public class SkipList<T> {
         }
     }
 
-    // 内部类
+    /**
+     * 内部节点类
+     *
+     * @param <T> 泛型参数
+     */
     private static class Node<T> {
         int key;
         T value;
@@ -131,6 +135,7 @@ public class SkipList<T> {
 
         curNode = curNode.forward[0];
 
+        // 逐层删除与普通链表删除一样
         if (curNode.key == searchKey) {
             for (int i = 0; i < listLevel; i++) {
                 if (update[i].forward[i] != curNode) {
@@ -139,6 +144,7 @@ public class SkipList<T> {
                 update[i].forward[i] = curNode.forward[i];
             }
 
+            // 如果删除的节点是最高层的节点，则level--
             while (listLevel > 0 && listHead.forward[listLevel - 1] == NIL) {
                 listLevel--;
             }
