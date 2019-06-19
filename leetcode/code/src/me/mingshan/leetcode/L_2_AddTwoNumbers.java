@@ -8,10 +8,10 @@ package me.mingshan.leetcode;
  * @Author: mingshan
  * @Date: Created in 17:38 2018/9/15
  */
-public class AddTwoNumbers_2 {
+public class L_2_AddTwoNumbers {
 
     public static void main(String[] args) {
-        AddTwoNumbers_2 twoNumbers = new AddTwoNumbers_2();
+        L_2_AddTwoNumbers twoNumbers = new L_2_AddTwoNumbers();
         // 第一种
         // 2-> 4 -> 5
         ListNode l1 = new ListNode(2);

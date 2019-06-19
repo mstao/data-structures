@@ -11,7 +11,7 @@ import java.util.Arrays;
  * @author mingshan
  *
  */
-public class FindMedianSortedArrays_4 {
+public class L_4_FindMedianSortedArrays {
     public double findMedianSortedArrays(int[] nums1, int[] nums2) {
         DecimalFormat df = new DecimalFormat("0.0");
         int len1, len2;

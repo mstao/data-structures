@@ -7,10 +7,10 @@ package me.mingshan.leetcode;
  *
  * @author mingshan
  */
-public class LongestPalindrome_5 {
+public class L_5_LongestPalindrome {
 
     public static void main(String[] args) {
-        LongestPalindrome_5 obj = new LongestPalindrome_5();
+        L_5_LongestPalindrome obj = new L_5_LongestPalindrome();
         obj.longestPalindrome("weeww");
     }
 

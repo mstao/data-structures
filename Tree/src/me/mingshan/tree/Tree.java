@@ -1,4 +1,4 @@
-package pers.mingshan.tree;
+package me.mingshan.tree;
 
 /**
  * 树的接口

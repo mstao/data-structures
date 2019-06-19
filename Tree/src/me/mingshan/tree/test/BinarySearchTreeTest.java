@@ -1,9 +1,9 @@
-package pers.mingshan.tree.test;
+package me.mingshan.tree.test;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import pers.mingshan.tree.BinarySearchTree;
+import me.mingshan.tree.BinarySearchTree;
 
 /**
  * 二叉搜索树test

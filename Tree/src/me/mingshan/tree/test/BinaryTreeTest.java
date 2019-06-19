@@ -1,7 +1,7 @@
-package pers.mingshan.tree.test;
+package me.mingshan.tree.test;
 
 import org.junit.Test;
-import pers.mingshan.tree.BinaryTree;
+import me.mingshan.tree.BinaryTree;
 
 /**
  * @author mingshan

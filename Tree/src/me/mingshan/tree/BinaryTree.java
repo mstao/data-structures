@@ -1,4 +1,4 @@
-package pers.mingshan.tree;
+package me.mingshan.tree;
 
 import java.util.*;
 import java.util.concurrent.ArrayBlockingQueue;

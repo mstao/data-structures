@@ -11,12 +11,12 @@ import java.util.Map;
  * @Author: mingshan
  * @Date: Created in 17:10 2018/9/16
  */
-public class LengthOfLongestSubstring_3 {
+public class L_3_LengthOfLongestSubstring {
 
     public static void main(String[] args) {
         String a = "";
 
-        LengthOfLongestSubstring_3 x = new LengthOfLongestSubstring_3();
+        L_3_LengthOfLongestSubstring x = new L_3_LengthOfLongestSubstring();
         System.out.print(x.lengthOfLongestSubstring(a));
     }
 

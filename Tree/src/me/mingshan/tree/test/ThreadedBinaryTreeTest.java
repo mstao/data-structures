@@ -1,8 +1,8 @@
-package pers.mingshan.tree.test;
+package me.mingshan.tree.test;
 
 import org.junit.Before;
 import org.junit.Test;
-import pers.mingshan.tree.ThreadedBinaryTree;
+import me.mingshan.tree.ThreadedBinaryTree;
 
 /**
  * @author mingshan

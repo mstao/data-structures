@@ -8,10 +8,10 @@ import java.util.Map;
  *
  *  给定一个整数数组和一个目标值，找出数组中和为目标值的两个数。
  */
-public class TwoSum_1 {
+public class L_1_TwoSum {
 
     public static void main( String[] args ) {
-        TwoSum_1 t = new TwoSum_1();
+        L_1_TwoSum t = new L_1_TwoSum();
         int[] nums = {5,4, 2};
         int target = 6;
         int[] result = t.twoSum2(nums, target);
