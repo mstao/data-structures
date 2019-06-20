@@ -16,3 +16,4 @@
 - 二项堆
 - 斐波那契堆(Fibonacci Heap)
 - SBT树(Size Balanced Tree)
+- 树状数组(Binary Indexed Tree)
