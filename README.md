@@ -5,4 +5,4 @@ I use this tool to draw structure diagrams, thanks.
 
 https://www.draw.io/
 
-![image](images/data-structure.jpg)
+![image](https://github.com/mstao/data-structures/blob/master/images/data-structure.jpg?raw=true)
