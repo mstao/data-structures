@@ -4,3 +4,5 @@ A collection of data-structures with java, I also wrote a series of articles, [p
 I use this tool to draw structure diagrams, thanks.
 
 https://www.draw.io/
+
+![image](images/data-structure.jpg)
