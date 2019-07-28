@@ -3,6 +3,11 @@ package me.mingshan.tree;
 /**
  * 线索二叉树
  *
+ * <ul>
+ *  <li>如果结点有左子树，则其left域指示为其左孩子，否则指示其前驱；</li>
+ *  <li>如果结点有右子树，则其right域指示为其右孩子，否则指示其后继 </li>
+ * </ul>
+ *
  * @author mingshan
  */
 public class ThreadedBinaryTree<E extends Comparable<E>> {

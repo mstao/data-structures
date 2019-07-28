@@ -6,6 +6,8 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
 /**
+ * 二叉树
+ *
  * @author mingshan
  */
 public class BinaryTree<E extends Comparable<E>> {
