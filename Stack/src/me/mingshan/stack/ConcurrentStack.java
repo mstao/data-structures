@@ -1,4 +1,4 @@
-package pers.mingshan.stack;
+package me.mingshan.stack;
 
 import java.util.concurrent.atomic.AtomicReference;
 

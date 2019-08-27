@@ -1,4 +1,4 @@
-package pers.mingshan.stack;
+package me.mingshan.stack;
 
 public class Test {
 
