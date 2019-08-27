@@ -5,7 +5,7 @@ package me.mingshan.tree;
  * @author mingshan
  *
  */
-public interface Tree<E> {
+public interface Tree<E extends Comparable<E>> {
 
     /**
      * 插入操作
