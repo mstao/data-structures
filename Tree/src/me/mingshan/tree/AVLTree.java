@@ -1,5 +1,9 @@
 package me.mingshan.tree;
 
+import org.jetbrains.annotations.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -21,9 +25,12 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
         LEFT_LEFT, LEFT_RIGHT, RIGHT_LEFT, RIGHT_RIGHT
     }
 
+    public void initRoot(AVLNode<E> root) {
+        this.root = root;
+    }
 
     @Override
-    public boolean add(E value) {
+    public boolean add(@NotNull E value) {
         AVLNode<E> node = addNode(value);
         return node != null;
     }
@@ -34,7 +41,7 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
      * @param value 节点值
      * @return 新添加的节点
      */
-    private AVLNode<E> addNode(E value) {
+    private AVLNode<E> addNode(@NotNull E value) {
         // 生成新结点
         AVLNode<E> newNode = new AVLNode<>(value);
         // 如果根结点不存在
@@ -80,8 +87,8 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
      *
      * @param node 当前节点
      */
-    private void rebalanced(AVLNode<E> node) {
-        Objects.requireNonNull(node, "node not be null");
+    private void rebalanced(@NotNull AVLNode<E> node) {
+        Objects.requireNonNull(node, "node must be not null");
 
         // 获取节点的平衡因子
         int balanceFactor = node.getBalanceFactor();
@@ -90,12 +97,24 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
     }
 
     /**
-     * 左旋
+     * 左旋，失衡情况对应RR
      *
-     * @param node
+     * @param node 当前根结点
      */
-    private void rotateLeft(AVLNode<E> node) {
+    public AVLNode<E> rotateLeft(@NotNull AVLNode<E> node) {
+        Objects.requireNonNull(node, "node must be not null");
 
+        // 暂存当前节点
+        AVLNode<E> originNode = node;
+        // 当前节点的右子结点
+        AVLNode<E> rightNode = node.right;
+        // 以当前根节点的右子树根结点作为根结点
+        originNode.right = rightNode.left;
+        // 替换根结点
+        node = rightNode;
+        node.left = originNode;
+
+        return node;
     }
 
     /**
@@ -103,7 +122,7 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
      *
      * @param node
      */
-    private void rotateRight(AVLNode<E> node) {
+    public void rotateRight(AVLNode<E> node) {
 
     }
 
@@ -159,20 +178,28 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
      *
      * @param <E> 节点的值
      */
-    private static class AVLNode<E extends Comparable<E>> {
+    public static class AVLNode<E extends Comparable<E>> {
         E item;
         AVLNode<E> left;
         AVLNode<E> right;
         int height = 1;
 
-        AVLNode(E item) {
+        public AVLNode(E item) {
             this(item, null, null);
         }
 
-        AVLNode(E item, AVLNode<E> left, AVLNode<E> right) {
+        public AVLNode(E item, AVLNode<E> left, AVLNode<E> right) {
           this.item = item;
           this.left = left;
           this.right = right;
+        }
+
+        public void setLeft(AVLNode<E> left) {
+            this.left = left;
+        }
+
+        public void setRight(AVLNode<E> right) {
+            this.right = right;
         }
 
         /**
@@ -226,4 +253,42 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
         }
     }
 
+
+    @Override
+    public String toString() {
+        return TreePrinter.getString(this);
+    }
+
+    public static class TreePrinter {
+
+        public static <E extends Comparable<E>> String getString(AVLTree<E> tree) {
+            if (tree.root == null)
+                return "Tree has no nodes.";
+            return getString(tree.root, "", true);
+        }
+
+        private static <E extends Comparable<E>> String getString(AVLNode<E> node, String prefix, boolean isTail) {
+            StringBuilder builder = new StringBuilder();
+
+            builder.append(prefix).append(isTail ? "└── " : "├── ").append(node.item).append("\n");
+            List<AVLNode<E>> children = null;
+            if (node.left != null || node.right != null) {
+                children = new ArrayList<AVLNode<E>>(2);
+                if (node.left != null)
+                    children.add(node.left);
+                if (node.right != null)
+                    children.add(node.right);
+            }
+            if (children != null) {
+                for (int i = 0; i < children.size() - 1; i++) {
+                    builder.append(getString(children.get(i), prefix + (isTail ? "    " : "│   "), false));
+                }
+                if (children.size() >= 1) {
+                    builder.append(getString(children.get(children.size() - 1), prefix + (isTail ? "    " : "│   "), true));
+                }
+            }
+
+            return builder.toString();
+        }
+    }
 }
