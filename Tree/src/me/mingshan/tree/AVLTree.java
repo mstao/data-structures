@@ -139,6 +139,9 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
                 // 然后再以当前节点向右旋转
                 rotateRight(node);
             }
+
+            childNode.updateHeight();
+            node.updateHeight();
         }
     }
 
