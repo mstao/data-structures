@@ -109,6 +109,8 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
         AVLNode<E> originNode = node;
         // 当前节点的右子结点
         AVLNode<E> rightNode = node.right;
+        if (rightNode == null)
+            return node;
         // 以当前根节点的右子树根结点作为根结点
         originNode.right = rightNode.left;
         // 替换根结点
@@ -131,6 +133,8 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
         AVLNode<E> originNode = node;
         // 当前节点的左子节点
         AVLNode<E> leftNode = node.left;
+        if (leftNode == null)
+            return node;
         originNode.left = leftNode.right;
         // 替换根结点
         node = leftNode;
