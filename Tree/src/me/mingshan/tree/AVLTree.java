@@ -1,6 +1,6 @@
 package me.mingshan.tree;
 
-import org.jetbrains.annotations.NotNull;
+import com.sun.istack.internal.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -99,7 +99,8 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
     /**
      * 左旋，失衡情况对应RR
      *
-     * @param node 当前根结点
+     * @param node 当前子树根结点
+     * @return 旋转后的根结点
      */
     public AVLNode<E> rotateLeft(@NotNull AVLNode<E> node) {
         Objects.requireNonNull(node, "node must be not null");
@@ -118,12 +119,24 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
     }
 
     /**
-     * 右旋
+     * 右旋，失衡情况对应LL
      *
-     * @param node
+     * @param node 当前子树根结点
+     * @return 旋转后的根结点
      */
-    public void rotateRight(AVLNode<E> node) {
+    public AVLNode<E> rotateRight(AVLNode<E> node) {
+        Objects.requireNonNull(node, "node must be not null");
 
+        // 暂存当前节点
+        AVLNode<E> originNode = node;
+        // 当前节点的左子节点
+        AVLNode<E> leftNode = node.left;
+        originNode.left = leftNode.right;
+        // 替换根结点
+        node = leftNode;
+        node.right = originNode;
+
+        return node;
     }
 
     @Override
