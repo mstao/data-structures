@@ -94,7 +94,7 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
         int balanceFactor = node.getBalanceFactor();
 
         // 平衡因子大于1或者小于-1，表示当前树失衡了，需要进行平衡处理
-        if (balanceFactor > 1 && balanceFactor < -1) {
+        if (balanceFactor > 1 || balanceFactor < -1) {
             Balance balance = null;
             AVLNode<E> childNode = null;
 
