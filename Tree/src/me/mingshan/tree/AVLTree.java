@@ -119,19 +119,24 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
                 }
             }
 
-            // 此时需要分四种情况来考虑
-            // 1. 平衡因子大于1，说明左子树比右子树高，需要进行右旋操作
+            // 根据上面的平衡类型需要分四种情况来考虑
+            // 1. 失衡为LL，说明左子树比右子树高，需要进行右旋操作
             if (Balance.LEFT_LEFT.equals(balance)) {
                 rotateRight(node);
             } else if (Balance.RIGHT_RIGHT.equals(balance)) {
-                // 2. 平衡因子小于-1，说明右子树比左子树高，需要进行左旋操作
+                // 2. 失衡为RR，说明右子树比左子树高，需要进行左旋操作
                 rotateLeft(node);
             } else if (Balance.RIGHT_LEFT.equals(balance)) {
+                // 3. 失衡为RL，需要旋转两次
+                // 以较高子树为根结点向右旋转
                 rotateRight(childNode);
+                // 然后再以当前节点向左旋转
                 rotateLeft(node);
             } else if (Balance.LEFT_RIGHT.equals(balance)) {
-                //
+                // 4. 失衡为LR，需要两次旋转
+                // 以较高子树为根结点向左旋转
                 rotateLeft(childNode);
+                // 然后再以当前节点向右旋转
                 rotateRight(node);
             }
         }
