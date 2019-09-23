@@ -1,6 +1,6 @@
 package me.mingshan.tree;
 
-import com.sun.istack.internal.NotNull;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +25,11 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
         LEFT_LEFT, LEFT_RIGHT, RIGHT_LEFT, RIGHT_RIGHT
     }
 
+    /**
+     * Just for test
+     *
+     * @param root 根结点
+     */
     public void initRoot(AVLNode<E> root) {
         this.root = root;
     }
