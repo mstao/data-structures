@@ -92,8 +92,49 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
 
         // 获取节点的平衡因子
         int balanceFactor = node.getBalanceFactor();
-        // 此时需要分四种情况来考虑
 
+        // 平衡因子大于1或者小于-1，表示当前树失衡了，需要进行平衡处理
+        if (balanceFactor > 1 && balanceFactor < -1) {
+            Balance balance = null;
+            AVLNode<E> childNode = null;
+
+            // 右子树比左子树高，左旋操作
+            if (balanceFactor < 0) {
+                // 获取当前节点的右子节点
+                childNode = node.right;
+                // 如果右子节点的平衡因子小于0，此时对应RR
+                if (childNode.getBalanceFactor() < 0) {
+                    balance = Balance.RIGHT_RIGHT;
+                } else if (childNode.getBalanceFactor() > 0) {
+                    // 如果右子节点的平衡因子大于0，说明此时出现左边子树比右边高的情况，对应RL
+                    balance = Balance.RIGHT_LEFT;
+                }
+            } else {
+                // 获取当前节点的左子节点
+                childNode = node.left;
+                if (childNode.getBalanceFactor() > 0) {
+                    balance = Balance.LEFT_LEFT;
+                } else if (childNode.getBalanceFactor() < 0) {
+                    balance = Balance.LEFT_RIGHT;
+                }
+            }
+
+            // 此时需要分四种情况来考虑
+            // 1. 平衡因子大于1，说明左子树比右子树高，需要进行右旋操作
+            if (Balance.LEFT_LEFT.equals(balance)) {
+                rotateRight(node);
+            } else if (Balance.RIGHT_RIGHT.equals(balance)) {
+                // 2. 平衡因子小于-1，说明右子树比左子树高，需要进行左旋操作
+                rotateLeft(node);
+            } else if (Balance.RIGHT_LEFT.equals(balance)) {
+                rotateRight(childNode);
+                rotateLeft(node);
+            } else if (Balance.LEFT_RIGHT.equals(balance)) {
+                //
+                rotateLeft(childNode);
+                rotateRight(node);
+            }
+        }
     }
 
     /**
