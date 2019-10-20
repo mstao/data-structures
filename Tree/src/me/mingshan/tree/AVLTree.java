@@ -260,9 +260,9 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
         }
 
         public AVLNode(E item, AVLNode<E> left, AVLNode<E> right) {
-          this.item = item;
-          this.left = left;
-          this.right = right;
+            this.item = item;
+            this.left = left;
+            this.right = right;
         }
 
         public void setLeft(AVLNode<E> left) {
@@ -271,6 +271,14 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
 
         public void setRight(AVLNode<E> right) {
             this.right = right;
+        }
+
+        public AVLNode<E> getLeft() {
+            return left;
+        }
+
+        public AVLNode<E> getRight() {
+            return right;
         }
 
         /**
