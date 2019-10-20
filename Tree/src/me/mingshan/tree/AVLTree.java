@@ -66,7 +66,7 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
                 if (node.left == null) {
                     node.left = newNode;
                     size++;
-                    return newNode;
+                    break;
                 }
                 node = node.left;
             } else {
@@ -75,7 +75,7 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
                 if (node.right == null) {
                     node.right = newNode;
                     size++;
-                    return newNode;
+                    break;
                 }
                 node = node.right;
             }
