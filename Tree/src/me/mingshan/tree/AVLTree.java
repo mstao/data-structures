@@ -65,6 +65,7 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
                 // 并且新结点作为叶子结点，其父节点的左子结点应为null
                 if (node.left == null) {
                     node.left = newNode;
+                    newNode.parent = node;
                     size++;
                     break;
                 }
@@ -74,6 +75,7 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
                 // 并且新结点作为叶子结点，其父节点的右子结点应为null
                 if (node.right == null) {
                     node.right = newNode;
+                    newNode.parent = node;
                     size++;
                     break;
                 }
@@ -83,7 +85,25 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
 
         // 更新当前节点的高度
         newNode.updateHeight();
+        // 平衡当前节点
         rebalanced(newNode);
+
+        // 平衡父结点，使整棵树达到平衡
+        AVLNode<E> currParent = newNode.parent;
+        while (currParent != null) {
+            int h1 = currParent.height;
+
+            currParent.updateHeight();
+            rebalanced(currParent);
+
+            // If height before and after balance is the same, stop going up the tree
+            int h2 = currParent.height;
+            if (h1 == h2)
+                break;
+
+            currParent = currParent.parent;
+        }
+
         return newNode;
     }
 
@@ -253,13 +273,14 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
         E item;
         AVLNode<E> left;
         AVLNode<E> right;
+        AVLNode<E> parent;
         int height = 1;
 
         public AVLNode(E item) {
-            this(item, null, null);
+            this(item, null, null, null);
         }
 
-        public AVLNode(E item, AVLNode<E> left, AVLNode<E> right) {
+        public AVLNode(E item, AVLNode<E> parent, AVLNode<E> left, AVLNode<E> right) {
             this.item = item;
             this.left = left;
             this.right = right;
