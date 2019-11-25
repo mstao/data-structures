@@ -15,25 +15,27 @@ public class TreiberStack2<E> {
   public void push(E item) {
     Objects.requireNonNull(item);
 
-    Node<E> newHead = new Node<E>(item);
-    Node<E> oldHead;
-    do {
-      oldHead = top;
-      newHead.next = oldHead;
-    } while (!TOP.compareAndSet(this, oldHead, newHead));
+    Node<E> newTop = new Node<E>(item);
+    do {} while (!tryPush(newTop));
+  }
+
+  private boolean tryPush(Node<E> node) {
+    Node<E> oldTop = top;
+    NEXT.set(node, oldTop);
+    return TOP.compareAndSet(this, oldTop, node);
   }
 
   public E pop() {
-    Node<E> oldHead;
-    Node<E> newHead;
-    do {
-      oldHead = top;
-      if (oldHead == null) {
-        return null;
-      }
-      newHead = oldHead.next;
-    } while (!TOP.compareAndSet(this, oldHead, newHead));
-    return oldHead.item;
+    Node<E> oldTop = top;
+
+    if (oldTop == null)
+      return null;
+
+    while (TOP.compareAndSet(this, oldTop, oldTop.next)) {
+      NEXT.set(oldTop, null);
+    }
+
+    return oldTop.item;
   }
 
   public boolean isEmpty() {
@@ -41,13 +43,13 @@ public class TreiberStack2<E> {
   }
 
   public int size() {
-    int currentSize = 0;
     Node<E> current = top;
+    int size = 0;
     while (current != null) {
-      currentSize++;
+      size++;
       current = current.next;
     }
-    return currentSize;
+    return size;
   }
 
   public E peek() {
@@ -56,6 +58,22 @@ public class TreiberStack2<E> {
       return null;
     } else {
       return eNode.item;
+    }
+  }
+
+  @Override
+  public String toString() {
+    if (top == null) {
+      return "Stack is empty";
+    } else {
+      StringBuilder sb = new StringBuilder();
+      Node<E> current = top;
+      while (current != null) {
+        sb.append(current.item).append(",");
+        current = current.next;
+      }
+
+      return sb.substring(0, sb.length() -1);
     }
   }
 
@@ -69,10 +87,12 @@ public class TreiberStack2<E> {
   }
 
   private static final VarHandle TOP;
+  private static final VarHandle NEXT;
   static {
     try {
       MethodHandles.Lookup l = MethodHandles.lookup();
       TOP = l.findVarHandle(TreiberStack2.class, "top", TreiberStack2.Node.class);
+      NEXT = l.findVarHandle(TreiberStack2.Node.class, "next", TreiberStack2.Node.class);
     } catch (ReflectiveOperationException e) {
       throw new ExceptionInInitializerError(e);
     }

@@ -1,7 +1,5 @@
 package me.mingshan.tree;
 
-import org.jetbrains.annotations.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -35,7 +33,7 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
     }
 
     @Override
-    public boolean add(@NotNull E value) {
+    public boolean add(E value) {
         AVLNode<E> node = addNode(value);
         return node != null;
     }
@@ -46,7 +44,7 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
      * @param value 节点值
      * @return 新添加的节点
      */
-    private AVLNode<E> addNode(@NotNull E value) {
+    private AVLNode<E> addNode(E value) {
         // 生成新结点
         AVLNode<E> newNode = new AVLNode<>(value);
         // 如果根结点不存在
@@ -112,7 +110,7 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
      *
      * @param node 当前节点
      */
-    private void rebalanced(@NotNull AVLNode<E> node) {
+    private void rebalanced(AVLNode<E> node) {
         Objects.requireNonNull(node, "node must be not null");
 
         // 获取节点的平衡因子
@@ -176,7 +174,7 @@ public class AVLTree<E extends Comparable<E>> implements Tree<E> {
      * @param node 当前子树根结点
      * @return 旋转后的根结点
      */
-    public AVLNode<E> rotateLeft(@NotNull AVLNode<E> node) {
+    public AVLNode<E> rotateLeft(AVLNode<E> node) {
         Objects.requireNonNull(node, "node must be not null");
 
         // 暂存当前节点
