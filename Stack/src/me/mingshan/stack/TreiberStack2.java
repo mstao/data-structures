@@ -6,6 +6,7 @@ import java.util.Objects;
 
 /**
  * 基于VarHandle实现TreiberStack
+ * 不可以存{@code null}
  *
  * @author mingshan
  */
@@ -64,7 +65,7 @@ public class TreiberStack2<E> {
   @Override
   public String toString() {
     if (top == null) {
-      return "Stack is empty";
+      return "[]";
     } else {
       StringBuilder sb = new StringBuilder();
       Node<E> current = top;
