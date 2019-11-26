@@ -10,9 +10,10 @@ import java.util.Objects;
  *
  * @author mingshan
  */
-public class TreiberStack2<E> {
+public class TreiberStack2<E> implements Stack<E> {
   private volatile Node<E> top;
 
+  @Override
   public void push(E item) {
     Objects.requireNonNull(item);
 
@@ -26,6 +27,7 @@ public class TreiberStack2<E> {
     return TOP.compareAndSet(this, oldTop, node);
   }
 
+  @Override
   public E pop() {
     Node<E> oldTop = top;
 
@@ -39,10 +41,12 @@ public class TreiberStack2<E> {
     return oldTop.item;
   }
 
+  @Override
   public boolean isEmpty() {
     return top == null;
   }
 
+  @Override
   public int size() {
     Node<E> current = top;
     int size = 0;
@@ -53,6 +57,7 @@ public class TreiberStack2<E> {
     return size;
   }
 
+  @Override
   public E peek() {
     Node<E> eNode = top;
     if (eNode == null) {

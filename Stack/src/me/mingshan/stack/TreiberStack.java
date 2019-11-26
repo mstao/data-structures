@@ -1,17 +1,21 @@
 package me.mingshan.stack;
 
+import java.util.Objects;
 import java.util.concurrent.atomic.AtomicReference;
 
 /**
- * 无锁并发栈
+ * 无锁并发栈，基于{@link AtomicReference}
+ * 不可以存{@code null}
  *
  * @author mingshan
  */
-public class TreiberStack<E> {
+public class TreiberStack<E> implements Stack<E> {
 
   AtomicReference<Node<E>> top = new AtomicReference<>();
 
+  @Override
   public void push(E item) {
+    Objects.requireNonNull(item);
     Node<E> newHead = new Node<E>(item);
     Node<E> oldHead;
     do {
@@ -20,6 +24,7 @@ public class TreiberStack<E> {
     } while (!top.compareAndSet(oldHead, newHead));
   }
 
+  @Override
   public E pop() {
     Node<E> oldHead;
     Node<E> newHead;
@@ -37,6 +42,7 @@ public class TreiberStack<E> {
     return top.get() == null;
   }
 
+  @Override
   public int size() {
     int currentSize = 0;
     Node<E> current = top.get();
@@ -47,12 +53,29 @@ public class TreiberStack<E> {
     return currentSize;
   }
 
+  @Override
   public E peek() {
     Node<E> eNode = top.get();
     if (eNode == null) {
       return null;
     } else {
       return eNode.item;
+    }
+  }
+
+  @Override
+  public String toString() {
+    if (top == null) {
+      return "[]";
+    } else {
+      StringBuilder sb = new StringBuilder();
+      Node<E> current = top.get();
+      while (current != null) {
+        sb.append(current.item).append(",");
+        current = current.next;
+      }
+
+      return sb.substring(0, sb.length() -1);
     }
   }
 
