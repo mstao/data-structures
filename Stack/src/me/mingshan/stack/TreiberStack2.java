@@ -3,6 +3,7 @@ package me.mingshan.stack;
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
 import java.util.Objects;
+import java.util.concurrent.locks.LockSupport;
 
 /**
  * 基于VarHandle实现TreiberStack
@@ -102,5 +103,9 @@ public class TreiberStack2<E> implements Stack<E> {
     } catch (ReflectiveOperationException e) {
       throw new ExceptionInInitializerError(e);
     }
+
+    // Reduce the risk of rare disastrous classloading in first call to
+    // LockSupport.park: https://bugs.openjdk.java.net/browse/JDK-8074773
+    Class<?> ensureLoaded = LockSupport.class;
   }
 }
