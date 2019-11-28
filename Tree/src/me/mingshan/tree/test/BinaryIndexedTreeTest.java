@@ -17,6 +17,10 @@ public class BinaryIndexedTreeTest {
       bTree.put(i, random.nextInt(10));
     }
 
+    // language="HTML"
+    var a = "<html><header>" +
+      "</header></html>";
+
     // 打印数组元素
     System.out.println("打印数组元素");
     System.out.println(bTree);
