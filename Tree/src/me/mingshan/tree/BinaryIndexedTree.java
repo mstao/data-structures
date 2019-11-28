@@ -6,6 +6,7 @@ import java.util.Arrays;
  * 树状数组
  * https://blog.csdn.net/BrilliantEagle/article/details/51868892
  * https://blog.csdn.net/int64ago/article/details/7429868
+ * https://www.topcoder.com/community/competitive-programming/tutorials/binary-indexed-trees/
  *
  */
 public class BinaryIndexedTree {
