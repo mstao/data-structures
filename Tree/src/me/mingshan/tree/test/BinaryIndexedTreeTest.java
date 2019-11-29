@@ -64,10 +64,14 @@ public class BinaryIndexedTreeTest {
     System.out.println(lowBit(k2)); // 0000 0010
 
     int k3 = 12; // 0000 1100
+    // 取反 1111 0011
+    // + 1  1111 0100
+    //   &  0000 0111
+    // 结果 0000 0100
     System.out.println(lowBit(k3)); // 0000 0100
 
     int k4 = 14; // 0000 1110;
-    System.out.println(lowBit(k4));
+    System.out.println(lowBit(k4)); // 0000 0010
 
     int k5 = 15; // 0000 1111;
     System.out.println(lowBit(k5)); // 0000 0001

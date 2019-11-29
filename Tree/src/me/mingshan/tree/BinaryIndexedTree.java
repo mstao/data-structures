@@ -85,9 +85,10 @@ public class BinaryIndexedTree {
   }
 
   /**
+   * (二进制)保留最低位的1及其后面的0，高位的1全部变为0
    *
-   * @param k
-   * @return
+   * @param k 待处理的十进制数
+   * @return 处理后的十进制数
    */
   private static int lowBit(int k) {
     return k & -k;
