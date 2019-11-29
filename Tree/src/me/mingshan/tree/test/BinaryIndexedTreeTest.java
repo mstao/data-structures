@@ -13,20 +13,21 @@ public class BinaryIndexedTreeTest {
     BinaryIndexedTree bTree = new BinaryIndexedTree(length);
     Random random = new Random();
     //随机放满数据
+    System.out.println("A数组随机放满数据");
     for (int i = 1; i <= length; i++) {
-      bTree.put(i, random.nextInt(10));
+      int nextInt = random.nextInt(10);
+      System.out.print(nextInt + ", ");
+      bTree.put(i, nextInt);
     }
 
-    // language="HTML"
-    var a = "<html><header>" +
-      "</header></html>";
+    System.out.println();
 
     // 打印数组元素
-    System.out.println("打印数组元素");
+    System.out.println("打印C数组元素");
     System.out.println(bTree);
 
     // 取出每一位
-    System.out.println("取出每一位");
+    System.out.println("取出原A数组每一位");
     for (int i = 1; i <= length; i++) {
       int value = bTree.get(i);
       System.out.printf("%3d", value);
