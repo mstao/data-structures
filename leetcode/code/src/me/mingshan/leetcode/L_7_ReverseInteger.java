@@ -18,8 +18,9 @@ public class L_7_ReverseInteger {
 
 
   public static int reverse(int x) {
-    if (x == 0)
+    if (x == 0) {
       return 0;
+    }
     
     String source = String.valueOf(x);
     boolean f = false;
