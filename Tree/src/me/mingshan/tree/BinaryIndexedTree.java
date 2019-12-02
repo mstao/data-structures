@@ -8,14 +8,16 @@ import java.util.Arrays;
  * https://blog.csdn.net/int64ago/article/details/7429868
  * https://www.topcoder.com/community/competitive-programming/tutorials/binary-indexed-trees/
  *
+ * @author mingshan
  */
 public class BinaryIndexedTree {
   private int length;
   private int[] tree;
 
   public BinaryIndexedTree(int length) {
-    if (length <= 0)
+    if (length <= 0) {
       throw new IllegalArgumentException("The length [" + length + "] must greater 0.");
+    }
 
     this.length = length;
     tree = new int[length + 1];
