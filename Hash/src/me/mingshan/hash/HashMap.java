@@ -3,7 +3,8 @@ package me.mingshan.hash;
 import java.util.ArrayList;
 import java.util.List;
 
-public class HashMapDemo<K, V> implements Map<K, V> {
+
+public class HashMap<K, V> implements Map<K, V> {
     // 默认大小
     static final int DEFAULT_INITIAL_CAPACITY = 16;
     // 默认负载因子
@@ -17,12 +18,12 @@ public class HashMapDemo<K, V> implements Map<K, V> {
     // 定义Map 骨架 只要数组
     private Entry<K, V>[] table = null;
 
-    public HashMapDemo() {
+    public HashMap() {
         this(DEFAULT_INITIAL_CAPACITY, DEFAULT_LOAD_FACTOR);
     }
 
     @SuppressWarnings("unchecked")
-    public HashMapDemo(int length, float loadFactor) {
+    public HashMap(int length, float loadFactor) {
         if (length < 0) {
             throw new IllegalArgumentException("参数不能为负数" + length);
         }
@@ -151,8 +152,9 @@ public class HashMapDemo<K, V> implements Map<K, V> {
     private V findValueByEntryKey(K k, Entry<K, V> entry) {
         Entry<K, V> e = entry;
         while (e != null) {
-            if (k == e.getKey() || k.equals(e.getKey()))
+            if (k == e.getKey() || k.equals(e.getKey())) {
                 return e.getValue();
+            }
             e = e.next;
         }
 
@@ -208,10 +210,12 @@ public class HashMapDemo<K, V> implements Map<K, V> {
             this.next = next;
         }
 
+        @Override
         public K getKey() {
             return k;
         }
 
+        @Override
         public V getValue() {
             return v;
         }
