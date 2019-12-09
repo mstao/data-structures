@@ -19,7 +19,7 @@ public class Sum {
     }
 
     /**
-     * 分而治之
+     * 分而治之, 时间复杂度为 O(n)
      *
      * @param source
      * @param left
