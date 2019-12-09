@@ -3,6 +3,8 @@ package me.mingshan.algorithm.divide;
 /**
  * 减而治之
  *
+ * 分而治之
+ *
  * 利用分治进行数组求和
  *
  * @author mingshan
@@ -16,6 +18,14 @@ public class Sum {
         System.out.println(sum(source, source.length));
     }
 
+    /**
+     * 分而治之
+     *
+     * @param source
+     * @param left
+     * @param right
+     * @return
+     */
     public static int sum(int[] source, int left, int right) {
         if (left == right) {
             return source[left];
@@ -28,6 +38,13 @@ public class Sum {
         return sum(source, left, mid) + sum(source, mid + 1, right);
     }
 
+    /**
+     * 减而治之
+     *
+     * @param source
+     * @param n
+     * @return
+     */
     public static int sum(int[] source, int n) {
         return n < 1 ? 0 : sum(source, n -1) + source[n -1];
     }
