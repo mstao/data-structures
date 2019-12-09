@@ -1,6 +1,8 @@
 package me.mingshan.algorithm.divide;
 
 /**
+ * 减而治之
+ *
  * 利用分治进行数组求和
  *
  * @author mingshan

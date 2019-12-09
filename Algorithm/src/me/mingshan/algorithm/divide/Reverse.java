@@ -3,6 +3,8 @@ package me.mingshan.algorithm.divide;
 import java.util.Arrays;
 
 /**
+ * 减而治之
+ *
  * 任意给定数组a，将其数组内容前后颠倒
  *
  * @author mingshan
