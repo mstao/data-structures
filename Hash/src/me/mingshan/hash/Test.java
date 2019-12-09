@@ -2,7 +2,7 @@ package me.mingshan.hash;
 
 public class Test {
     public static void main(String[] args){
-        Map<String, String> hashmap = new HashMapDemo<String, String>();
+        Map<String, String> hashmap = new HashMap<String, String>();
         hashmap.put("han", "zzzz");
         hashmap.put("dd", "asadasdsadad");
         hashmap.put("cx", "ccccccc");
