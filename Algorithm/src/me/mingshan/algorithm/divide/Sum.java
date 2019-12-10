@@ -1,9 +1,7 @@
 package me.mingshan.algorithm.divide;
 
 /**
- * 减而治之
- *
- * 分而治之
+ * 减而治之 和 分而治之
  *
  * 利用分治进行数组求和
  *
