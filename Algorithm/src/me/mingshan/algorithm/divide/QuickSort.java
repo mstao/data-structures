@@ -1,5 +1,7 @@
 package me.mingshan.algorithm.divide;
 
+import java.util.Arrays;
+
 /**
  * 快速排序
  *
@@ -11,24 +13,45 @@ package me.mingshan.algorithm.divide;
  */
 public class QuickSort {
 
+    public static void main(String[] args) {
+        int[] source = {1, 4, 3, 5, 9, 7};
+        sort(source, 0, source.length - 1);
+
+        System.out.println(Arrays.toString(source));
+    }
+
     public static void sort(int[] source, int low, int high) {
         if (low < high) {
-            int pivot = partition(source, low, high);
-            sort(source, low, pivot - 1);
-            sort(source, pivot + 1, high);
-        }
-    }
+            int i = low;
+            int j = high;
+            // 找到基准值
+            int base = source[low];
 
-    static int partition(int[] source, int low , int high) {
-        return source[low];
-    }
+            // 两者不想遇
+            while (i != j) {
+                // 哨兵j从右往左走，找到比基准值第一个小的元素
+                while (i < j && source[j] >= base) {
+                    j--;
+                }
 
-    public static void sort3(int[] source, int low, int high) {
-        if (low < high) {
+                // 哨兵i从右往左走，找到比基准值第一个大的元素
+                while (i < j && source[i] <= base) {
+                    i++;
+                }
 
-            int pivot = partition(source, low, high);
-            sort(source, low, pivot - 1);
-            sort(source, pivot + 1, high);
+                // 交换哨兵i，j的数据
+                if (i < j) {
+                    swap(source, i, j);
+                }
+            }
+
+            // 两个哨兵相遇后，交换基准与当前位置的数据
+            swap(source, low, i);
+
+            // 基准左边的数都比基准小，递归
+            sort(source, low, i - 1);
+            // 基准右边的数都比基准大，递归
+            sort(source, i + 1, high);
         }
     }
 
