@@ -11,34 +11,25 @@ package me.mingshan.algorithm.divide;
  */
 public class QuickSort {
 
-    public static void sort(int[] source, int low, int height) {
-        if (low < height) {
-            int pivot = partition(source, low, height);
+    public static void sort(int[] source, int low, int high) {
+        if (low < high) {
+            int pivot = partition(source, low, high);
             sort(source, low, pivot - 1);
-            sort(source, pivot + 1, height);
+            sort(source, pivot + 1, high);
         }
     }
 
-    static int partition(int[] source, int low , int height) {
+    static int partition(int[] source, int low , int high) {
         return source[low];
     }
 
-    public static void sort(int[] source) {
-        if (source.length < 2) {
-            return;
-        }
-        int pivot = source[0];
+    public static void sort3(int[] source, int low, int high) {
+        if (low < high) {
 
-        int[] less = new int[source.length];
-        int[] greater = new int[source.length];
-        for (int item : source) {
-            if (item > pivot) {
-                //less.
-            }
+            int pivot = partition(source, low, high);
+            sort(source, low, pivot - 1);
+            sort(source, pivot + 1, high);
         }
-
-        sort(less);
-        sort(greater);
     }
 
     /**
