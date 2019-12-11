@@ -49,9 +49,9 @@ public class QuickSort {
       // 两个哨兵相遇后，交换基准与当前位置的数据
       swap(source, low, i);
 
-      // 基准左边的数都比基准小，递归
+      // 当前位置左边的数都比基准小，递归
       sort(source, low, i - 1);
-      // 基准右边的数都比基准大，递归
+      // 当前位置右边的数都比基准大，递归
       sort(source, i + 1, high);
     }
   }
