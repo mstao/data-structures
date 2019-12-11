@@ -28,7 +28,7 @@ public class MergeSort {
   }
 
   /**
-   * 合并两个有序数组
+   * 合并两个有序数组，需要辅助数组
    *
    * 两个数组的元素分别为：
    * source[low] ~ source[mid] 升序
