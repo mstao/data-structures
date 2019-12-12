@@ -65,8 +65,10 @@ public class MergeSort {
     }
 
     // 将temp数组的元素移动原数组
-    for (i = 0; i < k; i++) {
-      source[low + i] = temp[i];
-    }
+//    for (i = 0; i < k; i++) {
+//      source[low + i] = temp[i];
+//    }
+    // 使用内部数组copy，提高性能
+    System.arraycopy(temp, 0, source, low, high - low + 1);
   }
 }
