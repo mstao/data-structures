@@ -77,6 +77,7 @@ public class BinaryIndexedTreeTest {
     int k5 = 15; // 0000 1111;
     System.out.println(lowBit(k5)); // 0000 0001
 
+    System.out.println(lowBit(8));
   }
 
 

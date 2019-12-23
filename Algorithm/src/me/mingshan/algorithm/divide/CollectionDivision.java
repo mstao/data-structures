@@ -32,7 +32,7 @@ public class CollectionDivision {
       return 1;
     }
 
-    return divide(n-1,m-1)+m*divide(n-1, m);
+    return divide(n-1,m-1) + m*divide(n-1, m);
   }
 
 }
