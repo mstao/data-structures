@@ -32,12 +32,12 @@ public class IntegerDistinct {
     int i = 0, j;
 
     for (j = 1; j < source.size(); j++) {
-      int prev = i + 1;
+      int next = i + 1;
       if (!source.get(j).equals(source.get(i))) {
-        if (!source.get(j).equals(source.get(prev))) {
-          source.set(prev, source.get(j));
+        if (!source.get(j).equals(source.get(next))) {
+          source.set(next, source.get(j));
         }
-        i = prev;
+        i = next;
       }
     }
 
