@@ -10,7 +10,7 @@ package me.mingshan.algorithm.divide;
 public class Sum {
 
   public static void main(String[] args) {
-    int[] source = {1, 4, 3, 5};
+    int[] source = {1, 4, 3, 5, 7};
 
     System.out.println(sum(source, 0, source.length - 1));
     System.out.println(sum(source, source.length));
@@ -29,9 +29,6 @@ public class Sum {
       return source[left];
     }
 
-    if (left == right - 1) {
-      return source[left] + source[right];
-    }
     int mid = (left + right) / 2;
     return sum(source, left, mid) + sum(source, mid + 1, right);
   }
