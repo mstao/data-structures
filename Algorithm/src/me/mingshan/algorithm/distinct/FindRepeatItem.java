@@ -1,8 +1,6 @@
 package me.mingshan.algorithm.distinct;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -13,11 +11,18 @@ import java.util.stream.Collectors;
 public class FindRepeatItem {
 
   public static void main(String[] args) {
-    List<Integer> source = Arrays.asList(1, 2, 3, 2, 3, 4,5,6);
-    List<Integer> integers = find(source);
+    List<Integer> source = Arrays.asList(1, 2, 3, 2, 3, 4, 5, 5, 6, 6);
+    List<Integer> integers = find2(source);
     integers.forEach(System.out::println);
   }
 
+  /**
+   * Stream 版本
+   *
+   * @param source
+   * @param <T>
+   * @return
+   */
   public static <T> List<T> find(List<T> source) {
     return source.stream() // list 对应的 Stream
         .collect(Collectors.toMap(e -> e, e -> 1, Integer::sum)) // 获得元素出现频率的 Map，键为元素，值为元素出现的次数
@@ -25,5 +30,33 @@ public class FindRepeatItem {
         .filter(entry -> entry.getValue() > 1) // 过滤出元素出现次数大于 1 的 entry
         .map(Map.Entry::getKey) // 获得 entry 的键（重复元素）对应的 Stream
         .collect(Collectors.toList());  // 转化为 List
+  }
+
+  /**
+   * Stream 版本
+   *
+   * @param source
+   * @param <T>
+   * @return
+   */
+  public static <T> List<T> find2(List<T> source) {
+    Map<T, Integer> countMap = new HashMap<>();
+    List<T> result = new ArrayList<>();
+
+    for (T item : source) {
+      int count = countMap.getOrDefault(item, 1);
+      if (count == -1) {
+        continue;
+      }
+
+      if (count > 1) {
+        result.add(item);
+        countMap.put(item, -1);
+      } else {
+        countMap.put(item, count + 1);
+      }
+    }
+
+    return result;
   }
 }
