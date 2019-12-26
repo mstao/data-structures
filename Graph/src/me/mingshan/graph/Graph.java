@@ -17,4 +17,19 @@ package me.mingshan.graph;
  * @author hanjuntao
  */
 public interface Graph {
+
+  /**
+   * 获取节点数量
+   *
+   * @return 节点数量
+   */
+  int getNodeSize();
+
+  /**
+   * 获取边的数量
+   *
+   * @return 边的数量
+   */
+  int getEdgeSize();
+
 }

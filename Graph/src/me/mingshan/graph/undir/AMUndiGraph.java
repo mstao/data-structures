@@ -1,18 +1,16 @@
 package me.mingshan.graph.undir;
 
-import java.util.Arrays;
+import me.mingshan.graph.Graph;
 
 /**
- * 无向图
- * https://www.cnblogs.com/Huayra/p/10811201.html
+ * 无向图 - 基于邻接矩阵(adjacency matrix)
  *
  * @author hanjuntao
- *
  */
-public class UndiGraph {
+public class AMUndiGraph implements Graph {
 
   /** 邻接矩阵长或宽最大长度 */
-  private static final int maxSideLength = 10;
+  private static final int maxSideLength = 4;
   // 邻接矩阵长或宽长度
   private int sideLength;
   // 邻接矩阵
@@ -22,11 +20,11 @@ public class UndiGraph {
   // 边数量
   private int edgeSize;
 
-  public UndiGraph() {
+  public AMUndiGraph() {
     this(maxSideLength);
   }
 
-  public UndiGraph(int sideLength) {
+  public AMUndiGraph(int sideLength) {
     if (sideLength <=0) {
       throw new IllegalArgumentException("The sideLength [" + sideLength + "] is not valid number");
     }
@@ -38,8 +36,8 @@ public class UndiGraph {
   /**
    * 添加边
    *
-   * @param start 节点起始位置
-   * @param end 节点起始位置
+   * @param start 起始节点位置
+   * @param end 结束节点位置
    */
   public void addEdge(int start, int end) {
     checkPosition(start);
@@ -57,6 +55,7 @@ public class UndiGraph {
    *
    * @return 节点数量
    */
+  @Override
   public int getNodeSize() {
     int currNodeSize = 0;
 
@@ -76,6 +75,7 @@ public class UndiGraph {
    *
    * @return 边的数量
    */
+  @Override
   public int getEdgeSize() {
     return this.edgeSize;
   }
@@ -97,7 +97,7 @@ public class UndiGraph {
   }
 
   public static void main(String[] args) {
-    UndiGraph graph = new UndiGraph(4);
+    AMUndiGraph graph = new AMUndiGraph(4);
 
     graph.addEdge(0, 1);
     graph.addEdge(0, 2);
