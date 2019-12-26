@@ -19,7 +19,7 @@ public class L_88_MergeSortedArray {
     nums1[4] = 7;
     nums1[5] = 9;
 
-    int[] nums2 = {2, 5, 7, 8, 10, 11};
+    int[] nums2 = {2, 5, 7, 8, 10, 11, 23};
 
     merge(nums1, 6, nums2, nums2.length);
     System.out.println(Arrays.toString(nums1));
