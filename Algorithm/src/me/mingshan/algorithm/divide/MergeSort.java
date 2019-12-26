@@ -1,6 +1,8 @@
 package me.mingshan.algorithm.divide;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 归并排序
@@ -11,11 +13,16 @@ import java.util.Arrays;
  */
 public class MergeSort {
   public static void main(String[] args) {
-    int[] source = {1, 4, 3, 5, 9, 7};
+    int[] source = new int[100];
+    source[0] = 1;
+    source[1] = 4;
+    source[1] = 3;
+    source[1] = 5;
+    source[1] = 9;
+    source[1] = 7;
+
     int[] temp = new int[source.length];
     sort(source, 0, source.length - 1, temp);
-
-    System.out.println(Arrays.toString(source));
   }
 
   public static void sort(int[] source, int low, int high, int[] temp) {
@@ -45,7 +52,7 @@ public class MergeSort {
     int j = mid + 1;
     int k = 0;
 
-    // 将两个数组的元素一次比较，记录在temp 数组里面
+    // 将两个数组的元素依次比较，记录在temp 数组里面
     while (i <= mid && j <= high) {
       if (source[i] > source[j]) {
         temp[k++] = source[j++];
@@ -70,5 +77,20 @@ public class MergeSort {
 //    }
     // 使用内部数组copy，提高性能
     System.arraycopy(temp, 0, source, low, high - low + 1);
+  }
+
+  /**
+   * 不使用辅助数组
+   *
+   * 两个数组的元素分别为：
+   * source[low] ~ source[mid] 升序
+   * source[low + 1] ~ source[high] 升序
+   *
+   * @param source 当前数组
+   * @param low 最低位
+   * @param mid 中间位置
+   * @param high 最高位
+   */
+  private static void merge2(int[] source, int low, int mid, int high) {
   }
 }
