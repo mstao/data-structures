@@ -14,7 +14,7 @@ import java.util.Map;
 public class L_3_LengthOfLongestSubstring {
 
     public static void main(String[] args) {
-        String a = "";
+        String a = "abcavc";
 
         L_3_LengthOfLongestSubstring x = new L_3_LengthOfLongestSubstring();
         System.out.print(x.lengthOfLongestSubstring(a));
