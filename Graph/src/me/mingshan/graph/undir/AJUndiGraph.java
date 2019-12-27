@@ -36,19 +36,11 @@ public class AJUndiGraph implements Graph {
 
   @Override
   public int getNodeSize() {
-    int currNodeSize = adj.length;
-
-    for (LinkedList list : adj) {
-      if (list != null) {
-        currNodeSize += list.size();
-      }
-    }
-
-    return currNodeSize;
+    return adj.length;
   }
 
   @Override
   public int getEdgeSize() {
-    return 0;
+    return this.edgeSize;
   }
 }

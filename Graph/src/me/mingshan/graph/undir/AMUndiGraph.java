@@ -95,16 +95,4 @@ public class AMUndiGraph implements Graph {
 
     return s;
   }
-
-  public static void main(String[] args) {
-    AMUndiGraph graph = new AMUndiGraph(4);
-
-    graph.addEdge(0, 1);
-    graph.addEdge(0, 2);
-    graph.addEdge(2, 3);
-    graph.addEdge(1, 3);
-
-    System.out.println(graph.getNodeSize());
-    System.out.println(graph.getEdgeSize());
-  }
 }
