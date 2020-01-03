@@ -2,6 +2,8 @@ package me.mingshan.graph.undir;
 
 import me.mingshan.graph.Graph;
 
+import java.util.Arrays;
+
 /**
  * 无向图 - 基于邻接矩阵(adjacency matrix)
  *
@@ -9,7 +11,9 @@ import me.mingshan.graph.Graph;
  */
 public class AMUndiGraph implements Graph {
 
-  /** 邻接矩阵长或宽最大长度 */
+  /**
+   * 邻接矩阵长或宽最大长度
+   */
   private static final int maxSideLength = 4;
   // 邻接矩阵长或宽长度
   private int sideLength;
@@ -25,7 +29,7 @@ public class AMUndiGraph implements Graph {
   }
 
   public AMUndiGraph(int sideLength) {
-    if (sideLength <=0) {
+    if (sideLength <= 0) {
       throw new IllegalArgumentException("The sideLength [" + sideLength + "] is not valid number");
     }
 
@@ -37,7 +41,7 @@ public class AMUndiGraph implements Graph {
    * 添加边
    *
    * @param start 起始节点位置
-   * @param end 结束节点位置
+   * @param end   结束节点位置
    */
   public void addEdge(int start, int end) {
     checkPosition(start);
@@ -88,11 +92,11 @@ public class AMUndiGraph implements Graph {
 
   @Override
   public String toString() {
-    String s = "Graph{" +
-        "Node=" + nodeSize +
-        ", Edge=" + edgeSize +
+    return "AMUndiGraph{" +
+        "sideLength=" + sideLength +
+        ", adjacencyMatrix=" + Arrays.deepToString(adjacencyMatrix) +
+        ", nodeSize=" + nodeSize +
+        ", edgeSize=" + edgeSize +
         '}';
-
-    return s;
   }
 }

@@ -18,4 +18,16 @@ public class AMUndiGraphTest {
     Assert.assertEquals(4, graph.getNodeSize());
     Assert.assertEquals(4, graph.getEdgeSize());
   }
+
+  @Test
+  public void printTest() {
+    AMUndiGraph graph = new AMUndiGraph(4);
+
+    graph.addEdge(0, 1);
+    graph.addEdge(0, 2);
+    graph.addEdge(2, 3);
+    graph.addEdge(1, 3);
+
+    System.out.println(graph.toString());
+  }
 }
