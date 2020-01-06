@@ -2,6 +2,7 @@ package me.mingshan.graph.undir;
 
 import me.mingshan.graph.Graph;
 
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -117,5 +118,14 @@ public class AJUndiGraph implements Graph {
   @Override
   public int getEdgeSize() {
     return this.edgeSize;
+  }
+
+  @Override
+  public String toString() {
+    return "AJUndiGraph{" +
+        "adj=" + Arrays.deepToString(adj) +
+        ", nodeSize=" + getNodeSize() +
+        ", edgeSize=" + edgeSize +
+        '}';
   }
 }
