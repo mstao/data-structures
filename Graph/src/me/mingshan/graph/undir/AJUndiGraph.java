@@ -36,12 +36,44 @@ public class AJUndiGraph implements Graph {
   }
 
   /**
-   * 广度优先搜索
+   * 广度优先搜索 Breadth-First-Search
    *
    * @param s 起始顶点
    * @param t 终止顶点
    */
   public void bfs(int s, int t) {
+    int len = adj.length;
+    // 记录节点是否被访问过
+    boolean[] visited = new boolean[len];
+
+    // 存储每一层的顶点
+    Queue<Integer> queue = new LinkedList<>();
+    visited[s] = true;
+    queue.add(s);
+
+    while (!queue.isEmpty()) {
+      Integer vertex = queue.poll();
+      for (int i = 0; i < adj[vertex].size(); i++) {
+        Integer curr = adj[vertex].get(i);
+        if (!visited[curr]) {
+          visited[curr] = true;
+          queue.add(curr);
+          System.out.println("当前顶点：" + vertex + "，当前节点：" + curr);
+        }
+      }
+    }
+  }
+
+
+  /**
+   * 广度优先搜索 Breadth-First-Search
+   *
+   * 打印最短路径
+   *
+   * @param s 起始顶点
+   * @param t 终止顶点
+   */
+  public void bfs2(int s, int t) {
     int v = adj.length;
     if (s == t) return;
     boolean[] visited = new boolean[v];
