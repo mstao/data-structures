@@ -75,28 +75,31 @@ public class AJUndiGraph implements Graph {
    * @param t 终止顶点
    */
   public void bfs2(int s, int t) {
-    int v = adj.length;
-    if (s == t) return;
-    boolean[] visited = new boolean[v];
-    visited[s] = true;
+    int len = adj.length;
+    // 记录节点是否被访问过
+    boolean[] visited = new boolean[len];
+    int[] prev = new int[len];
+
+    // 存储每一层的顶点
     Queue<Integer> queue = new LinkedList<>();
+    visited[s] = true;
     queue.add(s);
-    int[] prev = new int[v];
-    for (int i = 0; i < v; ++i) {
-      prev[i] = -1;
-    }
-    while (queue.size() != 0) {
-      int w = queue.poll();
-      for (int i = 0; i < adj[w].size(); ++i) {
-        int q = adj[w].get(i);
-        if (!visited[q]) {
-          prev[q] = w;
-          if (q == t) {
+
+    while (!queue.isEmpty()) {
+      Integer vertex = queue.poll();
+      for (int i = 0; i < adj[vertex].size(); i++) {
+        Integer curr = adj[vertex].get(i);
+        if (!visited[curr]) {
+          prev[curr] = vertex;
+
+          // 如果访问结束，直接返回
+          if (curr == t) {
             print(prev, s, t);
             return;
           }
-          visited[q] = true;
-          queue.add(q);
+
+          visited[curr] = true;
+          queue.add(curr);
         }
       }
     }
@@ -108,6 +111,37 @@ public class AJUndiGraph implements Graph {
     }
 
     System.out.print(t + " ");
+  }
+
+
+  boolean found = false; // 全局变量或者类成员变量
+
+  public void dfs(int s, int t) {
+    int v = adj.length;
+    found = false;
+    boolean[] visited = new boolean[v];
+    int[] prev = new int[v];
+    for (int i = 0; i < v; ++i) {
+      prev[i] = -1;
+    }
+    recurDfs(s, t, visited, prev);
+    print(prev, s, t);
+  }
+
+  private void recurDfs(int w, int t, boolean[] visited, int[] prev) {
+    if (found == true) return;
+    visited[w] = true;
+    if (w == t) {
+      found = true;
+      return;
+    }
+    for (int i = 0; i < adj[w].size(); ++i) {
+      int q = adj[w].get(i);
+      if (!visited[q]) {
+        prev[q] = w;
+        recurDfs(q, t, visited, prev);
+      }
+    }
   }
 
   @Override
