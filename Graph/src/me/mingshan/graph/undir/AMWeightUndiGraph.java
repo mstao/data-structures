@@ -2,6 +2,8 @@ package me.mingshan.graph.undir;
 
 import me.mingshan.graph.Graph;
 
+import java.util.Arrays;
+
 /**
  * 无向加权图 - 基于邻接矩阵(adjacency matrix)
  */
@@ -74,6 +76,16 @@ public class AMWeightUndiGraph implements Graph {
     return this.edgeSize;
   }
 
+  @Override
+  public String toString() {
+    return "AMWeightUndiGraph{" +
+        "sideLength=" + sideLength +
+        ", adjacencyMatrix=" + Arrays.deepToString(adjacencyMatrix) +
+        ", nodeSize=" + nodeSize +
+        ", edgeSize=" + edgeSize +
+        '}';
+  }
+
   /**
    * 内部节点
    *
@@ -97,6 +109,14 @@ public class AMWeightUndiGraph implements Graph {
     public Node(E value, int weight) {
       this.value = value;
       this.weight = weight;
+    }
+
+    @Override
+    public String toString() {
+      return "Node{" +
+          "value=" + value +
+          ", weight=" + weight +
+          '}';
     }
   }
 }

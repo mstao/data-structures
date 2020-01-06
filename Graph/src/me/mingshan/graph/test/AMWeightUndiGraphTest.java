@@ -21,5 +21,7 @@ public class AMWeightUndiGraphTest {
 
     Assert.assertEquals(4, graph.getNodeSize());
     Assert.assertEquals(4, graph.getEdgeSize());
+
+    System.out.println(graph.toString());
   }
 }
