@@ -58,13 +58,17 @@ public class AJUndiGraph implements Graph {
         Integer curr = adj[vertex].get(i);
         if (!visited[curr]) {
           visited[curr] = true;
-          queue.add(curr);
           System.out.println("当前顶点：" + vertex + "，当前节点：" + curr);
+
+          if (curr == t) {
+            return;
+          }
+
+          queue.add(curr);
         }
       }
     }
   }
-
 
   /**
    * 广度优先搜索 Breadth-First-Search
@@ -113,12 +117,16 @@ public class AJUndiGraph implements Graph {
     System.out.print(t + " ");
   }
 
-
-  boolean found = false; // 全局变量或者类成员变量
-
+  /**
+   * 深度优先搜索 Depth-First-Search
+   *
+   * 打印最短路径
+   *
+   * @param s 起始顶点
+   * @param t 终止顶点
+   */
   public void dfs(int s, int t) {
     int v = adj.length;
-    found = false;
     boolean[] visited = new boolean[v];
     int[] prev = new int[v];
     for (int i = 0; i < v; ++i) {
@@ -128,18 +136,46 @@ public class AJUndiGraph implements Graph {
     print(prev, s, t);
   }
 
-  private void recurDfs(int w, int t, boolean[] visited, int[] prev) {
-    if (found == true) return;
-    visited[w] = true;
-    if (w == t) {
-      found = true;
+  private void recurDfs(int vertex, int t, boolean[] visited, int[] prev) {
+    visited[vertex] = true;
+    if (vertex == t) {
       return;
     }
-    for (int i = 0; i < adj[w].size(); ++i) {
-      int q = adj[w].get(i);
+
+    for (int i = 0; i < adj[vertex].size(); ++i) {
+      int q = adj[vertex].get(i);
       if (!visited[q]) {
-        prev[q] = w;
+        prev[q] = vertex;
         recurDfs(q, t, visited, prev);
+      }
+    }
+  }
+
+  /**
+   * 深度优先搜索 Depth-First-Search
+   *
+   * 打印走过的路径
+   *
+   * @param s 起始顶点
+   * @param t 终止顶点
+   */
+  public void dfs2(int s, int t) {
+    int len = adj.length;
+    boolean[] visited = new boolean[len];
+    recurDfs(s, t, visited);
+  }
+
+  private void recurDfs(int vertex, int t, boolean[] visited) {
+    visited[vertex] = true;
+    if (vertex == t) {
+      return;
+    }
+
+    for (int i = 0; i < adj[vertex].size(); ++i) {
+      int curr = adj[vertex].get(i);
+      if (!visited[curr]) {
+        System.out.println("当前顶点：" + vertex + "，当前节点：" + curr);
+        recurDfs(curr, t, visited);
       }
     }
   }
