@@ -79,7 +79,7 @@ public class AMWeightUndiGraph implements Graph {
    *
    * @param <E> 节点值泛型
    */
-  static class Node<E> {
+  public static class Node<E> {
     // 节点值
     private E value;
     // 节点权重
@@ -94,25 +94,9 @@ public class AMWeightUndiGraph implements Graph {
       this(value, 0);
     }
 
-    Node(E value, int weight) {
+    public Node(E value, int weight) {
       this.value = value;
       this.weight = weight;
     }
-  }
-
-  public static void main(String[] args) {
-    AMWeightUndiGraph graph = new AMWeightUndiGraph();
-    Node<Integer> node1 = new Node<>(1, 1);
-    Node<Integer> node2 = new Node<>(2, 2);
-    Node<Integer> node3 = new Node<>(3, 3);
-    Node<Integer> node4 = new Node<>(4, 4);
-
-    graph.addEdge(node1, 0, 1);
-    graph.addEdge(node2, 0, 2);
-    graph.addEdge(node3, 2, 3);
-    graph.addEdge(node4, 1, 3);
-
-    System.out.println(graph.getNodeSize());
-    System.out.println(graph.getEdgeSize());
   }
 }
