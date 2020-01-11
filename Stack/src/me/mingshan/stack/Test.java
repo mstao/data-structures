@@ -1,5 +1,8 @@
 package me.mingshan.stack;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 public class Test {
 
     public static void main(String[] args) {
@@ -13,10 +16,20 @@ public class Test {
         s.push(7);
         s.push(8);
         s.push(9);
-        System.out.println(s.size());
-        System.out.println(s.pop());
-        System.out.println(s.toString());
-        System.out.println(s.peek());
-        System.out.println(s.toString());
+
+        int count = 20;
+        ExecutorService executorService = Executors.newFixedThreadPool(count);
+
+        for (int i = 0; i < count; i++) {
+            executorService.submit(() -> {
+                System.out.println(s.pop());
+                System.out.println(s.toString());
+                System.out.println(s.peek());
+                System.out.println(s.toString());
+                System.out.println("--------");
+            });
+        }
+
+        executorService.shutdown();
     }
 }
