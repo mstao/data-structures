@@ -28,6 +28,18 @@ public class AJUndiGraphTest {
     graph.addEdge(2, 3);
     graph.addEdge(1, 3);
 
+    graph.bfs(0, 3);
+  }
+
+  @Test
+  public void bfsTest2() {
+    AJUndiGraph graph = new AJUndiGraph(4);
+
+    graph.addEdge(0, 1);
+    graph.addEdge(0, 2);
+    graph.addEdge(2, 3);
+    graph.addEdge(1, 3);
+
     graph.bfs2(0, 3);
   }
 
