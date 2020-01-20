@@ -14,7 +14,7 @@ public class AMUndiGraph implements Graph {
   /**
    * 邻接矩阵长或宽最大长度
    */
-  private static final int maxSideLength = 4;
+  private static final int DEFAULT_SIDE_LENGTH = 4;
   // 邻接矩阵长或宽长度
   private int sideLength;
   // 邻接矩阵
@@ -25,7 +25,7 @@ public class AMUndiGraph implements Graph {
   private int edgeSize;
 
   public AMUndiGraph() {
-    this(maxSideLength);
+    this (DEFAULT_SIDE_LENGTH);
   }
 
   public AMUndiGraph(int sideLength) {
