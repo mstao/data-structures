@@ -47,11 +47,9 @@ public class AMUndiGraph implements Graph {
     checkPosition(start);
     checkPosition(end);
 
-    if (this.adjacencyMatrix[start][end] == 0 && this.adjacencyMatrix[end][start] == 0) {
-      this.adjacencyMatrix[start][end] = 1;
-      this.adjacencyMatrix[end][start] = 1;
-      this.edgeSize++;
-    }
+    this.adjacencyMatrix[start][end] = 1;
+    this.adjacencyMatrix[end][start] = 1;
+    this.edgeSize++;
   }
 
   /**
