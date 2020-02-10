@@ -6,7 +6,7 @@ package me.mingshan.algorithm.string;
 public class FillSpace {
 
   public static void main(String[] args) {
-    String s = "Hello world";
+    String s = "He  llo wor  ld  ";
     System.out.println(solution(s));
   }
 
@@ -23,8 +23,21 @@ public class FillSpace {
       }
     }
 
-    int p, q;
+    char[] dest = new char[source.length() + countSpace * 2];
 
-    return "";
+    int p = dest.length - 1;
+
+    for (int i = chars.length - 1; i >= 0; i--) {
+      if (chars[i] == ' ') {
+        dest[p] = '0';
+        dest[p -1] = '\\';
+        p = p - 2;
+      } else {
+        dest[p] = chars[i];
+        p--;
+      }
+    }
+
+    return String.valueOf(dest);
   }
 }
