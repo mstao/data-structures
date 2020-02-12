@@ -1,7 +1,7 @@
 package me.mingshan.algorithm.string;
 
 /**
- * 给定一个字符串，将字符串中的数字用`\0`代替，要求时间复杂度为O(n)
+ * 给定一个字符串，将字符串中的" "用`\0`代替，要求时间复杂度为O(n)
  */
 public class FillSpace {
 
