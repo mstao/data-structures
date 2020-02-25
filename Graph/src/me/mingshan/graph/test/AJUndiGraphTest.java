@@ -67,7 +67,6 @@ public class AJUndiGraphTest {
     graph.dfs(0, 3);
   }
 
-
   @Test
   public void dfs2Test() {
     AJUndiGraph graph = new AJUndiGraph(4);
@@ -77,6 +76,6 @@ public class AJUndiGraphTest {
     graph.addEdge(2, 3);
     graph.addEdge(1, 3);
 
-    graph.dfs2(0, 3);
+    graph.dfs2(0, 5);
   }
 }
