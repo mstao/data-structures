@@ -15,12 +15,12 @@ package me.mingshan.linkedlist;
  * @param <E>
  */
 public class SingleLinkedList<E> implements LinkedList<E> {
-    private Node head;
+    private Node<E> head;
     private int size;
 
-    private class Node {
+    private static class Node<E> {
         E item;
-        Node next;
+        Node<E> next;
 
         public Node(E e) {
             this.item = e;
@@ -28,8 +28,7 @@ public class SingleLinkedList<E> implements LinkedList<E> {
     }
 
     public SingleLinkedList(E e) {
-        Node newNode = new Node(e);
-        head = newNode;
+        head = new Node<>(e);
         size++;
     }
 
@@ -37,7 +36,7 @@ public class SingleLinkedList<E> implements LinkedList<E> {
     public E get(int index) {
         checkPositionIndex(index);
         int count = 1;
-        Node temp = head;
+        Node<E> temp = head;
         while (temp != null) {
             if (count++ == index) {
                 return temp.item;
@@ -53,13 +52,12 @@ public class SingleLinkedList<E> implements LinkedList<E> {
         if (data == null)
             throw new NullPointerException();
         if (head == null) {
-            Node newNode = new Node(data);
-            head = newNode;
+            head = new Node<>(data);
             size++;
             return true;
         }
 
-        Node temp = head;
+        Node<E> temp = head;
         // 从头结点向后遍历，获取链表最后一个节点
         while (temp.next != null) {
             // temp 始终指向下一个节点
@@ -67,9 +65,8 @@ public class SingleLinkedList<E> implements LinkedList<E> {
         }
 
         // 根据当前元素构造新节点
-        Node newNode = new Node(data);
         // 将最后一节点的next指向新节点
-        temp.next = newNode;
+        temp.next = new Node<>(data);
         // 计数加一
         size++;
         return true;
@@ -77,7 +74,7 @@ public class SingleLinkedList<E> implements LinkedList<E> {
 
     /**
      * 根据索引插入元素
-     * @param e 要插入的元素
+     * @param data 要插入的元素
      * @param index 传入的索引值， 从1开始
      */
     @Override
@@ -87,7 +84,7 @@ public class SingleLinkedList<E> implements LinkedList<E> {
         checkPositionIndex(index);
 
         int count = 1;
-        Node temp = head;
+        Node<E> temp = head;
         // 从头结点向后遍历
         while (temp.next != null) {
             // 1       2 
@@ -99,15 +96,14 @@ public class SingleLinkedList<E> implements LinkedList<E> {
 
             // 如果索引为1，那么将当前节点置为头结点
             if (index == 1) {
-                Node newNode = new Node(data);
-                head = newNode;
+                head = new Node<>(data);
                 head.next = temp;
                 size++;
             }
             // 判断是否到了传入的索引
             if (++count == index) {
                 // 构造新节点
-                Node newNode = new Node(data);
+                Node<E> newNode = new Node<>(data);
                 // 将当前的位置的节点设置为新节点
                 newNode.next = temp.next;
                 temp.next = newNode;
@@ -127,7 +123,7 @@ public class SingleLinkedList<E> implements LinkedList<E> {
         checkPositionIndex(index);
 
         int count = 1;
-        Node temp = head;
+        Node<E> temp = head;
         // 从头结点向后遍历
         while (temp.next != null) {
             if (index == 1) {
@@ -164,7 +160,7 @@ public class SingleLinkedList<E> implements LinkedList<E> {
         checkPositionIndex(index);
 
         int count = 1;
-        Node temp = head;
+        Node<E> temp = head;
         while (temp != null) {
             if (count++ == index) {
                 E oldValue = temp.item;
@@ -179,8 +175,27 @@ public class SingleLinkedList<E> implements LinkedList<E> {
 
     @Override
     public boolean removeAll(E data) {
-        // TODO Auto-generated method stub
-        return false;
+        Node<E> curr = head;
+        Node<E> pre = null;
+        boolean found = false;
+
+        // 从头结点向后遍历
+        while (curr != null) {
+            if (curr.item.equals(data)) {
+                if (curr == head) {
+                    head = head.next;
+                } else {
+                    // 移除当前节点
+                    pre.next = curr.next;
+                }
+                found = true;
+            }
+
+            pre = curr;
+            curr = curr.next;
+        }
+
+        return found;
     }
 
     @Override
@@ -191,17 +206,25 @@ public class SingleLinkedList<E> implements LinkedList<E> {
 
     @Override
     public boolean contains(E data) {
-        // TODO Auto-generated method stub
+        Node<E> temp = head;
+        while (temp.next != null) {
+            if (temp.item.equals(data)) {
+                return true;
+            }
+            temp = temp.next;
+        }
+
         return false;
     }
 
     /**
      * 检测索引位置是否合法
-     * @param index
+     *
+     * @param index 当前位置
      */
     private void checkPositionIndex(int index) {
         if (!isPositionIndex(index))
-            throw new IllegalArgumentException("参数不合法");
+            throw new IllegalArgumentException("参数 " + index + "不合法");
     }
 
     private boolean isPositionIndex(int index) {
@@ -215,8 +238,8 @@ public class SingleLinkedList<E> implements LinkedList<E> {
             return "[]";
         } else {
             StringBuilder sb = new StringBuilder("[");
-            for (Node current = head; current != null; current = current.next) {
-                sb.append(current.item.toString() + ", ");
+            for (Node<E> current = head; current != null; current = current.next) {
+                sb.append(current.item.toString()).append(", ");
             }
             int len = sb.length();  
             return sb.delete(len - 2, len).append("]").toString();
@@ -235,11 +258,11 @@ public class SingleLinkedList<E> implements LinkedList<E> {
     public void reverse() {
         if (head != null) {
             // 代表指向当前进行反转的下一个节点
-            Node r;
+            Node<E> r;
             // p 代表进行节点指向反转的节点前一个节点
-            Node p = head;
+            Node<E> p = head;
             // q 代表进行节点指向反转的当前节点
-            Node q = head.next;
+            Node<E> q = head.next;
 
             // 首先将head指向的下一个节点置为null
             // 因为进行链表反转时头结点变成了尾节点，指向的下一个节点必然是null
