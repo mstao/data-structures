@@ -128,13 +128,15 @@ public class SingleLinkedList<E> implements LinkedList<E> {
         while (temp.next != null) {
             if (index == 1) {
                 head = head.next;
-                return head.item;
+                temp.next = null;
+                return temp.item;
             }
 
             if (++count == index) {
-                E oldValue = temp.next.item;
+                Node<E> delNode = temp.next;
                 temp.next = temp.next.next;
-                return oldValue;
+                delNode.next = null;
+                return delNode.item;
             }
             // temp 始终指向下一个节点
             temp = temp.next;
@@ -184,9 +186,13 @@ public class SingleLinkedList<E> implements LinkedList<E> {
             if (curr.item.equals(data)) {
                 if (curr == head) {
                     head = head.next;
+                    curr.next = null;
+                    curr = head;
                 } else {
                     // 移除当前节点
                     pre.next = curr.next;
+                    curr.next = null;
+                    curr = pre;
                 }
                 found = true;
             }
