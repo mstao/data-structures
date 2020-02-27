@@ -12,10 +12,11 @@ public class Count1 {
 
   public static void main(String[] args) {
     System.out.println(solution(15));
+    System.out.println(solution(-15));
   }
 
   public static int solution(int source) {
-    int count = 31;
+    int count = 32;
     int result = 0;
 
     while (count > 0) {
