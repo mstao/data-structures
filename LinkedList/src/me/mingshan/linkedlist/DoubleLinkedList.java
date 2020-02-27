@@ -1,6 +1,9 @@
 package me.mingshan.linkedlist;
 
+import org.junit.Assert;
+
 import java.util.NoSuchElementException;
+import java.util.Objects;
 
 /**
  * 双向链表
@@ -15,25 +18,25 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
     private int size = 0;
 
     // 指向头结点
-    private Node first;
+    private Node<E> first;
 
     // 指向尾结点
-    private Node last;
+    private Node<E> last;
 
     /**
      * 内部Node，用于存储链表的结点
      * @author mingshan
      *
      */
-    private class Node {
+    private static class Node<E> {
         // 存储结点的值
         E item;
         // 指向结点的前驱结点
-        Node next;
+        Node<E> next;
         // 指向结点的后继结点
-        Node prev;
+        Node<E> prev;
 
-        Node(Node prev, E element, Node next) {
+        Node(Node<E> prev, E element, Node<E> next) {
             this.item = element;
             this.next = next;
             this.prev = prev;
@@ -46,7 +49,7 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
     public E get(int index) {
         checkElementIndex(index);
         // 获取其索引的结点
-        Node node = node(index);
+        Node<E> node = node(index);
         return node.item;
     }
 
@@ -57,7 +60,7 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
         checkPositionIndex(index);
 
         // 获取原来在该索引位置上的结点
-        Node oldNode = node(index);
+        Node<E> oldNode = node(index);
         // 获取原来结点的值
         E oldValue = oldNode.item;
         // 更新值
@@ -92,10 +95,10 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
 
     /**
      * 返回头结点的值
-     * @return
+     * @return 结点的值
      */
     public E getFirst() {
-        Node f = first;
+        Node<E> f = first;
         if (f == null)
             throw new NoSuchElementException();
         return f.item;
@@ -103,10 +106,10 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
 
     /**
      * 返回尾结点的值
-     * @return
+     * @return 结点的值
      */
     public E getLast() {
-        Node l = last;
+        Node<E> l = last;
         if (l == null)
             throw new NoSuchElementException();
         return l.item;
@@ -117,26 +120,36 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
         checkElementIndex(index);
 
         // 获取在该索引位置上的结点
-        Node c = node(index);
+        Node<E> c = node(index);
         E element = c.item;
-        Node prev = c.prev;
-        Node next = c.next;
+        removeNode(c);
+
+        c.item = null;
+        size--;
+        return element;
+    }
+
+    private void removeNode(Node<E> node) {
+        Objects.requireNonNull(node);
+
+        Node<E> prev = node.prev;
+        Node<E> next = node.next;
 
         // 代表头结点
         if (prev == null) {
-            // 将下一个结点置为头结点
-            first = next;
             // 将下一个结点的前驱结点置为null
             next.prev = null;
+            // 将下一个结点置为头结点
+            first = next;
             // 将原来头结点的后继结点置为null
-            c.next = null;
+            node.next = null;
         } else if (next == null) {
-            // 移除尾结点
-            last = prev;
             // 前一个结点的后继结点置为null
             prev.next = null;
+            // 移除尾结点
+            last = prev;
             // 将原来尾结点的前驱结点置为null
-            c.prev = null;
+            node.prev = null;
         } else {
             // 属于一般情况
             // 将前一个结点的后继结点置为原结点的后继结点
@@ -144,33 +157,27 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
             // 将后一个结点的前驱结点置为原结点的前驱结点
             next.prev = prev;
             // 切断当前删除的结点的前驱和后继结点
-            c.prev = null;
-            c.next = null;
+            node.prev = null;
+            node.next = null;
         }
-        // 代表头结点
-/*        if (prev == null) {
-            first = next;
-        } else {
-            prev.next = next;
-            c.prev = null;
-        }
-
-        if (next == null) {
-            last = prev;
-        } else {
-            next.prev = prev;
-            c.next = null;
-        }*/
-
-        c.item = null;
-        size--;
-        return element;
     }
 
     @Override
     public boolean removeAll(E data) {
-        // TODO Auto-generated method stub
-        return false;
+        Node<E> curr = first;
+        boolean found = false;
+
+        // 从头结点向后遍历
+        while (curr != null) {
+            if (curr.item.equals(data)) {
+                removeNode(curr);
+                found = true;
+            }
+
+            curr = curr.next;
+        }
+
+        return found;
     }
 
     @Override
@@ -182,7 +189,14 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
 
     @Override
     public boolean contains(E data) {
-        // TODO Auto-generated method stub
+        Node<E> temp = first;
+        while (temp.next != null) {
+            if (temp.item.equals(data)) {
+                return true;
+            }
+            temp = temp.next;
+        }
+
         return false;
     }
 
@@ -200,11 +214,11 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
     public void reverse() {
         if (first != null) {
             // 代表指向当前进行反转的下一个结点
-            Node r;
+            Node<E> r;
             // p 代表进行结点指向反转的结点前一个结点
-            Node p = first;
+            Node<E> p = first;
             // q 代表进行结点指向反转的当前结点
-            Node q = first.next;
+            Node<E> q = first.next;
 
             // 首先将head指向的下一个结点置为null
             // 因为进行链表反转时头结点变成了尾结点，指向的下一个结点必然是null
@@ -240,13 +254,12 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
      * 将当前结点作为头结点
      */
     private void linkFirst(E data) {
-        final Node f = first;
-        final Node newNode = new Node(null, data, f);
+        final Node<E> f = first;
+        final Node<E> newNode = new Node<>(null, data, f);
         first = newNode;
-        if(f == null) {
+        if (f == null) {
             last = newNode;
         } else {
-            first = newNode; 
             f.prev = newNode;
         }
         size++;
@@ -254,11 +267,11 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
 
     /**
      * 将当前结点作为尾结点
-     * @param e
+     * @param data 结点数据
      */
     private void linkLast(E data) {
-        final Node l = last;
-        final Node newNode = new Node(l, data, null);
+        final Node<E> l = last;
+        final Node<E> newNode = new Node<>(l, data, null);
         last = newNode;
         if (l == null) {
             first = newNode;
@@ -271,26 +284,27 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
 
     /**
      * 将结点插入到指定位置index(原来的结点之前)
-     * @param index
-     * @param data
+     *
+     * @param index 索引
+     * @param data 数据
      */
     private void linkBefore(int index, E data) {
-        Node curr = node(index);
-        Node pred = curr.prev;
-        Node newNode = new Node(pred, data, curr);
+        Node<E> curr = node(index);
+        Node<E> prev = curr.prev;
+        Node<E> newNode = new Node<>(prev, data, curr);
         curr.prev = newNode;
 
-        if (pred == null) {
+        if (prev == null) {
             first = newNode;
         } else {
-            pred.next = newNode;
+            prev.next = newNode;
         }
         size++;
     }
 
     /**
      * 检测元素位置是否合法
-     * @param index
+     * @param index 索引
      */
     private void checkElementIndex(int index) {
         if (!isElementIndex(index))
@@ -303,7 +317,7 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
 
     /**
      * 检测索引位置是否合法
-     * @param index
+     * @param index 索引
      */
     private void checkPositionIndex(int index) {
         if (!isPositionIndex(index))
@@ -314,41 +328,40 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
         return index >= 0 && index <= size;
     }
 
-
     /**
      * 根据索引获取结点
-     * @param index
-     * @return
+     * @param index 索引
+     * @return 节点
      */
-    private Node node(int index) {
+    private Node<E> node(int index) {
         // 如果当前索引值小于当前链表长度的一半，那么从头结点开始遍历
+        Node<E> temp;
         if (index < size / 2) {
-            Node temp = first;
+            temp = first;
             for (int i = 0; i < index; i++) {
                 temp = temp.next;
             }
 
-            return temp;
         } else {
             // 如果当前索引值大于当前链表长度的一半，那么从尾结点反向遍历
-            Node temp = last;
+            temp = last;
             for (int i = size - 1; i > index; i--) {
                 temp = temp.prev;
             }
 
-            return temp;
         }
+        return temp;
     }
 
     @Override
     public String toString() {
-        //链队列为空链队列时  
+        // 链队列为空链队列时
         if (size == 0) {
             return "[]";
         } else {
             StringBuilder sb = new StringBuilder("[");
-            for (Node current = first; current != null; current = current.next) {
-                sb.append(current.item.toString() + ", ");
+            for (Node<E> current = first; current != null; current = current.next) {
+                sb.append(current.item.toString()).append(", ");
             }
             int len = sb.length();  
             return sb.delete(len - 2, len).append("]").toString();
