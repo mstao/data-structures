@@ -35,7 +35,7 @@ public class SingleLinkedList<E> implements LinkedList<E> {
     @Override
     public E get(int index) {
         checkPositionIndex(index);
-        int count = 1;
+        int count = 0;
         Node<E> temp = head;
         while (temp != null) {
             if (count++ == index) {
@@ -83,7 +83,7 @@ public class SingleLinkedList<E> implements LinkedList<E> {
             throw new NullPointerException();
         checkPositionIndex(index);
 
-        int count = 1;
+        int count = 0;
         Node<E> temp = head;
         // 从头结点向后遍历
         while (temp.next != null) {
@@ -95,11 +95,13 @@ public class SingleLinkedList<E> implements LinkedList<E> {
             // 判断是否到了传入的索引
 
             // 如果索引为1，那么将当前节点置为头结点
-            if (index == 1) {
+            if (index == 0) {
                 head = new Node<>(data);
                 head.next = temp;
                 size++;
+                return;
             }
+
             // 判断是否到了传入的索引
             if (++count == index) {
                 // 构造新节点
@@ -108,6 +110,7 @@ public class SingleLinkedList<E> implements LinkedList<E> {
                 newNode.next = temp.next;
                 temp.next = newNode;
                 size++;
+                return;
             }
             // temp 始终指向下一个节点
             temp = temp.next;
@@ -122,11 +125,11 @@ public class SingleLinkedList<E> implements LinkedList<E> {
     public E remove(int index) {
         checkPositionIndex(index);
 
-        int count = 1;
+        int count = 0;
         Node<E> temp = head;
         // 从头结点向后遍历
         while (temp.next != null) {
-            if (index == 1) {
+            if (index == 0) {
                 head = head.next;
                 temp.next = null;
                 return temp.item;
@@ -161,7 +164,7 @@ public class SingleLinkedList<E> implements LinkedList<E> {
             throw new NullPointerException();
         checkPositionIndex(index);
 
-        int count = 1;
+        int count = 0;
         Node<E> temp = head;
         while (temp != null) {
             if (count++ == index) {
@@ -234,7 +237,7 @@ public class SingleLinkedList<E> implements LinkedList<E> {
     }
 
     private boolean isPositionIndex(int index) {
-        return index >= 1 && index <= size;
+        return index >= 0 && index < size;
     }
 
     @Override
