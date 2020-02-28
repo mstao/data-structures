@@ -28,7 +28,7 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
      * @author mingshan
      *
      */
-    private static class Node<E> {
+    protected static class Node<E> implements Cloneable {
         // 存储结点的值
         E item;
         // 指向结点的前驱结点
@@ -57,7 +57,7 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
     public E set(int index, E data) {
         if (data == null)
             throw new NullPointerException();
-        checkPositionIndex(index);
+        checkElementIndex(index);
 
         // 获取原来在该索引位置上的结点
         Node<E> oldNode = node(index);
@@ -72,7 +72,7 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
     public void add(int index, E data) {
         if (data == null)
             throw new NullPointerException();
-        checkPositionIndex(index);
+        checkElementIndex(index);
 
         // 判断在该索引的结点是不是尾结点
         if (size == index) {
@@ -129,11 +129,12 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
         return element;
     }
 
-    private void removeNode(Node<E> node) {
+    private Node<E> removeNode(Node<E> node) {
         Objects.requireNonNull(node);
 
         Node<E> prev = node.prev;
         Node<E> next = node.next;
+        Node<E> temp;
 
         // 代表头结点
         if (prev == null) {
@@ -143,6 +144,7 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
             first = next;
             // 将原来头结点的后继结点置为null
             node.next = null;
+            temp = null;
         } else if (next == null) {
             // 前一个结点的后继结点置为null
             prev.next = null;
@@ -150,6 +152,7 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
             last = prev;
             // 将原来尾结点的前驱结点置为null
             node.prev = null;
+            temp = null;
         } else {
             // 属于一般情况
             // 将前一个结点的后继结点置为原结点的后继结点
@@ -159,7 +162,26 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
             // 切断当前删除的结点的前驱和后继结点
             node.prev = null;
             node.next = null;
+            temp = prev;
         }
+
+        // 代表头结点
+/*        if (prev == null) {
+            first = next;
+        } else {
+            prev.next = next;
+            c.prev = null;
+            node.prev = null;
+            node.next = null;
+        }
+        if (next == null) {
+            last = prev;
+        } else {
+            next.prev = prev;
+            c.next = null;
+        }*/
+
+        return temp;
     }
 
     @Override
@@ -170,8 +192,15 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
         // 从头结点向后遍历
         while (curr != null) {
             if (curr.item.equals(data)) {
-                removeNode(curr);
+
+                Node<E> node = removeNode(curr);
                 found = true;
+
+                if (node == null) {
+                    break;
+                } else {
+                    curr = node;
+                }
             }
 
             curr = curr.next;
@@ -313,19 +342,6 @@ public class DoubleLinkedList<E> implements LinkedList<E> {
 
     private boolean isElementIndex(int index) {
         return index >= 0 && index < size;
-    }
-
-    /**
-     * 检测索引位置是否合法
-     * @param index 索引
-     */
-    private void checkPositionIndex(int index) {
-        if (!isPositionIndex(index))
-            throw new IllegalArgumentException("参数不合法");
-    }
-
-    private boolean isPositionIndex(int index) {
-        return index >= 0 && index <= size;
     }
 
     /**
