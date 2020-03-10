@@ -1,8 +1,5 @@
 package me.mingshan.algorithm.linkedlist;
 
-import me.mingshan.linkedlist.LinkedList;
-import me.mingshan.linkedlist.SingleLinkedList;
-
 /**
  * 给定一个单向链表，获取第k个节点
  * 节点定义如下：
