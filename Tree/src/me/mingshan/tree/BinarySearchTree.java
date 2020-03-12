@@ -22,7 +22,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
     // 二叉树结点数量
     private int size;
 
-    private static class Node<E extends Comparable<E>> {
+    public static class Node<E extends Comparable<E>> {
         E item;
         Node<E> parent;
         Node<E> left;
