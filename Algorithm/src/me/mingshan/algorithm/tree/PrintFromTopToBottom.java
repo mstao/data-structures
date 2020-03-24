@@ -5,6 +5,8 @@ import java.util.Queue;
 
 /**
  * 从上往下打印出二叉树的每个结点，同一层的结点按照从左到右的顺序打印。
+ *
+ * 思路：类似图的广度优先遍历
  */
 public class PrintFromTopToBottom {
 
