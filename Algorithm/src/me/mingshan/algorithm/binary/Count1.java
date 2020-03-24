@@ -25,7 +25,6 @@ public class Count1 {
       }
 
       source = source >> 1;
-      System.out.println(source);
       count--;
     }
 
