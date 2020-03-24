@@ -89,9 +89,7 @@ public class FindKNode {
       // 计数加一
       return true;
     }
-
   }
-
 
   public static void main(String[] args) {
     LinkedList<String> list1 = new LinkedList<String>();
