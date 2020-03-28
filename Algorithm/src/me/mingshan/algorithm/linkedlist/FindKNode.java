@@ -1,7 +1,7 @@
 package me.mingshan.algorithm.linkedlist;
 
 /**
- * 给定一个单向链表，获取第k个节点
+ * 给定一个单向链表，获取倒数第k个节点
  * 节点定义如下：
  * <pre>{@code
  * private class Node<E> {
