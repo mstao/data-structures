@@ -11,6 +11,12 @@ public class L_11_MaxArea {
     System.out.println(maxArea(arr));
   }
 
+  /**
+   * 暴力解法
+   *
+   * @param height
+   * @return
+   */
   public static int maxArea(int[] height) {
     if (height == null || height.length == 0) {
       return 0;
@@ -25,6 +31,26 @@ public class L_11_MaxArea {
           result = area;
         }
       }
+    }
+
+    return result;
+  }
+
+  /**
+   * 双指针算法
+   *
+   * @param height
+   * @return
+   */
+  public static int maxArea2(int[] height) {
+    if (height == null || height.length == 0) {
+      return 0;
+    }
+
+    int result = 0, i, j;
+
+    for (i = 0; i < height.length; i++) {
+      
     }
 
     return result;
