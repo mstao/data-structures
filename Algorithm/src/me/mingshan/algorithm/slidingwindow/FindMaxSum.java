@@ -17,6 +17,7 @@ public class FindMaxSum {
   public static void main(String[] args) {
     int[] arr = {100,200,300,400, 500, 300, 200, 600, 1000};
     System.out.println(solution(arr, 2));
+    System.out.println(solution2(arr, 2));
   }
 
   public static int solution(int[] source, int k) {
@@ -38,6 +39,13 @@ public class FindMaxSum {
     return result;
   }
 
+  /**
+   * 滑动窗口
+   *
+   * @param source
+   * @param k
+   * @return
+   */
   public static int solution2(int[] source, int k) {
     int result = 0;
     if (source == null || source.length == 0) {
