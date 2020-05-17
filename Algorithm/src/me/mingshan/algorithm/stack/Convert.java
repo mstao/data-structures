@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.Stack;
 
 /**
- * 进制转换
+ * 进制转换，将十进制数字转化为给定进制
  */
 public class Convert {
   private static final char[] digit = {
