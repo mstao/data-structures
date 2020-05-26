@@ -10,8 +10,8 @@ public class InsertionSort {
 
     public static void main(String[] args) {
         int[] a = new int[] {3, 8, 0, 1, 4, 9};
-        //insertionSort(a);
-        binaryInsertionSort(a);
+        insertionSort(a);
+        //binaryInsertionSort(a);
         for (int x : a) {
             System.out.println(x);
         }
