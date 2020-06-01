@@ -5,6 +5,8 @@ import java.util.Stack;
 
 /**
  * 进制转换，将十进制数字转化为给定进制
+ *
+ * @author mingshan
  */
 public class Convert {
   private static final char[] digit = {
@@ -18,9 +20,10 @@ public class Convert {
   public static String convert(int n, int base) {
     Stack<Character> data = new Stack<>();
     while (n > 0) {
-      data.push(digit[n % base]); // 余数入栈
-
-      n /= base; // n更新为对base的除商
+      // 余数入栈
+      data.push(digit[n % base]);
+      // n更新为对base的除商
+      n /= base;
     }
 
     char[] result = new char[data.size()];
