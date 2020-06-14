@@ -31,15 +31,15 @@ public class Calculator {
    * 运算符优先级表 栈顶运算符索引，当前运算符索引
    */
   private static final String[][] PRIORITY_TABLE = {
-     // 当前运算符 +    -    *    /    (    )    \0
-                                                      // 栈顶的运算符
-                {">", ">", "<", "<", "<", ">", ">"},  // +
-                {">", ">", "<", "<", "<", ">", ">"},  // -
-                {">", ">", ">", ">", "<", ">", ">"},  // *
-                {">", ">", ">", ">", "<", ">", ">"},  // /
-                {"<", "<", "<", "<", "<", "=", ">"},  // (
-                {" ", " ", " ", " ", " ", " ", ">"},  // )
-                {"<", "<", "<", "<", "<", "<", "="},  // \0
+      // 当前运算符 +    -    *    /    (    )    \0
+      // 栈顶的运算符
+      {">", ">", "<", "<", "<", ">", ">"},  // +
+      {">", ">", "<", "<", "<", ">", ">"},  // -
+      {">", ">", ">", ">", "<", ">", ">"},  // *
+      {">", ">", ">", ">", "<", ">", ">"},  // /
+      {"<", "<", "<", "<", "<", "=", ">"},  // (
+      {" ", " ", " ", " ", " ", " ", ">"},  // )
+      {"<", "<", "<", "<", "<", "<", "="},  // \0
   };
 
   public static void main(String[] args) {
@@ -78,9 +78,9 @@ public class Calculator {
    * 根据传入的 {@code item} 元素，进行计算
    *
    * @param operatorStack 操作数栈
-   * @param numberStack 数值栈
-   * @param item 传入的元素
-   * @param isLast 当前元素是否为实际数值栈中栈顶元素
+   * @param numberStack   数值栈
+   * @param item          传入的元素
+   * @param isLast        当前元素是否为实际数值栈中栈顶元素
    */
   private static void calculate(Stack<Character> operatorStack, Stack<Integer> numberStack, String item,
                                 boolean isLast) {
@@ -93,6 +93,7 @@ public class Calculator {
     // 字符是数字
     if (Character.isDigit(items[0])) {
       int itemInt = Integer.parseInt(item);
+
       // 判断是不是最后一位
       if (isLast) {
         int result = calculate(itemInt, Integer.parseInt(String.valueOf(numberStack.pop())), operatorStack.pop());
@@ -104,19 +105,6 @@ public class Calculator {
       handleOperator(operatorStack, numberStack, items[0]);
     } else {
       throw new IllegalArgumentException("不支持的运算符：" + item);
-    }
-  }
-
-  /**
-   * 如果item是数组，并且数值栈连续出现数字，需要将其转为实际数值
-   *
-   * @param numberStack 操作栈
-   * @param item 当前数字
-   */
-  private static void handleContinuousNumber(Stack<Integer> numberStack, String item) {
-    Stack<Integer> helpStack = new Stack<>();
-    while (!numberStack.isEmpty()) {
-
     }
   }
 
