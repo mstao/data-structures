@@ -165,17 +165,14 @@ public class BinaryTree<E extends Comparable<E>> {
             return;
         }
 
-        System.out.println(node); // 先输出当前结点
-
         Stack<Node<E>> stack = new Stack<>();
-        stack.push(node);
-        node = node.left;
 
-        while (node != null || !stack.isEmpty()) {
+        while (true) {
             visitAlongLeftBranch(node, stack);
-
+            if (stack.isEmpty()) {
+                break;
+            }
             node = stack.pop();
-            node = node.right;
         }
     }
 
@@ -187,9 +184,11 @@ public class BinaryTree<E extends Comparable<E>> {
      */
     private static <E extends Comparable<E>> void visitAlongLeftBranch(Node<E> node, Stack<Node<E>> stack) {
         while (node != null) {
-            System.out.println(node); // 先输出当前结点
-            stack.push(node);         // 入栈
-            node = node.left;         // 遍历左孩子
+            System.out.println(node);           // 先输出当前结点
+            if (node.getRight() != null) {
+                stack.push(node.getRight());    // 入栈
+            }
+            node = node.left;                   // 遍历左孩子
         }
     }
 
