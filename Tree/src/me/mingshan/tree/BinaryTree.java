@@ -180,7 +180,7 @@ public class BinaryTree<E extends Comparable<E>> {
      * @param node 当前节点
      * @param stack 栈
      */
-    private void visitAlongLeftBranch(Node<E> node, Stack<Node<E>> stack) {
+    private static <E extends Comparable<E>> void visitAlongLeftBranch(Node<E> node, Stack<Node<E>> stack) {
         while (node != null) {
             System.out.println(node); // 先输出当前结点
             stack.push(node);         // 入栈
