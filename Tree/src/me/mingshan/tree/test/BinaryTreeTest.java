@@ -21,6 +21,11 @@ public class BinaryTreeTest {
     }
 
     @Test
+    public void test21() {
+        tree.preOrderNonRec2(root);
+    }
+
+    @Test
     public void test3() {
         tree.inOrderRec(root);
     }

@@ -90,13 +90,13 @@ public class BinaryTree<E extends Comparable<E>> {
     }
 
     /*
-     * 前序遍历：
+     * 先序遍历：
      *
      * 对于当前结点，先输出该结点，然后输出它的左孩子，最后输出它的右孩子
      */
 
     /**
-     * 前序遍历（递归）
+     * 先序遍历（递归）
      *
      * @param node 根节点
      */
@@ -111,17 +111,51 @@ public class BinaryTree<E extends Comparable<E>> {
     }
 
     /**
-     * 前序遍历（非递归）<br/>
+     * 先序遍历（非递归）<br/>
+     *
+     * <ul>
+     *     <li>1. 先访问树的根节点</li>
+     *     <li>2. 将右子孩子入栈</li>
+     *     <li>3. 将左子孩子入栈</li>
+     *     <li>4. 重复1， 2， 3步，直至栈为空</li>
+     * </ul>
+     *
+     * @param node
+     */
+    public void preOrderNonRec(Node<E> node) {
+        if (node == null) {
+            return;
+        }
+
+        Stack<Node<E>> stack = new Stack<>();
+        stack.push(node);
+
+        while (!stack.isEmpty()) {
+            Node<E> eNode = stack.pop();
+            System.out.println(eNode);
+
+            if (eNode.getRight() != null) {
+                stack.push(eNode.getRight());
+            }
+
+            if (eNode.getLeft() != null) {
+                stack.push(eNode.getLeft());
+            }
+        }
+    }
+
+    /**
+     * 先序遍历（非递归）<br/>
      *
      * <ul>
      *  <li>1. 对于任何结点node，如果该结点不为空，打印当前节点将自己压入栈内，然后将当前结点的左子结点赋值给node，直至node为null</li>
-     *      <li>2. 若左子树为空，则栈顶元素出栈，并将当前node的右子结点赋值给node</li>
-     *      <li>3. 重复1，2步操作，直至node为空，并且栈为空</li>
+     *  <li>2. 若左子树为空，则栈顶元素出栈，并将当前node的右子结点赋值给node</li>
+     *  <li>3. 重复1，2步操作，直至node为空，并且栈为空</li>
      * <ul/>
      *
      * @param node 根节点
      */
-    public void preOrderNonRec(Node<E> node) {
+    public void preOrderNonRec2(Node<E> node) {
         if (node == null) {
             return;
         }
@@ -133,15 +167,24 @@ public class BinaryTree<E extends Comparable<E>> {
         node = node.left;
 
         while (node != null || !stack.isEmpty()) {
-
-            while (node != null) {
-                System.out.println(node); // 先输出当前结点
-                stack.push(node);         // 入栈
-                node = node.left;         // 遍历左孩子
-            }
+            visitAlongLeftBranch(node, stack);
 
             node = stack.pop();
             node = node.right;
+        }
+    }
+
+    /**
+     * 从当前节点开始，沿左链下行，依次访问
+     *
+     * @param node 当前节点
+     * @param stack 栈
+     */
+    private void visitAlongLeftBranch(Node<E> node, Stack<Node<E>> stack) {
+        while (node != null) {
+            System.out.println(node); // 先输出当前结点
+            stack.push(node);         // 入栈
+            node = node.left;         // 遍历左孩子
         }
     }
 
