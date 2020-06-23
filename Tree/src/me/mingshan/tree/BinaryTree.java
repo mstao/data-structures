@@ -179,7 +179,7 @@ public class BinaryTree<E extends Comparable<E>> {
     /**
      * 从当前节点开始，沿左链下行，依次访问
      *
-     * @param node 当前节点
+     * @param node  当前节点
      * @param stack 栈
      */
     private static <E extends Comparable<E>> void visitAlongLeftBranch(Node<E> node, Stack<Node<E>> stack) {
@@ -231,18 +231,29 @@ public class BinaryTree<E extends Comparable<E>> {
         }
 
         Stack<Node<E>> stack = new Stack<>();
-        stack.push(node);
-        node = node.left;
 
-        while (node != null || !stack.isEmpty()) {
-            while (node != null) {
-                stack.push(node);
-                node = node.left;
+        while (true) {
+            goAlongLeftBranch(node, stack);  // 从当前节点开始，左孩子逐批入栈
+            if (stack.isEmpty()) {           // 栈空，遍历完毕
+                break;
             }
 
-            node = stack.pop();
-            System.out.println(node);
-            node = node.right;
+            node = stack.pop();              // 弹出栈顶元素
+            System.out.println(node);        // 访问
+            node = node.right;               // 转向右子树
+        }
+    }
+
+    /**
+     * 从当前节点开始，左孩子逐批入栈
+     *
+     * @param node  当前节点
+     * @param stack 辅助栈
+     */
+    private static <E extends Comparable<E>> void goAlongLeftBranch(Node<E> node, Stack<Node<E>> stack) {
+        while (node != null) {
+            stack.push(node);
+            node = node.left;
         }
     }
 
