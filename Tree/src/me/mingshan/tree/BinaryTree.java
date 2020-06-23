@@ -17,6 +17,11 @@ public class BinaryTree<E extends Comparable<E>> {
     // 二叉树结点数量
     private int size;
 
+    /**
+     * 树节点
+     *
+     * @param <E> 类型
+     */
     public static class Node<E extends Comparable<E>> {
         private E item;
         private Node<E> parent;
@@ -264,7 +269,6 @@ public class BinaryTree<E extends Comparable<E>> {
         System.out.println(node);
     }
 
-
     /**
      * 后序遍历（非递归）
      * <p>
@@ -376,7 +380,6 @@ public class BinaryTree<E extends Comparable<E>> {
 
         }
     }
-
 
     /**
      * 计算二叉树的深度
