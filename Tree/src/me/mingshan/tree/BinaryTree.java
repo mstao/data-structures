@@ -1,7 +1,8 @@
 package me.mingshan.tree;
 
-import java.util.*;
-import java.util.concurrent.ArrayBlockingQueue;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Stack;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -22,7 +23,7 @@ public class BinaryTree<E extends Comparable<E>> {
         private Node<E> left;
         private Node<E> right;
 
-        public Node (Node<E> parent, E item) {
+        public Node(Node<E> parent, E item) {
             this.parent = parent;
             this.item = item;
         }
@@ -66,30 +67,29 @@ public class BinaryTree<E extends Comparable<E>> {
         }
     }
 
-    public Node init() {
-        Node root = new Node(null, 1);
-        Node node1 = new Node(root, 2);
-        Node node2 = new Node(root, 3);
+    public Node<Integer> init() {
+        Node<Integer> root = new Node<>(null, 1);
+        Node<Integer> node1 = new Node<>(root, 2);
+        Node<Integer> node2 = new Node<>(root, 3);
         root.left = node1;
         root.right = node2;
 
-        Node node3 = new Node(node1, 4);
-        Node node4 = new Node(node1, 5);
+        Node<Integer> node3 = new Node<>(node1, 4);
+        Node<Integer> node4 = new Node<>(node1, 5);
         node1.left = node3;
         node1.right = node4;
 
-        Node node5 = new Node(node2, 6);
-        Node node6 = new Node(node2, 7);
+        Node<Integer> node5 = new Node<>(node2, 6);
+        Node<Integer> node6 = new Node<>(node2, 7);
         node2.left = node5;
         node2.right = node6;
 
-        Node node10 = new Node(node4, 8);
-        node4.left = node10;
+        node4.left = new Node<>(node4, 8);
 
         return root;
     }
 
-    /**
+    /*
      * 前序遍历：
      *
      * 对于当前结点，先输出该结点，然后输出它的左孩子，最后输出它的右孩子
@@ -98,9 +98,9 @@ public class BinaryTree<E extends Comparable<E>> {
     /**
      * 前序遍历（递归）
      *
-     * @param node
+     * @param node 根节点
      */
-    public void preOrderRec(Node node) {
+    public void preOrderRec(Node<E> node) {
         if (node == null) {
             return;
         }
@@ -115,20 +115,20 @@ public class BinaryTree<E extends Comparable<E>> {
      *
      * <ul>
      *  <li>1. 对于任何结点node，如果该结点不为空，打印当前节点将自己压入栈内，然后将当前结点的左子结点赋值给node，直至node为null</li>
- *      <li>2. 若左子树为空，则栈顶元素出栈，并将当前node的右子结点赋值给node</li>
- *      <li>3. 重复1，2步操作，直至node为空，并且栈为空</li>
+     *      <li>2. 若左子树为空，则栈顶元素出栈，并将当前node的右子结点赋值给node</li>
+     *      <li>3. 重复1，2步操作，直至node为空，并且栈为空</li>
      * <ul/>
      *
-     * @param node
+     * @param node 根节点
      */
-    public void preOrderNonRec(Node node) {
+    public void preOrderNonRec(Node<E> node) {
         if (node == null) {
             return;
         }
 
         System.out.println(node); // 先输出当前结点
 
-        Stack<Node> stack = new Stack<>();
+        Stack<Node<E>> stack = new Stack<>();
         stack.push(node);
         node = node.left;
 
@@ -145,7 +145,7 @@ public class BinaryTree<E extends Comparable<E>> {
         }
     }
 
-    /**
+    /*
      * 中序遍历：
      *
      * 对于当前结点，先输出它的左孩子，然后输出该结点，最后输出它的右孩子。
@@ -154,9 +154,9 @@ public class BinaryTree<E extends Comparable<E>> {
     /**
      * 中序遍历（递归）
      *
-     * @param node
+     * @param node 根节点
      */
-    public void inOrderRec(Node node) {
+    public void inOrderRec(Node<E> node) {
         if (node == null) {
             return;
         }
@@ -176,14 +176,14 @@ public class BinaryTree<E extends Comparable<E>> {
      *  <li>3. 重复1，2操作</li>
      * </ul>
      *
-     * @param node
+     * @param node 根节点
      */
-    public void inOrderNonRec(Node node) {
+    public void inOrderNonRec(Node<E> node) {
         if (node == null) {
             return;
         }
 
-        Stack<Node> stack = new Stack<>();
+        Stack<Node<E>> stack = new Stack<>();
         stack.push(node);
         node = node.left;
 
@@ -199,7 +199,7 @@ public class BinaryTree<E extends Comparable<E>> {
         }
     }
 
-    /**
+    /*
      * 后序遍历：
      *
      *
@@ -209,11 +209,11 @@ public class BinaryTree<E extends Comparable<E>> {
     /**
      * 后序遍历（递归）
      *
-     * @param node
+     * @param node 根节点
      */
-    public void postOrderRec(Node node) {
+    public void postOrderRec(Node<E> node) {
         if (node == null) {
-            return ;
+            return;
         }
 
         postOrderRec(node.left);
@@ -224,24 +224,24 @@ public class BinaryTree<E extends Comparable<E>> {
 
     /**
      * 后序遍历（非递归）
-     *
+     * <p>
      * 对于结点node，可分三种情况考虑：
-     *
+     * <p>
      * 1. node如果是叶子结点，直接输出
      * 2. node如果有孩子，且孩子没有被访问过，则按照右孩子，左孩子的顺序依次入栈
      * 3. node如果有孩子，而且孩子都已经访问过，则访问node节点
-     *
+     * <p>
      * 注意结点的右孩子先入栈，左孩子再入栈，这样才会先访问左孩子
      *
-     * @param node
+     * @param node 根节点
      */
-    public void postOrderNonRec(Node node) {
+    public void postOrderNonRec(Node<E> node) {
         if (node == null) {
-            return ;
+            return;
         }
 
-        Stack<Node> stack = new Stack<>();
-        Node pre = root;
+        Stack<Node<E>> stack = new Stack<>();
+        Node<E> pre = root;
         stack.push(node);
 
         while (!stack.isEmpty()) {
@@ -271,16 +271,16 @@ public class BinaryTree<E extends Comparable<E>> {
      *
      * @param node 根结点
      */
-    public void levelTraverse(Node node) throws InterruptedException {
-        if(node == null) {
+    public void levelTraverse(Node<E> node) throws InterruptedException {
+        if (node == null) {
             return;
         }
 
-        BlockingQueue<Node> queue = new LinkedBlockingQueue<>();
+        BlockingQueue<Node<E>> queue = new LinkedBlockingQueue<>();
         queue.add(node);
 
         while (!queue.isEmpty()) {
-            Node item = queue.take();
+            Node<E> item = queue.take();
             System.out.println(item);
 
             if (item.left != null) {
@@ -298,19 +298,19 @@ public class BinaryTree<E extends Comparable<E>> {
      *
      * @param node 根结点
      */
-    public void levelTraversePerLine(Node node) throws InterruptedException {
-        if(node == null) {
+    public void levelTraversePerLine(Node<E> node) throws InterruptedException {
+        if (node == null) {
             return;
         }
 
         int curLevelCount = 1; // 当前层结点数量
         int nextLevelCount = 0; // 下一层结点数量
 
-        BlockingQueue<Node> queue = new LinkedBlockingQueue<>();
+        BlockingQueue<Node<E>> queue = new LinkedBlockingQueue<>();
         queue.add(node);
 
         while (!queue.isEmpty()) {
-            Node item = queue.take();
+            Node<E> item = queue.take();
             System.out.println(item);
             System.out.println(curLevelCount);
             curLevelCount--;
@@ -325,8 +325,7 @@ public class BinaryTree<E extends Comparable<E>> {
                 nextLevelCount++;
             }
 
-            if(0 == curLevelCount)
-            {
+            if (0 == curLevelCount) {
                 System.out.println();
                 curLevelCount = nextLevelCount;
                 nextLevelCount = 0;
@@ -338,10 +337,11 @@ public class BinaryTree<E extends Comparable<E>> {
 
     /**
      * 计算二叉树的深度
+     *
      * @param node 当前结点点
      * @return 二叉树的深度
      */
-    public int getDepth(Node node) {
+    public int getDepth(Node<E> node) {
         if (node == null)
             return 0;
 
@@ -358,7 +358,7 @@ public class BinaryTree<E extends Comparable<E>> {
      * @param node 当前结点
      * @return 结点的数量
      */
-    public int countNode(Node node) {
+    public int countNode(Node<E> node) {
         if (node == null)
             return 0;
         return countNode(node.left) + countNode(node.right) + 1;
@@ -370,7 +370,7 @@ public class BinaryTree<E extends Comparable<E>> {
      * @param node 当前结点
      * @return 结点的数量
      */
-    public int countLeafNode(Node node) {
+    public int countLeafNode(Node<E> node) {
         if (node == null)
             return 0;
 
@@ -386,10 +386,10 @@ public class BinaryTree<E extends Comparable<E>> {
      * 获取二叉树第k层结点的数量
      *
      * @param node 根结点
-     * @param k 第k层
+     * @param k    第k层
      * @return 结点的数量
      */
-    public int countKLevelNode(Node node, int k) {
+    public int countKLevelNode(Node<E> node, int k) {
         if (node == null || k <= 0) {
             return 0;
         }
@@ -405,19 +405,19 @@ public class BinaryTree<E extends Comparable<E>> {
      * 获取二叉树第k层结点的数量 - 非递归
      *
      * @param node 根结点
-     * @param k 第k层
+     * @param k    第k层
      * @return 结点的数量
      */
-    public int countKLevelNodeNonRec(Node node, int k) throws InterruptedException {
-        if(node == null) {
+    public int countKLevelNodeNonRec(Node<E> node, int k) throws InterruptedException {
+        if (node == null) {
             return 0;
         }
 
         int level = 0;    //当前层计数器
-        int cntNode = 0;  //当前层节点数计数器
+        int cntNode;  //当前层节点数计数器
         int curLevelNodesTotal = 0; //当前层节点总数
 
-        BlockingQueue<Node> queue = new LinkedBlockingQueue<>();
+        BlockingQueue<Node<E>> queue = new LinkedBlockingQueue<>();
         queue.add(node);
 
         while (!queue.isEmpty()) {
@@ -434,16 +434,16 @@ public class BinaryTree<E extends Comparable<E>> {
                 node = queue.take();
 
                 //将当前层节点的左右结点均入队，即将下一层节点入队
-                if(node.left != null)
+                if (node.left != null)
                     queue.add(node.left);
-                if(node.right != null)
+                if (node.right != null)
                     queue.add(node.right);
             }
         }
 
-        while(!queue.isEmpty())
+        while (!queue.isEmpty())
             queue.clear();//清空队列
-        if(level == k)
+        if (level == k)
             return curLevelNodesTotal;
 
         return 0;
@@ -453,19 +453,19 @@ public class BinaryTree<E extends Comparable<E>> {
      * 获取二叉树第k层叶子结点的个数
      *
      * @param node 根结点
-     * @param k 第k层
+     * @param k    第k层
      * @return 结点的数量
      */
-    public int countKLevelLeafNode(Node node, int k) throws InterruptedException {
-        if(node == null) {
+    public int countKLevelLeafNode(Node<E> node, int k) throws InterruptedException {
+        if (node == null) {
             return 0;
         }
 
         int level = 0;    //当前层计数器
-        int cntNode = 0;  //当前层节点数计数器
-        int curLevelNodesTotal = 0; //当前层节点总数
+        int cntNode;  //当前层节点数计数器
+        int curLevelNodesTotal; //当前层节点总数
 
-        BlockingQueue<Node> queue = new LinkedBlockingQueue<>();
+        BlockingQueue<Node<E>> queue = new LinkedBlockingQueue<>();
         queue.add(node);
 
         while (!queue.isEmpty()) {
@@ -474,9 +474,9 @@ public class BinaryTree<E extends Comparable<E>> {
             curLevelNodesTotal = queue.size();//当前层的节点总数
 
             // 如果层数等于指定层数，遍历该层的结点，判断叶子结点
-            if(level == k) {
+            if (level == k) {
                 int leafCount = 0;
-                while(!queue.isEmpty()) {
+                while (!queue.isEmpty()) {
                     node = queue.take();
                     if (node.left == null && node.right == null) {
                         ++leafCount;
@@ -492,9 +492,9 @@ public class BinaryTree<E extends Comparable<E>> {
                 node = queue.take();
 
                 //将当前层节点的左右结点均入队，即将下一层节点入队
-                if(node.left != null)
+                if (node.left != null)
                     queue.add(node.left);
-                if(node.right != null)
+                if (node.right != null)
                     queue.add(node.right);
             }
         }
@@ -509,7 +509,7 @@ public class BinaryTree<E extends Comparable<E>> {
      * @param node 要检测的结点
      * @return 返回{@code true}，在；返回{@code false}，不在
      */
-    public boolean isNodeInTree(Node root, Node node) {
+    public boolean isNodeInTree(Node<E> root, Node<E> node) {
         if (root == null || node == null) {
             return false;
         }
@@ -532,7 +532,7 @@ public class BinaryTree<E extends Comparable<E>> {
      * @param curr 给定结点
      * @return 给定结点的父结点
      */
-    public Node getParent(Node root, Node curr) {
+    public Node<E> getParent(Node<E> root, Node<E> curr) {
         if (root == null || curr == null) {
             return null;
         }
@@ -541,7 +541,7 @@ public class BinaryTree<E extends Comparable<E>> {
             return null;
         }
 
-        Stack<Node> stack = new Stack<>();
+        Stack<Node<E>> stack = new Stack<>();
         stack.push(root);
         root = root.left;
 
@@ -567,13 +567,13 @@ public class BinaryTree<E extends Comparable<E>> {
      *
      * @param node 根结点
      */
-    public void mirrorRec(Node node) {
+    public void mirrorRec(Node<E> node) {
         if (node == null) {
             return;
         }
 
         // 交换左右子树
-        Node temp = node.left;
+        Node<E> temp = node.left;
         node.left = node.right;
         node.right = temp;
 
@@ -587,7 +587,7 @@ public class BinaryTree<E extends Comparable<E>> {
      *
      * @param node 根结点
      */
-    public void mirrorNonRec(Node node) {
+    public void mirrorNonRec(Node<E> node) {
         if (node == null) {
             return;
         }
@@ -595,8 +595,7 @@ public class BinaryTree<E extends Comparable<E>> {
         // 交换左右子树
         swap(node);
 
-
-        Stack<Node> stack = new Stack<>();
+        Stack<Node<E>> stack = new Stack<>();
         stack.push(node);
         node = node.left;
 
@@ -615,9 +614,9 @@ public class BinaryTree<E extends Comparable<E>> {
         }
     }
 
-    private void swap(Node node) {
+    private void swap(Node<E> node) {
         // 交换左右子树
-        Node temp = node.left;
+        Node<E> temp = node.left;
         node.left = node.right;
         node.right = temp;
     }
@@ -626,13 +625,12 @@ public class BinaryTree<E extends Comparable<E>> {
     /**
      * 最低公共祖先，即LCA(Lowest Common Ancestor）,此种情况假设节点没有父结点的指针
      *
-     *
-     * @param root 根结点
+     * @param root  根结点
      * @param node1 节点1
      * @param node2 节点2
      * @return 最低公共祖先
      */
-    public Node findLCA(Node root, Node node1, Node node2) {
+    public Node<E> findLCA(Node<E> root, Node<E> node1, Node<E> node2) {
         if (root == null) {
             return null;
         }
@@ -641,8 +639,8 @@ public class BinaryTree<E extends Comparable<E>> {
             return root;
         }
 
-        Node temp1 = findLCA(root.left, node1, node2);
-        Node temp2 = findLCA(root.right, node1, node2);
+        Node<E> temp1 = findLCA(root.left, node1, node2);
+        Node<E> temp2 = findLCA(root.right, node1, node2);
         if (temp1 != null && temp2 != null) {
             return root;
         }
@@ -654,13 +652,12 @@ public class BinaryTree<E extends Comparable<E>> {
     /**
      * 最低公共祖先，即LCA(Lowest Common Ancestor）,此种情况假设节点拥有父结点的指针
      *
-     *
-     * @param root 根结点
+     * @param root  根结点
      * @param node1 节点1
      * @param node2 节点2
      * @return 最低公共祖先
      */
-    public Node findLCA2(Node root, Node node1, Node node2) {
+    public Node<E> findLCA2(Node<E> root, Node<E> node1, Node<E> node2) {
         if (root == null) {
             return null;
         }
@@ -669,13 +666,13 @@ public class BinaryTree<E extends Comparable<E>> {
             return root;
         }
 
-        List<Node> queue1 = new LinkedList<>();
+        List<Node<E>> queue1 = new LinkedList<>();
         while (node1.parent != null) {
             node1 = node1.parent;
             queue1.add(node1);
         }
 
-        List<Node> queue2 = new LinkedList<>();
+        List<Node<E>> queue2 = new LinkedList<>();
         while (node2.parent != null) {
             node2 = node2.parent;
             queue2.add(node2);
@@ -687,11 +684,11 @@ public class BinaryTree<E extends Comparable<E>> {
     /**
      * 两个链表的第一个公共结点
      *
-     * @param queue1
-     * @param queue2
-     * @return
+     * @param queue1 链表1
+     * @param queue2 链表2
+     * @return 第一个公共结点
      */
-    private Node getFirstCommonNode(List<Node> queue1, List<Node> queue2) {
+    private Node<E> getFirstCommonNode(List<Node<E>> queue1, List<Node<E>> queue2) {
         for (int i = 0; i < queue1.size(); i++) {
             for (int j = 0; j < queue1.size(); j++) {
                 if (queue1.get(i) == queue2.get(j)) {
@@ -731,8 +728,7 @@ public class BinaryTree<E extends Comparable<E>> {
     }
 
 
-
-    public void display(Node node) {
+    public void display(Node<E> node) {
         if (node == null) {
             return;
         }
