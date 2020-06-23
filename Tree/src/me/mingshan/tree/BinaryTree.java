@@ -72,6 +72,15 @@ public class BinaryTree<E extends Comparable<E>> {
         }
     }
 
+    /**
+     *
+     *               1
+     *          2         3
+     *      4      5  6       7
+     *   8
+     *
+     *
+     */
     public Node<Integer> init() {
         Node<Integer> root = new Node<>(null, 1);
         Node<Integer> node1 = new Node<>(root, 2);
