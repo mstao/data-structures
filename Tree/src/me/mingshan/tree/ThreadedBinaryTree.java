@@ -11,13 +11,8 @@ package me.mingshan.tree;
  * @author mingshan
  */
 public class ThreadedBinaryTree<E extends Comparable<E>> {
-
-    // 根结点
-    private BinaryTree.Node<E> root;
-    // 二叉树结点数量
-    private int size;
     // 线索化的时候保存前驱
-    private Node pre = null;
+    private Node<E> pre = null;
 
     public static class Node<E extends Comparable<E>> {
         E item;
@@ -39,36 +34,33 @@ public class ThreadedBinaryTree<E extends Comparable<E>> {
         }
     }
 
-    public Node<E> init() {
-        Node root = new Node(1);
-        Node node1 = new Node(2);
-        Node node2 = new Node(3);
+    public Node<Integer> init() {
+        Node<Integer> root = new Node<>(1);
+        Node<Integer> node1 = new Node<>(2);
+        Node<Integer> node2 = new Node<>(3);
         root.left = node1;
         root.right = node2;
 
-        Node node3 = new Node(4);
-        Node node4 = new Node(5);
+        Node<Integer> node3 = new Node<>(4);
+        Node<Integer> node4 = new Node<>(5);
         node1.left = node3;
         node1.right = node4;
 
-        Node node5 = new Node(6);
-        Node node6 = new Node(7);
+        Node<Integer> node5 = new Node<>(6);
+        Node<Integer> node6 = new Node<>(7);
         node2.left = node5;
         node2.right = node6;
 
-        Node node10 = new Node(8);
-        node4.left = node10;
-
+        node4.left = new Node<>(8);
         return root;
     }
-
 
     /**
      * 中序遍历线索化
      *
      * @param root 二叉树根结点
      */
-    public void inThreading(Node root) {
+    public void inThreading(Node<E> root) {
         if (root == null) {
             return;
         }
@@ -98,7 +90,7 @@ public class ThreadedBinaryTree<E extends Comparable<E>> {
      *
      * @param root 根结点
      */
-    public void inOrderNonRec(Node root) {
+    public void inOrderNonRec(Node<E> root) {
         if (root == null) {
             return;
         }
