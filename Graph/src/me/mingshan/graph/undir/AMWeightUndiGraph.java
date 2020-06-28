@@ -7,7 +7,7 @@ import java.util.Arrays;
 /**
  * 无向加权图 - 基于邻接矩阵(adjacency matrix)
  */
-public class AMWeightUndiGraph implements Graph {
+public class AMWeightUndiGraph<E> implements Graph {
   /** 邻接矩阵长或宽最大长度 */
   private static final int maxSideLength = 4;
   // 邻接矩阵长或宽长度
@@ -39,7 +39,7 @@ public class AMWeightUndiGraph implements Graph {
    * @param start 起始节点位置
    * @param end 结束节点位置
    */
-  public void addEdge(Node node, int start, int end) {
+  public void addEdge(Node<E> node, int start, int end) {
     checkPosition(start);
     checkPosition(end);
 
@@ -47,6 +47,8 @@ public class AMWeightUndiGraph implements Graph {
       this.adjacencyMatrix[start][end] = node;
       this.adjacencyMatrix[end][start] = node;
       this.edgeSize++;
+      node.inDegree++;
+      node.outDegree--;
     }
   }
 
@@ -96,6 +98,10 @@ public class AMWeightUndiGraph implements Graph {
     private E value;
     // 节点权重
     private int weight;
+    // 入度
+    private int inDegree;
+    // 出度
+    private int outDegree;
 
     /**
      * 默认权重为0，相当于不加权
@@ -109,6 +115,38 @@ public class AMWeightUndiGraph implements Graph {
     public Node(E value, int weight) {
       this.value = value;
       this.weight = weight;
+    }
+
+    public E getValue() {
+      return value;
+    }
+
+    public void setValue(E value) {
+      this.value = value;
+    }
+
+    public int getWeight() {
+      return weight;
+    }
+
+    public void setWeight(int weight) {
+      this.weight = weight;
+    }
+
+    public int getInDegree() {
+      return inDegree;
+    }
+
+    public void setInDegree(int inDegree) {
+      this.inDegree = inDegree;
+    }
+
+    public int getOutDegree() {
+      return outDegree;
+    }
+
+    public void setOutDegree(int outDegree) {
+      this.outDegree = outDegree;
     }
 
     @Override

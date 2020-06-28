@@ -8,7 +8,7 @@ public class AMWeightUndiGraphTest {
 
   @Test
   public void initTest() {
-    AMWeightUndiGraph graph = new AMWeightUndiGraph();
+    AMWeightUndiGraph<Integer> graph = new AMWeightUndiGraph<>();
     AMWeightUndiGraph.Node<Integer> node1 = new AMWeightUndiGraph.Node<>(1, 1);
     AMWeightUndiGraph.Node<Integer> node2 = new AMWeightUndiGraph.Node<>(2, 2);
     AMWeightUndiGraph.Node<Integer> node3 = new AMWeightUndiGraph.Node<>(3, 3);
