@@ -109,7 +109,14 @@ public class AJUndiGraph implements Graph {
     }
   }
 
-  private static void print(int[] prev, int s, int t) { // 递归打印s->t的路径
+  /**
+   * 递归打印s->t的路径
+   *
+   * @param prev
+   * @param s 起始顶点
+   * @param t 终止顶点
+   */
+  private static void print(int[] prev, int s, int t) {
     if (prev[t] != -1 && t != s) {
       print(prev, s, prev[t]);
     }
