@@ -266,8 +266,9 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
     protected static class TreePrinter {
 
         public static <T extends Comparable<T>> String getString(BinarySearchTree<T> tree) {
-            if (tree.root == null)
+            if (tree.root == null) {
                 return "Tree has no nodes.";
+            }
             return getString(tree.root, "", true);
         }
 
@@ -276,8 +277,9 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
 
             if (node.parent != null) {
                 String siteme = "left";
-                if (node.equals(node.parent.right))
+                if (node.equals(node.parent.right)) {
                     siteme = "right";
+                }
                 builder.append(prefix + (isTail ? "└── " : "├── ") + "(" + siteme + ") " + node.item + "\n");
             } else {
                 builder.append(prefix + (isTail ? "└── " : "├── ") + node.item + "\n");
@@ -285,10 +287,12 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
             List<Node<E>> children = null;
             if (node.left != null || node.right != null) {
                 children = new ArrayList<Node<E>>(2);
-                if (node.left != null)
+                if (node.left != null) {
                     children.add(node.left);
-                if (node.right != null)
+                }
+                if (node.right != null) {
                     children.add(node.right);
+                }
             }
             if (children != null) {
                 for (int i = 0; i < children.size() - 1; i++) {
