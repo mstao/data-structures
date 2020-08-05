@@ -407,8 +407,9 @@ public class BinaryTree<E extends Comparable<E>> {
      * @return 二叉树的深度
      */
     public int getDepth(Node<E> node) {
-        if (node == null)
+        if (node == null) {
             return 0;
+        }
 
         int m = getDepth(node.left);
         int n = getDepth(node.right);
@@ -424,8 +425,9 @@ public class BinaryTree<E extends Comparable<E>> {
      * @return 结点的数量
      */
     public int countNode(Node<E> node) {
-        if (node == null)
+        if (node == null) {
             return 0;
+        }
         return countNode(node.left) + countNode(node.right) + 1;
     }
 
@@ -436,8 +438,9 @@ public class BinaryTree<E extends Comparable<E>> {
      * @return 结点的数量
      */
     public int countLeafNode(Node<E> node) {
-        if (node == null)
+        if (node == null) {
             return 0;
+        }
 
         if (node.left == null && node.right == null) {
             return 1;
@@ -490,8 +493,10 @@ public class BinaryTree<E extends Comparable<E>> {
             cntNode = 0; //当前层节点数计数器归0
             curLevelNodesTotal = queue.size();//当前层的节点总数
 
-            if (level == k)//如果层数已大于指定层数，则退出
+            // 如果层数已大于指定层数，则退出
+            if (level == k) {
                 break;
+            }
 
             while (cntNode < curLevelNodesTotal) {
 
@@ -499,17 +504,21 @@ public class BinaryTree<E extends Comparable<E>> {
                 node = queue.take();
 
                 //将当前层节点的左右结点均入队，即将下一层节点入队
-                if (node.left != null)
+                if (node.left != null) {
                     queue.add(node.left);
-                if (node.right != null)
+                }
+                if (node.right != null) {
                     queue.add(node.right);
+                }
             }
         }
 
-        while (!queue.isEmpty())
+        while (!queue.isEmpty()) {
             queue.clear();//清空队列
-        if (level == k)
+        }
+        if (level == k) {
             return curLevelNodesTotal;
+        }
 
         return 0;
     }
@@ -557,10 +566,12 @@ public class BinaryTree<E extends Comparable<E>> {
                 node = queue.take();
 
                 //将当前层节点的左右结点均入队，即将下一层节点入队
-                if (node.left != null)
+                if (node.left != null) {
                     queue.add(node.left);
-                if (node.right != null)
+                }
+                if (node.right != null) {
                     queue.add(node.right);
+                }
             }
         }
 
