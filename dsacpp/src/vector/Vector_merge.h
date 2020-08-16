@@ -8,13 +8,13 @@
 
 #pragma once
 
-template <typename T> //ÓĞĞòÏòÁ¿£¨Çø¼ä£©µÄ¹é²¢
-void Vector<T>::merge ( Rank lo, Rank mi, Rank hi ) { //¸÷×ÔÓĞĞòµÄ×ÓÏòÁ¿[lo, mi)ºÍ[mi, hi)
-   T* A = _elem + lo; //ºÏ²¢ºóµÄÏòÁ¿A[0, hi - lo) = _elem[lo, hi)
-   int lb = mi - lo; T* B = new T[lb]; //Ç°×ÓÏòÁ¿B[0, lb) = _elem[lo, mi)
-   for ( Rank i = 0; i < lb; i++ ) B[i] = A[i]; //¸´ÖÆÇ°×ÓÏòÁ¿
-   int lc = hi - mi; T* C = _elem + mi; //ºó×ÓÏòÁ¿C[0, lc) = _elem[mi, hi)
-   for ( Rank i = 0, j = 0, k = 0; j < lb; ) //¹é²¢£º·´¸´´ÓBºÍCÊ×ÔªËØÖĞÈ¡³ö¸üĞ¡Õß
-      A[i++] = ( lc <= k || B[j] <= C[k] ) ? B[j++] : C[k++]; //½«Æä¹éÈëAÖĞ
-   delete [] B; //ÊÍ·ÅÁÙÊ±¿Õ¼äB
+template <typename T> //æœ‰åºå‘é‡ï¼ˆåŒºé—´ï¼‰çš„å½’å¹¶
+void Vector<T>::merge ( Rank lo, Rank mi, Rank hi ) { //å„è‡ªæœ‰åºçš„å­å‘é‡[lo, mi)å’Œ[mi, hi)
+   T* A = _elem + lo; //åˆå¹¶åçš„å‘é‡A[0, hi - lo) = _elem[lo, hi)
+   int lb = mi - lo; T* B = new T[lb]; //å‰å­å‘é‡B[0, lb) = _elem[lo, mi)
+   for ( Rank i = 0; i < lb; i++ ) B[i] = A[i]; //å¤åˆ¶å‰å­å‘é‡
+   int lc = hi - mi; T* C = _elem + mi; //åå­å‘é‡C[0, lc) = _elem[mi, hi)
+   for ( Rank i = 0, j = 0, k = 0; j < lb; ) //å½’å¹¶ï¼šåå¤ä»Bå’ŒCé¦–å…ƒç´ ä¸­å–å‡ºæ›´å°è€…
+      A[i++] = ( lc <= k || B[j] <= C[k] ) ? B[j++] : C[k++]; //å°†å…¶å½’å…¥Aä¸­
+   delete [] B; //é‡Šæ”¾ä¸´æ—¶ç©ºé—´B
 }
