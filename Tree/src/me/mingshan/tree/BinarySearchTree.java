@@ -16,29 +16,11 @@ import java.util.List;
  * @author mingshan
  *
  */
-public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
+public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> implements Tree<E> {
     // 根结点
     private Node<E> root;
     // 二叉树结点数量
     private int size;
-
-    public static class Node<E extends Comparable<E>> {
-        E item;
-        Node<E> parent;
-        Node<E> left;
-        Node<E> right;
-
-        public Node (Node<E> parent, E item) {
-            this.parent = parent;
-            this.item = item;
-        }
-
-        @Override
-        public String toString() {
-            return "item=" + item + " parent=" + ((parent != null) ? parent.item : "NULL") + " left="
-                    + ((left != null) ? left.item : "NULL") + " right=" + ((right != null) ? right.item : "NULL");
-        }
-    }
 
     @Override
     public boolean add(E value) {
@@ -60,26 +42,26 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
         // 按照先序进行遍历二叉树
         while (node != null) {
             // 如过新结点的值比父节点的值小
-            if (node.item.compareTo(newNode.item) > 0) {
+            if (node.getItem().compareTo(newNode.getItem()) > 0) {
                 // 此时应该从父节点的左子树进行搜索
                 // 并且新结点作为叶子结点，其父节点的左子结点应为null
-                if (node.left == null) {
-                    node.left = newNode;
-                    newNode.parent = node;
+                if (node.getLeft() == null) {
+                    node.setLeft(newNode);
+                    newNode.setParent(node);
                     size++;
                     return newNode;
                 }
-                node = node.left;
+                node = node.getLeft();
             } else {
                 // 如果当前结点的值比父结点的值大，说明应该从父节点的右子树搜索
                 // 并且新结点作为叶子结点，其父节点的右子结点应为null
-                if (node.right == null) {
-                    node.right = newNode;
-                    newNode.parent = node;
+                if (node.getRight() == null) {
+                    node.setRight(newNode);
+                    newNode.setParent(node);
                     size++;
                     return newNode;
                 }
-                node = node.right;
+                node = node.getRight();
             }
         }
 
@@ -89,7 +71,7 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
     @Override
     public E remove(E value) {
         Node<E> node = this.removeValue(value);
-        return (node != null ? node.item : null);
+        return (node != null ? node.getItem() : null);
     }
 
     private Node<E> removeValue(E value) {
@@ -114,64 +96,60 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
     private Node<E> removeNode(Node<E> nodeToRemoved) {
         // 判断当前节点是否为叶子结点（叶子结点的特点是没有子结点）
         // 直接删除叶子结点
-        if (nodeToRemoved.left == null && nodeToRemoved.right == null) {
+        if (nodeToRemoved.getLeft() == null && nodeToRemoved.getRight() == null) {
             // 判断该二叉树是否只有根结点一个结点
             if (nodeToRemoved == root) {
                 root = null;
                 return root;
             }
             // 如果二叉树不是只有根结点一个结点，那么当前要删除的结点一定有父结点
-            Node<E> targetParent = nodeToRemoved.parent;
+            Node<E> targetParent = nodeToRemoved.getParent();
             // 判断当前结点是其父结点的左子结点还是右子结点
-            if (targetParent.left.item.compareTo(nodeToRemoved.item) == 0) {
+            if (targetParent.getLeft().getItem().compareTo(nodeToRemoved.getItem()) == 0) {
                 // 如果当前结点是其父结点的左子结点
-                targetParent.left = null;
-            } else if (targetParent.right.item.compareTo(nodeToRemoved.item) == 0){
+                targetParent.setLeft(null);
+            } else if (targetParent.getRight().getItem().compareTo(nodeToRemoved.getItem()) == 0){
                 // 如果当前结点是其父结点的右子结点
-                targetParent.right = null;
+                targetParent.setRight(null);
             } else {
                 // 此时二叉树有问题
                 return null;
             }
-        } else if (nodeToRemoved.left != null && nodeToRemoved.right != null) {
+        } else if (nodeToRemoved.getLeft() != null && nodeToRemoved.getRight() != null) {
             // 要删除的结点左右结点(树)都有
             // 此时结点的左右子结点(树)都有，用其右子树中的最小值代替该节点上的值,删除其右子树上的最小值
             // 所以此时需要先找出其右子树的最小值
-            Node<E> minNode = findMinNode(nodeToRemoved);
+            Node<E> minNode = nodeToRemoved.getSucc();
             // 将当前要删除结点的值替换为其子树的最小节点
-            nodeToRemoved.item = minNode.item;
+            nodeToRemoved.setItem(minNode.getItem());
             // 删除找到的最小节点
             removeNode(minNode);
         } else {
             // 要删除的结点只有左子结点(树)或者右子结点(树)
             // 此时需要将该结点的子结点(树)指向该结点(树)的父结点
-            Node<E> targetLeft = nodeToRemoved.left;
-            Node<E> targetRight = nodeToRemoved.right;
-            Node<E> targetParent = nodeToRemoved.parent;
+            Node<E> targetLeft = nodeToRemoved.getLeft();
+            Node<E> targetRight = nodeToRemoved.getRight();
+            Node<E> targetParent = nodeToRemoved.getParent();
             // 判断当前要删除的结点是其父结点的左结点还是右结点
-            if (targetParent.left.item.compareTo(nodeToRemoved.item) == 0) {
+            if (targetParent.getLeft().getItem().compareTo(nodeToRemoved.getItem()) == 0) {
                 // 左
                 if (targetLeft != null) {
-                    targetParent.left = targetLeft;
-                    targetLeft.parent = targetParent;
-                    targetLeft = null;
+                    targetParent.setLeft(targetLeft);
+                    targetLeft.setParent(targetParent);
                 }
                 if (targetRight != null) {
-                    targetParent.left = targetRight;
-                    targetRight.parent = targetParent;
-                    targetRight = null;
+                    targetParent.setLeft(targetRight);
+                    targetRight.setParent(targetParent);
                 }
-            } else if (targetParent.right.item.compareTo(nodeToRemoved.item) == 0) {
+            } else if (targetParent.getRight().getItem().compareTo(nodeToRemoved.getItem()) == 0) {
                 // 右
                 if (targetLeft != null) {
-                    targetParent.right = targetLeft;
-                    targetLeft.parent = targetParent;
-                    targetLeft = null;
+                    targetParent.setRight(targetLeft);
+                    targetLeft.setParent(targetParent);
                 }
                 if (targetRight != null) {
-                    targetParent.right = targetRight;
-                    targetRight.parent = targetParent;
-                    targetRight = null;
+                    targetParent.setRight(targetRight);
+                    targetRight.setParent(targetParent);
                 }
             }
         }
@@ -190,11 +168,11 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
         if (nodeToRemoved == null) {
             return null;
         }
-        if (nodeToRemoved.left == null) {
+        if (nodeToRemoved.getLeft() == null) {
             return nodeToRemoved;
         }
 
-        return findMinNode(nodeToRemoved.left);
+        return findMinNode(nodeToRemoved.getLeft());
     }
 
     /**
@@ -204,11 +182,11 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
      */
     private Node<E> getNode(E value) {
         Node<E> node = root;
-        while (node != null && node.item != null) {
-            if (node.item.compareTo(value) > 0) {
-                node = node.left;
-            } else if (node.item.compareTo(value) < 0) {
-                node = node.right;
+        while (node != null && node.getItem() != null) {
+            if (node.getItem().compareTo(value) > 0) {
+                node = node.getLeft();
+            } else if (node.getItem().compareTo(value) < 0) {
+                node = node.getRight();
             } else {
                 return node;
             }
@@ -227,27 +205,27 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
     public boolean contains(E value) {
         // 先序遍历二叉树
         Node<E> node = root;
-        if (root.item.compareTo(value) == 0) {
+        if (root.getItem().compareTo(value) == 0) {
             return true;
         }
 
         while (node != null) {
             // 如果当前值比父节点的值小
-            if (node.item.compareTo(value) > 0) {
+            if (node.getItem().compareTo(value) > 0) {
                 // 此时应该从父节点的左子树进行搜索
-                if (node.left != null
-                        && (node.left.item.compareTo(value) == 0)) {
+                if (node.getLeft() != null
+                        && (node.getLeft().getItem().compareTo(value) == 0)) {
                     return true;
                 }
-                node = node.left;
+                node = node.getLeft();
             } else {
                 // 如果当前结点的值比父结点的值大，说明应该从父节点的右子树搜索
                 // 并且新结点作为叶子结点，其父节点的右子结点应为null
-                if (node.right != null 
-                        && (node.right.item.compareTo(value) == 0)) {
+                if (node.getRight() != null
+                        && (node.getRight().getItem().compareTo(value) == 0)) {
                     return true;
                 }
-                node = node.right;
+                node = node.getRight();
             }
         }
         return false;
@@ -275,23 +253,23 @@ public class BinarySearchTree<E extends Comparable<E>> implements Tree<E> {
         private static <E extends Comparable<E>> String getString(Node<E> node, String prefix, boolean isTail) {
             StringBuilder builder = new StringBuilder();
 
-            if (node.parent != null) {
+            if (node.getParent() != null) {
                 String siteme = "left";
-                if (node.equals(node.parent.right)) {
+                if (node.equals(node.getParent().getRight())) {
                     siteme = "right";
                 }
-                builder.append(prefix + (isTail ? "└── " : "├── ") + "(" + siteme + ") " + node.item + "\n");
+                builder.append(prefix + (isTail ? "└── " : "├── ") + "(" + siteme + ") " + node.getItem() + "\n");
             } else {
-                builder.append(prefix + (isTail ? "└── " : "├── ") + node.item + "\n");
+                builder.append(prefix + (isTail ? "└── " : "├── ") + node.getItem() + "\n");
             }
             List<Node<E>> children = null;
-            if (node.left != null || node.right != null) {
+            if (node.getLeft() != null || node.getRight() != null) {
                 children = new ArrayList<Node<E>>(2);
-                if (node.left != null) {
-                    children.add(node.left);
+                if (node.getLeft() != null) {
+                    children.add(node.getLeft());
                 }
-                if (node.right != null) {
-                    children.add(node.right);
+                if (node.getRight() != null) {
+                    children.add(node.getRight());
                 }
             }
             if (children != null) {
