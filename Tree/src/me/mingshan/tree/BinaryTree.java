@@ -12,9 +12,9 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @author mingshan
  */
 public class BinaryTree<E extends Comparable<E>> {
-  // 根结点
+  /** 根结点 */
   private Node<E> root;
-  // 二叉树结点数量
+  /** 二叉树结点数量 */
   private int size;
 
   /**
@@ -27,10 +27,18 @@ public class BinaryTree<E extends Comparable<E>> {
     private Node<E> parent;
     private Node<E> left;
     private Node<E> right;
+    private int height = 1;
 
     public Node(Node<E> parent, E item) {
       this.parent = parent;
       this.item = item;
+    }
+
+    public Node(E item, Node<E> parent, Node<E> left, Node<E> right) {
+      this.item = item;
+      this.parent = parent;
+      this.left = left;
+      this.right = right;
     }
 
     public E getItem() {
@@ -63,6 +71,14 @@ public class BinaryTree<E extends Comparable<E>> {
 
     public void setRight(Node<E> right) {
       this.right = right;
+    }
+
+    public int getHeight() {
+      return height;
+    }
+
+    public void setHeight(int height) {
+      this.height = height;
     }
 
     /**
