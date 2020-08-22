@@ -11,11 +11,37 @@ import java.util.concurrent.LinkedBlockingQueue;
  *
  * @author mingshan
  */
-public class BinaryTree<E extends Comparable<E>> {
+public class BinaryTree<E extends Comparable<E>> implements Tree<E> {
   /** 根结点 */
-  private Node<E> root;
+  protected Node<E> root;
   /** 二叉树结点数量 */
-  private int size;
+  protected int size;
+
+  @Override
+  public boolean add(E value) {
+    return false;
+  }
+
+  @Override
+  public E remove(E value) {
+    return null;
+  }
+
+  @Override
+  public void clear() {
+    root = null;
+    size = 0;
+  }
+
+  @Override
+  public boolean contains(E value) {
+    return false;
+  }
+
+  @Override
+  public int size() {
+    return size;
+  }
 
   /**
    * 树节点

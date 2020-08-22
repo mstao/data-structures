@@ -12,15 +12,6 @@ import java.util.Objects;
  */
 public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
   /**
-   * AVL树根结点
-   */
-  private AVLNode<E> root;
-  /**
-   * AVL树节点数量
-   */
-  private int size;
-
-  /**
    * AVL树的失衡类型枚举，包括: LL, LR, RL, RR
    */
   private enum Balance {
@@ -36,6 +27,7 @@ public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
     this.root = root;
   }
 
+  @Override
   public boolean add(E value) {
     AVLNode<E> node = addNode(value);
     return node != null;
@@ -57,7 +49,7 @@ public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
       return newNode;
     }
 
-    AVLNode<E> node = root;
+    AVLNode<E> node = (AVLNode<E>) root;
     // 按照先序进行遍历二叉树
     while (node != null) {
       // 如果新结点的值比父节点的值小
@@ -221,18 +213,21 @@ public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
     return node;
   }
 
+  @Override
   public E remove(E value) {
     return null;
   }
 
+  @Override
   public void clear() {
     root = null;
     size = 0;
   }
 
+  @Override
   public boolean contains(E value) {
     // 先序遍历二叉树
-    AVLNode<E> node = root;
+    AVLNode<E> node = (AVLNode<E>) root;
     if (root.getItem().compareTo(value) == 0) {
       return true;
     }
@@ -260,6 +255,7 @@ public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
     return false;
   }
 
+  @Override
   public int size() {
     return size;
   }
@@ -315,9 +311,7 @@ public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
         rightHeight = right.getHeight();
       }
 
-      int height = 1 + Math.max(leftHeight, rightHeight);
-
-      return height;
+      return 1 + Math.max(leftHeight, rightHeight);
     }
 
     @Override
@@ -340,7 +334,7 @@ public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
       if (tree.root == null) {
         return "Tree has no nodes.";
       }
-      return getString(tree.root, "", true);
+      return getString((AVLNode) tree.root, "", true);
     }
 
     private static <E extends Comparable<E>> String getString(AVLNode<E> node, String prefix, boolean isTail) {

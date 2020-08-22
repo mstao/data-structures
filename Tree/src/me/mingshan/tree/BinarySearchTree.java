@@ -16,10 +16,6 @@ import java.util.List;
  * @author mingshan
  */
 public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> implements Tree<E> {
-  // 根结点
-  private Node<E> root;
-  // 二叉树结点数量
-  private int size;
 
   @Override
   public boolean add(E value) {
