@@ -236,50 +236,10 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
 
   @Override
   public String toString() {
-    return TreePrinter.getString(this);
+    if (root == null) {
+      return "Tree has no nodes.";
+    }
+    return TreePrinter.getString(root, "", true);
   }
 
-  protected static class TreePrinter {
-
-    public static <T extends Comparable<T>> String getString(BinarySearchTree<T> tree) {
-      if (tree.root == null) {
-        return "Tree has no nodes.";
-      }
-      return getString(tree.root, "", true);
-    }
-
-    private static <E extends Comparable<E>> String getString(Node<E> node, String prefix, boolean isTail) {
-      StringBuilder builder = new StringBuilder();
-
-      if (node.getParent() != null) {
-        String siteme = "left";
-        if (node.equals(node.getParent().getRight())) {
-          siteme = "right";
-        }
-        builder.append(prefix + (isTail ? "└── " : "├── ") + "(" + siteme + ") " + node.getItem() + "\n");
-      } else {
-        builder.append(prefix + (isTail ? "└── " : "├── ") + node.getItem() + "\n");
-      }
-      List<Node<E>> children = null;
-      if (node.getLeft() != null || node.getRight() != null) {
-        children = new ArrayList<Node<E>>(2);
-        if (node.getLeft() != null) {
-          children.add(node.getLeft());
-        }
-        if (node.getRight() != null) {
-          children.add(node.getRight());
-        }
-      }
-      if (children != null) {
-        for (int i = 0; i < children.size() - 1; i++) {
-          builder.append(getString(children.get(i), prefix + (isTail ? "    " : "│   "), false));
-        }
-        if (children.size() >= 1) {
-          builder.append(getString(children.get(children.size() - 1), prefix + (isTail ? "    " : "│   "), true));
-        }
-      }
-
-      return builder.toString();
-    }
-  }
 }

@@ -220,8 +220,7 @@ public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
 
   @Override
   public void clear() {
-    root = null;
-    size = 0;
+    super.clear();
   }
 
   @Override
@@ -257,7 +256,7 @@ public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
 
   @Override
   public int size() {
-    return size;
+    return size();
   }
 
   /**
@@ -325,42 +324,10 @@ public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
 
   @Override
   public String toString() {
-    return TreePrinter.getString(this);
+    if (root == null) {
+      return "Tree has no nodes.";
+    }
+    return TreePrinter.getString(root, "", true);
   }
 
-  public static class TreePrinter {
-
-    public static <E extends Comparable<E>> String getString(AVLTree<E> tree) {
-      if (tree.root == null) {
-        return "Tree has no nodes.";
-      }
-      return getString((AVLNode) tree.root, "", true);
-    }
-
-    private static <E extends Comparable<E>> String getString(AVLNode<E> node, String prefix, boolean isTail) {
-      StringBuilder builder = new StringBuilder();
-
-      builder.append(prefix).append(isTail ? "└── " : "├── ").append(node.getItem()).append("\n");
-      List<AVLNode<E>> children = null;
-      if (node.getLeft() != null || node.getRight() != null) {
-        children = new ArrayList<>(2);
-        if (node.getLeft() != null) {
-          children.add((AVLNode<E>) node.getLeft());
-        }
-        if (node.getRight() != null) {
-          children.add((AVLNode<E>) node.getRight());
-        }
-      }
-      if (children != null) {
-        for (int i = 0; i < children.size() - 1; i++) {
-          builder.append(getString(children.get(i), prefix + (isTail ? "    " : "│   "), false));
-        }
-        if (children.size() >= 1) {
-          builder.append(getString(children.get(children.size() - 1), prefix + (isTail ? "    " : "│   "), true));
-        }
-      }
-
-      return builder.toString();
-    }
-  }
 }
