@@ -254,11 +254,6 @@ public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
     return false;
   }
 
-  @Override
-  public int size() {
-    return size();
-  }
-
   /**
    * AVL树的节点
    *
