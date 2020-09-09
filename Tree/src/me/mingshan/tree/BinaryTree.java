@@ -20,12 +20,12 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E> {
 
   @Override
   public boolean add(E value) {
-    return false;
+    throw new UnsupportedOperationException();
   }
 
   @Override
   public E remove(E value) {
-    return null;
+    throw new UnsupportedOperationException();
   }
 
   @Override
@@ -36,7 +36,7 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E> {
 
   @Override
   public boolean contains(E value) {
-    return false;
+    throw new UnsupportedOperationException();
   }
 
   @Override
