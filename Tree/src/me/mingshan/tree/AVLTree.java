@@ -56,7 +56,7 @@ public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
       if (node.getItem().compareTo(newNode.getItem()) > 0) {
         // 此时应该从父节点的左子树进行搜索
         // 并且新结点作为叶子结点，其父节点的左子结点应为null
-        if (node.getItem() == null) {
+        if (node.getLeft() == null) {
           node.setLeft(newNode);
           newNode.setParent(node);
           size++;
@@ -113,7 +113,7 @@ public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
     int balanceFactor = node.getBalanceFactor();
 
     // 平衡因子大于1或者小于-1，表示当前树失衡了，需要进行平衡处理
-    if (balanceFactor > 1 || balanceFactor < -1) {
+    if (Math.abs(balanceFactor) > 1) {
       Balance balance = null;
       AVLNode<E> childNode = null;
 
