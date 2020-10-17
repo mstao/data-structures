@@ -102,6 +102,12 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTree<E> {
     rebalanced(newNode);
 
     // 平衡父结点，使整棵树达到平衡
+    rebalanceParent(newNode);
+
+    return newNode;
+  }
+
+  private void rebalanceParent(AVLNode<E> newNode) {
     AVLNode<E> currParent = (AVLNode<E>) newNode.getParent();
     while (currParent != null) {
       int h1 = currParent.getHeight();
@@ -117,8 +123,6 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTree<E> {
 
       currParent = (AVLNode<E>) currParent.getParent();
     }
-
-    return newNode;
   }
 
   /**
@@ -237,13 +241,69 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTree<E> {
   public E remove(E value) {
     Objects.requireNonNull(value, "The value must be not null");
 
-    E removedValue = super.remove(value);
-
-    if (removedValue != null) {
-      rebalanced((AVLNode<E>) root);
+    Node<E> node = super.getNode(value);
+    if (node == null) {
+      return null;
     }
 
-    return removedValue;
+    // 叶子节点
+    AVLNode<E> avlNode = (AVLNode<E>) node;
+
+    if (node.isLeaf()) {
+      // 直接删除
+      node.setParent(null);
+    } else if (node.getLeft() == null || node.getRight() == null) {
+      // 只是左子节点或者右子节点
+      Node<E> subNode = null;
+      if (node.getLeft() != null) {
+        subNode = node.getLeft();
+        node.setLeft(null);
+      } else if (node.getRight() != null) {
+        subNode = node.getRight();
+        node.setRight(null);
+      }
+
+      Node<E> parent = node.getParent();
+      if (parent.getLeft() == node) {
+        parent.setLeft(subNode);
+      } else if (parent.getRight() == node) {
+        parent.setRight(subNode);
+      }
+
+      assert subNode != null;
+      subNode.setParent(parent);
+    } else {
+      // 当前节点拥有左右两子节点
+
+      // 不直接删除节点，而且找一个节点替代，从左右子树中较高的一侧寻找替代节点。
+      // 如果是从左子树中寻找，则找其最右端的子节点，也就是左子树中最大的元素作为替代节点；
+      // 如果是从右子树中寻找，则找其最左端的子节点，也就是右子树中最小的元素作为替代节点。
+      Node<E> left = node.getLeft();
+      Node<E> right = node.getRight();
+
+      Node<E> replaceNode;
+
+      if (left.getHeight() > right.getHeight()) {
+        replaceNode = left.getPrev();
+        Node<E> replaceNodeParent = replaceNode.getParent();
+        replaceNodeParent.setLeft(replaceNode.getRight());
+      } else {
+        replaceNode = right.getSucc();
+        Node<E> replaceNodeParent = replaceNode.getParent();
+        replaceNodeParent.setRight(replaceNode.getLeft());
+      }
+
+      replaceNode.setParent(null);
+      replaceNode.setLeft(null);
+      replaceNode.setRight(null);
+
+      node.setItem(replaceNode.getItem());
+    }
+
+    avlNode.updateHeight();
+    // 沿着其父节点一路向上平衡
+    rebalanceParent(avlNode);
+    return value;
   }
 
   @Override

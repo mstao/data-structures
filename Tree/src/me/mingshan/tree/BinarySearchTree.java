@@ -178,7 +178,7 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
    * @param value 传入的值
    * @return 结点
    */
-  private Node<E> getNode(E value) {
+  protected Node<E> getNode(E value) {
     Node<E> node = root;
     while (node != null && node.getItem() != null) {
       if (node.getItem().compareTo(value) > 0) {
