@@ -13,9 +13,13 @@ import java.util.concurrent.LinkedBlockingQueue;
  * @author mingshan
  */
 public class BinaryTree<E extends Comparable<E>> implements Tree<E> {
-  /** 根结点 */
+  /**
+   * 根结点
+   */
   protected Node<E> root;
-  /** 二叉树结点数量 */
+  /**
+   * 二叉树结点数量
+   */
   protected int size;
 
   @Override
@@ -170,24 +174,25 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E> {
      * @return 当前节点的直接前驱
      */
     public Node<E> getPrev() {
-      //若左子树非空，则其中的最大者即为当前节点的直接前驱
+      // 若左子树非空，则其中的最大者即为当前节点的直接前驱
       if (hasLChild()) {
         return findMaxDescendant(getLeft());
       }
-      //至此，当前节点没有左孩子
+      // 至此，当前节点没有左孩子
       if (isRChild()) {
-        return getParent();//若当前节点是右孩子，则父亲即为其直接前驱
+        // 若当前节点是右孩子，则父亲即为其直接前驱
+        return getParent();
       }
-      //至此，当前节点没有左孩子，而且是左孩子
-      Node<E> v = this;//从当前节点出发
+      // 至此，当前节点没有左孩子，而且是左孩子
+      // 从当前节点出发
+      Node<E> v = this;
       while (v.isLChild()) {
-        v = v.getParent();//沿左孩子链一直上升
+        // 沿左孩子链一直上升
+        v = v.getParent();
       }
-      //至此，v或者没有父亲，或者是父亲的右孩子
+      // 至此，v或者没有父亲，或者是父亲的右孩子
       return v.getParent();
     }
-
-    //按照中序遍历的次序，找到当前节点的直接后继
 
     /**
      * 按照中序遍历的次序，找到当前节点的直接后继
@@ -195,20 +200,23 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E> {
      * @return 当前节点的直接后继
      */
     public Node<E> getSucc() {
-      //若右子树非空，则其中的最小者即为当前节点的直接后继
+      // 若右子树非空，则其中的最小者即为当前节点的直接后继
       if (hasRChild()) {
         return findMinDescendant(getRight());
       }
-      //至此，当前节点没有右孩子
+      // 至此，当前节点没有右孩子
       if (isLChild()) {
-        return getParent();//若当前节点是左孩子，则父亲即为其直接后继
+        // 若当前节点是左孩子，则父亲即为其直接后继
+        return getParent();
       }
-      //至此，当前节点没有右孩子，而且是右孩子
-      Node<E> v = this;//从当前节点出发
+      // 至此，当前节点没有右孩子，而且是右孩子
+      // 从当前节点出发
+      Node<E> v = this;
       while (v.isRChild()) {
-        v = v.getParent();//沿右孩子链一直上升
+        // 沿右孩子链一直上升
+        v = v.getParent();
       }
-      //至此，v或者没有父亲，或者是父亲的左孩子
+      // 至此，v或者没有父亲，或者是父亲的左孩子
       return v.getParent();
     }
 
@@ -221,10 +229,11 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E> {
     protected Node<E> findMinDescendant(Node<E> v) {
       if (null != v) {
         while (v.hasLChild()) {
-          v = v.getLeft();//从v出发，沿左孩子链一直下降
+          // 从v出发，沿左孩子链一直下降
+          v = v.getLeft();
         }
       }
-      //至此，v或者为空，或者没有左孩子
+      // 至此，v或者为空，或者没有左孩子
       return v;
     }
 
@@ -237,10 +246,11 @@ public class BinaryTree<E extends Comparable<E>> implements Tree<E> {
     protected Node<E> findMaxDescendant(Node<E> v) {
       if (null != v) {
         while (v.hasRChild()) {
-          v = v.getRight();//从v出发，沿右孩子链一直下降
+          // 从v出发，沿右孩子链一直下降
+          v = v.getRight();
         }
       }
-      //至此，v或者为空，或者没有右孩子
+      // 至此，v或者为空，或者没有右孩子
       return v;
     }
 
