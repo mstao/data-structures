@@ -201,32 +201,8 @@ public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> imp
 
   @Override
   public boolean contains(E value) {
-    // 先序遍历二叉树
-    Node<E> node = root;
-    if (root.getItem().compareTo(value) == 0) {
-      return true;
-    }
-
-    while (node != null) {
-      // 如果当前值比父节点的值小
-      if (node.getItem().compareTo(value) > 0) {
-        // 此时应该从父节点的左子树进行搜索
-        if (node.getLeft() != null
-            && (node.getLeft().getItem().compareTo(value) == 0)) {
-          return true;
-        }
-        node = node.getLeft();
-      } else {
-        // 如果当前结点的值比父结点的值大，说明应该从父节点的右子树搜索
-        // 并且新结点作为叶子结点，其父节点的右子结点应为null
-        if (node.getRight() != null
-            && (node.getRight().getItem().compareTo(value) == 0)) {
-          return true;
-        }
-        node = node.getRight();
-      }
-    }
-    return false;
+    Node<E> node = getNode(value);
+    return node != null;
   }
 
   @Override

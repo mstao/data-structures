@@ -10,7 +10,7 @@ import java.util.Objects;
  *
  * @author mingshan
  */
-public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
+public class AVLTree<E extends Comparable<E>> extends BinarySearchTree<E> {
   /**
    * AVL树的失衡类型枚举，包括: LL, LR, RL, RR
    */
@@ -40,6 +40,8 @@ public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
    * @return 新添加的节点
    */
   private AVLNode<E> addNode(E value) {
+    Objects.requireNonNull(value, "The value must be not null");
+
     // 生成新结点
     AVLNode<E> newNode = new AVLNode<>(value);
     // 如果根结点不存在
@@ -215,7 +217,15 @@ public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
 
   @Override
   public E remove(E value) {
-    return null;
+    Objects.requireNonNull(value, "The value must be not null");
+
+    E removedValue = super.remove(value);
+
+    if (removedValue != null) {
+      rebalanced((AVLNode<E>) root);
+    }
+
+    return removedValue;
   }
 
   @Override
@@ -225,33 +235,7 @@ public class AVLTree<E extends Comparable<E>> extends BinaryTree<E> {
 
   @Override
   public boolean contains(E value) {
-    // 先序遍历二叉树
-    AVLNode<E> node = (AVLNode<E>) root;
-    if (root.getItem().compareTo(value) == 0) {
-      return true;
-    }
-
-    while (node != null) {
-      // 如果当前值比父节点的值小
-      if (node.getItem().compareTo(value) > 0) {
-        // 此时应该从父节点的左子树进行搜索
-        if (node.getLeft() != null
-            && (node.getLeft().getItem().compareTo(value) == 0)) {
-          return true;
-        }
-        node = (AVLNode<E>) node.getLeft();
-      } else {
-        // 如果当前结点的值比父结点的值大，说明应该从父节点的右子树搜索
-        // 并且新结点作为叶子结点，其父节点的右子结点应为null
-        if (node.getRight() != null
-            && (node.getRight().getItem().compareTo(value) == 0)) {
-          return true;
-        }
-        node = (AVLNode<E>) node.getRight();
-      }
-    }
-
-    return false;
+    return super.contains(value);
   }
 
   /**
