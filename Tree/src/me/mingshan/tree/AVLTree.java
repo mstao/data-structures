@@ -15,7 +15,25 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTree<E> {
    * AVL树的失衡类型枚举，包括: LL, LR, RL, RR
    */
   private enum Balance {
-    LEFT_LEFT, LEFT_RIGHT, RIGHT_LEFT, RIGHT_RIGHT
+    /**
+     * LL
+     */
+    LEFT_LEFT,
+
+    /**
+     * LR
+     */
+    LEFT_RIGHT,
+
+    /**
+     * RL
+     */
+    RIGHT_LEFT,
+
+    /**
+     * RR
+     */
+    RIGHT_RIGHT
   }
 
   /**
@@ -117,7 +135,7 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTree<E> {
     // 平衡因子大于1或者小于-1，表示当前树失衡了，需要进行平衡处理
     if (Math.abs(balanceFactor) > 1) {
       Balance balance = null;
-      AVLNode<E> childNode = null;
+      AVLNode<E> childNode;
 
       // 右子树比左子树高，左旋操作
       if (balanceFactor < 0) {
@@ -275,7 +293,7 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTree<E> {
     /**
      * 更新当前节点的高度
      *
-     * @return
+     * @return 更新后的高度
      */
     int updateHeight() {
       int leftHeight = 0, rightHeight = 0;
@@ -289,7 +307,9 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTree<E> {
         rightHeight = right.getHeight();
       }
 
-      return 1 + Math.max(leftHeight, rightHeight);
+      int i = 1 + Math.max(leftHeight, rightHeight);
+      setHeight(i);
+      return i;
     }
 
     @Override
