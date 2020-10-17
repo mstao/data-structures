@@ -15,7 +15,7 @@ import java.util.List;
  *
  * @author mingshan
  */
-public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> implements Tree<E> {
+public class BinarySearchTree<E extends Comparable<E>> extends BinaryTree<E> {
 
   @Override
   public boolean add(E value) {
