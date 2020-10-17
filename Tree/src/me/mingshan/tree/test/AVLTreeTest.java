@@ -18,12 +18,12 @@ public class AVLTreeTest {
         root.setRight(node1);
         tree.initRoot(root);
 
-        System.out.println(AVLTree.TreePrinter.getString(tree));
+        System.out.println(tree.toString());
 
         AVLTree.AVLNode<Integer> avlNode2 = tree.rotateLeft(root);
         tree.initRoot(avlNode2);
 
-        System.out.println(AVLTree.TreePrinter.getString(tree));
+        System.out.println(tree.toString());
 
     }
 
@@ -41,12 +41,12 @@ public class AVLTreeTest {
 
         tree.initRoot(root);
 
-        System.out.println(AVLTree.TreePrinter.getString(tree));
+        System.out.println(tree.toString());
 
         AVLTree.AVLNode<Integer> avlNode2 = tree.rotateRight(root);
         tree.initRoot(avlNode2);
 
-        System.out.println(AVLTree.TreePrinter.getString(tree));
+        System.out.println(tree.toString());
     }
 
     @Test
@@ -68,16 +68,16 @@ public class AVLTreeTest {
 
         tree.initRoot(root);
 
-        System.out.println(AVLTree.TreePrinter.getString(tree));
+        System.out.println(tree.toString());
 
-        AVLTree.AVLNode<Integer> avlNode2 = tree.rotateRight(root.getRight());
+        AVLTree.AVLNode<Integer> avlNode2 = tree.rotateRight((AVLTree.AVLNode<Integer>) root.getRight());
         root.setRight(avlNode2);
         tree.initRoot(root);
-        System.out.println(AVLTree.TreePrinter.getString(tree));
+        System.out.println(tree.toString());
 
         root.setRight(avlNode2);
         AVLTree.AVLNode<Integer> avlNode3 = tree.rotateLeft(root);
         tree.initRoot(avlNode3);
-        System.out.println(AVLTree.TreePrinter.getString(tree));
+        System.out.println(tree.toString());
     }
 }
