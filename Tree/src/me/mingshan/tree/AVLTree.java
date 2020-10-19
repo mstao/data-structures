@@ -103,12 +103,16 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTree<E> {
 
     // 平衡父结点，使整棵树达到平衡
     rebalanceParent(newNode);
-
     return newNode;
   }
 
-  private void rebalanceParent(AVLNode<E> newNode) {
-    AVLNode<E> currParent = (AVLNode<E>) newNode.getParent();
+  /**
+   * 平衡父结点，使整棵树达到平衡
+   *
+   * @param node 节点
+   */
+  private void rebalanceParent(AVLNode<E> node) {
+    AVLNode<E> currParent = (AVLNode<E>) node.getParent();
     while (currParent != null) {
       int h1 = currParent.getHeight();
 
@@ -246,9 +250,6 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTree<E> {
       return null;
     }
 
-    // 叶子节点
-    AVLNode<E> avlNode = (AVLNode<E>) node;
-
     if (node.isLeaf()) {
       // 直接删除
       node.setParent(null);
@@ -300,8 +301,8 @@ public class AVLTree<E extends Comparable<E>> extends BinarySearchTree<E> {
       node.setItem(replaceNode.getItem());
     }
 
-    avlNode.updateHeight();
     // 沿着其父节点一路向上平衡
+    AVLNode<E> avlNode = (AVLNode<E>) node;
     rebalanceParent(avlNode);
     return value;
   }
