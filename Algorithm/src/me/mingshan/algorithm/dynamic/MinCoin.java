@@ -45,12 +45,16 @@ public class MinCoin {
     int[] f = new int[amount + 1];
     f[0] = 0;
 
+    // 数值从小到大进行计算
+    // f[x] = min{ f[x - coin1] + 1 , f[x - coin2] + 1, ....}
     // 1,2..27
     for (int i = 1; i <= amount; i++) {
+      // 先假设f[i] 不能被拼出
       f[i] = Integer.MAX_VALUE;
 
+      // 下面根据上面的计算公式计算出f[i]的最小值
       for (int j = 0; j < coins.length; j++) {
-        // 当前的硬币值小于要拼出的数值
+        // 当前的钱数 要大于 硬币的种类对应钱数；并且f[x - coin1]不为Integer.MAX_VALUE
         if (i >= coins[j] && f[i - coins[j]] != Integer.MAX_VALUE) {
           f[i] = Math.min(f[i - coins[j]] + 1, f[i]);
         }
