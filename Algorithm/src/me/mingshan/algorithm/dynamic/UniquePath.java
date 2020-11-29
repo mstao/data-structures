@@ -13,6 +13,8 @@ public class UniquePath {
   /**
    * 求有多少不同路径
    *
+   * f[i][j] = f[i-1][j] + f[i][j-1]
+   *
    * @param m 行数
    * @param n 列素有
    * @return 路径数
