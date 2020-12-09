@@ -23,7 +23,7 @@ public class UniquePath {
     // f[i][j] 表示从[0][0] 到[i][j]的路径数
     int[][] f = new int[m][n];
 
-    f[0][0] = 0;
+    f[0][0] = 1;
 
     for (int i = 0; i < m; i++) {  // 从上到下
       for (int j = 0; j < n; j++) {
