@@ -46,10 +46,9 @@ public class UniquePath2 {
         if (obstacleGrid[i][j] == 1) {
           f[i][j] = 0;
         } else {
-          if (i == 0 & j == 0) {
-            f[i][j] = 1;
-          } else {
-            f[i][j] = 0;
+            if (i == 0 && j == 0) {
+              f[i][j] = 1;
+            }
 
             if (i - 1 >= 0) {
               f[i][j] += f[i - 1][j];
@@ -58,8 +57,50 @@ public class UniquePath2 {
             if (j - 1 >= 0) {
               f[i][j] += f[i][j - 1];
             }
-          }
+        }
+      }
+    }
 
+    return f[m - 1][n - 1];
+  }
+
+  public static int uniquePathsWithObstacles2(int[][] obstacleGrid) {
+    if (obstacleGrid == null || obstacleGrid[0].length == 0) {
+      return 0;
+    }
+    // 行数
+    int m = obstacleGrid.length;
+    // 列数
+    int n = obstacleGrid[0].length;
+
+    // 如果第一个位置数组值是1，代表为障碍物，直接返回0
+    if (obstacleGrid[0][0] == 1) {
+      return 0;
+    }
+
+    // 如果最后一个位置数组值是1，代表为障碍物，直接返回0
+    if (obstacleGrid[m - 1][n - 1] == 1) {
+      return 0;
+    }
+
+    // 表示从[0][0] 到[i][j]的路径数
+    int[][] f = new int[m][n];
+
+    // 转移方程 f[i][j] = f[i-1][j] + f[i][j-1]
+    for (int i = 0; i < m; i++) {
+      for (int j = 0; j < n; j++) {
+        // 遇到障碍物，dp[i][j] = 0
+        if(obstacleGrid[i][j] == 1) {
+          continue;
+        }
+        if(i == 0 && j == 0) {
+          f[i][j] = 1;
+        } else if(i == 0) {
+          f[i][j] = f[i][j-1];
+        } else if(j == 0) {
+          f[i][j] = f[i-1][j];
+        } else {
+          f[i][j] = f[i-1][j] + f[i][j-1];
         }
       }
     }
