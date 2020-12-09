@@ -40,23 +40,26 @@ public class UniquePath2 {
     // 表示从[0][0] 到[i][j]的路径数
     int[][] f = new int[m][n];
 
-    f[0][0] = 1;
-
     // 转移方程 f[i][j] = f[i-1][j] + f[i][j-1]
     for (int i = 0; i < m; i++) {
       for (int j = 0; j < n; j++) {
         if (obstacleGrid[i][j] == 1) {
           f[i][j] = 0;
         } else {
-          f[i][j] = 0;
+          if (i == 0 & j == 0) {
+            f[i][j] = 1;
+          } else {
+            f[i][j] = 0;
 
-          if (i - 1 >= 0) {
-            f[i][j] += f[i - 1][j];
+            if (i - 1 >= 0) {
+              f[i][j] += f[i - 1][j];
+            }
+
+            if (j - 1 >= 0) {
+              f[i][j] += f[i][j - 1];
+            }
           }
 
-          if (j - 1 >= 0) {
-            f[i][j] += f[i][j - 1];
-          }
         }
       }
     }
