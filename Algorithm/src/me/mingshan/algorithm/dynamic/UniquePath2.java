@@ -64,6 +64,12 @@ public class UniquePath2 {
     return f[m - 1][n - 1];
   }
 
+  /**
+   * 详细判断
+   *
+   * @param obstacleGrid
+   * @return
+   */
   public static int uniquePathsWithObstacles2(int[][] obstacleGrid) {
     if (obstacleGrid == null || obstacleGrid[0].length == 0) {
       return 0;
@@ -93,13 +99,17 @@ public class UniquePath2 {
         if(obstacleGrid[i][j] == 1) {
           continue;
         }
+        // 初始位置，默认为1
         if(i == 0 && j == 0) {
           f[i][j] = 1;
         } else if(i == 0) {
+          // 如果i = 0，说明是最上面一行
           f[i][j] = f[i][j-1];
         } else if(j == 0) {
+          // 如果j = 0，说明是最左边一行
           f[i][j] = f[i-1][j];
         } else {
+          // 中间的情况
           f[i][j] = f[i-1][j] + f[i][j-1];
         }
       }
