@@ -8,14 +8,14 @@ package me.mingshan.algorithm.dynamic;
 public class UniquePath2 {
 
   public static void main(String[] args) {
-//    int[][] g1 = {{0,0,0},{0,1,0},{0,0,0}};
-//    System.out.println(uniquePathsWithObstacles(g1));
+    int[][] g1 = {{0,0,0},{0,1,0},{0,0,0}};
+    System.out.println(uniquePathsWithObstacles(g1));
 
     int[][] g2 = {{0,1},{0,0}};
-    System.out.println(uniquePathsWithObstacles(g2));
+    System.out.println(uniquePathsWithObstacles2(g2));
 
-//    int[][] g3 = {{0,1},{1,1},{0,0}};
-//    System.out.println(uniquePathsWithObstacles(g3));
+    int[][] g3 = {{0,1},{1,1},{0,0}};
+    System.out.println(uniquePathsWithObstacles(g3));
   }
 
   public static int uniquePathsWithObstacles(int[][] obstacleGrid) {
@@ -95,22 +95,18 @@ public class UniquePath2 {
     // 转移方程 f[i][j] = f[i-1][j] + f[i][j-1]
     for (int i = 0; i < m; i++) {
       for (int j = 0; j < n; j++) {
-        // 遇到障碍物，dp[i][j] = 0
-        if(obstacleGrid[i][j] == 1) {
-          continue;
-        }
-        // 初始位置，默认为1
-        if(i == 0 && j == 0) {
-          f[i][j] = 1;
-        } else if(i == 0) {
-          // 如果i = 0，说明是最上面一行
-          f[i][j] = f[i][j-1];
-        } else if(j == 0) {
-          // 如果j = 0，说明是最左边一行
-          f[i][j] = f[i-1][j];
+        if (obstacleGrid[i][j] == 1) {
+          f[i][j] = 0;
         } else {
-          // 中间的情况
-          f[i][j] = f[i-1][j] + f[i][j-1];
+          if (i == 0 && j == 0) {
+            f[i][j] = 1;
+          } else if (i == 0) {
+            f[i][j] = f[i][j - 1];
+          } else if (j == 0) {
+            f[i][j] = f[i - 1][j];
+          } else {
+            f[i][j] = f[i - 1][j] + f[i][j - 1];
+          }
         }
       }
     }
