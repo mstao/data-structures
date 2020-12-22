@@ -25,7 +25,7 @@ public class PaintHouse {
   }
 
   /**
-   * 转移方程
+   * 转移方程，注意：cost[n-1][0]代表第n栋房子的红色的最小花费，这个不要搞错了
    *
    * f[n][0] = min{ f[n-1][1] + cost[n-1][0], f[n-1][2] + cost[n][0] }
    * f[n][1] = min{ f[n-1][0] + cost[n-1][1], f[n-1][2] + cost[n][1] }
