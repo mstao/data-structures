@@ -11,6 +11,8 @@ package me.mingshan.algorithm.dynamic;
  * Find the minimum cost to paint all houses.
  * <p>
  * https://leetcode-cn.com/problemset/all/?search=256
+ *
+ * https://www.lintcode.com/problem/paint-house/
  */
 public class PaintHouse {
 
