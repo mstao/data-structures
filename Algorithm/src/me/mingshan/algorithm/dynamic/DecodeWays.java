@@ -22,10 +22,16 @@ public class DecodeWays {
     //System.out.println(numDecodings("0"));
     //System.out.println(numDecodings("12"));
     //System.out.println(numDecodings("123"));
+    System.out.println(numDecodings("226"));
     System.out.println(numDecodings2("226"));
+
+    System.out.println(numDecodings("1202"));
     System.out.println(numDecodings2("1202"));
 
+    System.out.println(numDecodings("1223"));
     System.out.println(numDecodings2("1223"));
+
+    System.out.println(numDecodings("1234"));
     System.out.println(numDecodings2("1234"));
   }
 
@@ -40,14 +46,12 @@ public class DecodeWays {
    *
    * 用f[i] 表示第i为
    * 对于字符的任意一位 i,我们可以推断其转移方程为：  f[i] = f[i - 2] + f[i -1]
-   * 即 当前位置i的解密防事故
+   * 上面的等式成立的话，需要将上面的条件也添加进去，即：
    *
+   * 1. 如果要加上f[i - 2]，那么i位置的前两位必须是可解码的，即在10 ~ 26 之间，
+   * 像01,03这种是无效的。
    *
-   *
-   *
-   *
-   *
-   *
+   * 2. 如果要加上f[i-1]，那么i位置的数字必须不能是0，否则无法继续解码
    *
    * @param s
    * @return
@@ -61,12 +65,33 @@ public class DecodeWays {
 
     char[] chars = s.toCharArray();
 
+    f[0] = 1;
+    f[1] = chars[0] == '0' ? 0 : 1;
+
+    for (int i = 2; i <= s.length(); i++) {
+      // 如果要加上f[i - 2]，那么i位置的前两位必须是可解码的，即在10 ~ 26 之间 像01,03这种是无效的。
+      String is2 = String.valueOf(chars[i - 2]) + String.valueOf(chars[i - 1]);
+
+      int i2 = Integer.parseInt(is2);
+      if (i2 >= 10 && i2 <= 26) {
+        f[i] += f[i-2];
+      }
+
+      // 如果要加上f[i-1]，那么i位置的数字必须不能是0，否则无法继续解码
+      int i1 = Integer.parseInt(String.valueOf(chars[i - 1]));
+
+      if (i1 != 0) {
+        f[i] += f[i-1];
+      }
+    }
 
     return f[s.length()];
   }
 
   public static int numDecodings2(String s) {
-    if(s.length() == 0) return s.length();
+    if(s.length() == 0) {
+      return 0;
+    }
 
     int[] dp = new int[s.length() + 1];
     // 初始化第一种解码方式
