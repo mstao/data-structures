@@ -10,7 +10,7 @@ public class MinCoin {
   public static void main(String[] args) {
     System.out.println(solution1(27));
     int[] coins = {2, 5, 7};
-    System.out.println(solution2(coins, 27));
+    System.out.println(solution3(coins, 27));
   }
 
   public static int solution1(int x) {
@@ -33,6 +33,39 @@ public class MinCoin {
     }
 
     return res;
+  }
+
+
+  public static int solution3(int[] coins, int amount) {
+    // f(x) 代表x面额最少用多少枚硬币拼出
+    int[] f = new int[amount + 1];
+    // 初始化
+    f[0] = 0;
+
+    // 数值从小到大进行计算
+    // f[x] = min{ f[x - coin1] + 1 , f[x - coin2] + 1, ....}
+    // 1,2..27
+    for (int i = 1; i <= amount; i++) {
+      // 先设置f(i) 为最大值，好进行比较更新
+      f[i] = Integer.MAX_VALUE;
+
+      for (int j = 0; j < coins.length; j++) {
+        int coin = coins[j];
+        // 当前待拼的面额必须大于等于硬币的面额
+        // 并且f[x - coin1]不为Integer.MAX_VALUE，
+        // 注意不能直接用 f[i] > (f[i - coin] + 1) 来判断，因为 f[i - coin]为Integer.MAX_VALUE， + 1 就是负数了，
+        // 此时的f[i]计算结果为负数
+        if (i >= coin && f[i - coin] != Integer.MAX_VALUE) {
+          f[i] = Math.min(f[i - coin] + 1, f[i]);
+        }
+      }
+    }
+
+    if (f[amount] == Integer.MAX_VALUE) {
+      return -1;
+    }
+
+    return f[amount];
   }
 
   /**
