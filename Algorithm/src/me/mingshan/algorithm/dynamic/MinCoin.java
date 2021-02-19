@@ -2,6 +2,8 @@ package me.mingshan.algorithm.dynamic;
 
 /**
  * 现有 2元，5元，七元三种硬币，假设硬币都足够多，先求解：最少用多少枚上述硬币拼出27块钱
+ *
+ * https://leetcode-cn.com/problems/coin-change/
  */
 public class MinCoin {
 
