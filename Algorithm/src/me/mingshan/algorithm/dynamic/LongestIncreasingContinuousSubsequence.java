@@ -12,7 +12,7 @@ import java.util.Arrays;
  * @author Walker Han
  * @date 2021/2/18 16:17
  */
-public class LongestConsecutive {
+public class LongestIncreasingContinuousSubsequence {
 
 
   public static void main(String[] args) {
@@ -26,6 +26,11 @@ public class LongestConsecutive {
     System.out.println(longestIncreasingContinuousSubsequence(nums2));
   }
 
+  /**
+   *
+   * @param nums
+   * @return
+   */
   public static int longestIncreasingContinuousSubsequence(int[] nums) {
     if (nums == null) {
       return 0;
