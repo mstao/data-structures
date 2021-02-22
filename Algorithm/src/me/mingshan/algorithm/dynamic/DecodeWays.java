@@ -22,21 +22,45 @@ public class DecodeWays {
     //System.out.println(numDecodings("0"));
     //System.out.println(numDecodings("12"));
     //System.out.println(numDecodings("123"));
-
     System.out.println(numDecodings("226"));
+    System.out.println(numDecodings2("226"));
+
+    System.out.println(numDecodings("1202"));
+    System.out.println(numDecodings2("1202"));
+
+    System.out.println(numDecodings("1223"));
+    System.out.println(numDecodings2("1223"));
+
+    System.out.println(numDecodings("1234"));
+    System.out.println(numDecodings2("1234"));
   }
 
   /**
+   * 226
    *
-   * 解题思路：
-   * 以 "123412"字符串为例，如果我们要知道该字符串有多少解密方式，只需要考虑 （12341 + 2） 和 （1234 + 12）共有多少种解密方式即可，
-   * 为什么呢？ 因为最后一个英文字母Z的数字对应是26，只有两位数，所以只需要考虑两位数字即可
+   * f[0] = 1
+   * f[1] = 1
    *
-   * 我们用f[n] 表示字符串前n位数字的解密方式数，
+   * 解题思路：由于是给定数字字符串来解析字母的，最大的字母为Z，对应数字为26，这个是限制条件1，
+   * 如果字符串包含0，那么含有 0 的有效映射是 'J' -> "10" 和 'T'-> "20"，其他都不包含
    *
-   * 转移方程为：
+   * --- 转移方程
    *
-   * f[n] = (f[n-1] + 最后一位数字加密方式数) + (f[n -2] + 最后两位加密方式数）
+   * 用f[i] 表示第i位有多少解码方式：
+   *
+   * 对于字符的任意一位 i,我们可以推断其转移方程为：  f[i] = f[i - 2] + f[i -1]
+   * 上面的等式成立的话，需要将上面的条件也添加进去，即：
+   *
+   * --- 初始条件和边界情况
+   *
+   * 初始条件
+   * f[0] = 1，即代表空串，也解密为空串
+   *
+   * 边界情况
+   * 1. 如果要加上f[i - 2]，那么i位置的前两位必须是可解码的，即在10 ~ 26 之间，
+   * 像01,03这种是无效的。
+   *
+   * 2. 如果要加上f[i-1]，那么i位置的数字必须不能是0，否则无法继续解码
    *
    * @param s
    * @return
@@ -50,27 +74,51 @@ public class DecodeWays {
 
     char[] chars = s.toCharArray();
 
-    for (int i = 0; i < chars.length; i++) {
-      int curr = Integer.parseInt(String.valueOf(chars[i]));
-      if (curr <= 0) {
-        return 0;
+    f[0] = 1;
+    f[1] = chars[0] == '0' ? 0 : 1;
+
+    for (int i = 2; i <= s.length(); i++) {
+      // 如果要加上f[i - 2]，那么i位置的前两位必须是可解码的，即在10 ~ 26 之间 像01,03这种是无效的。
+      String is2 = String.valueOf(chars[i - 2]) + String.valueOf(chars[i - 1]);
+
+      int i2 = Integer.parseInt(is2);
+      if (i2 >= 10 && i2 <= 26) {
+        f[i] += f[i-2];
       }
 
-      if (i == 0) {
-        f[i + 1] = 1;
-      } else {
-        f[i + 1] = (f[i] + 1) + f[i - 1];
+      // 如果要加上f[i-1]，那么i位置的数字必须不能是0，否则无法继续解码
+      int i1 = Integer.parseInt(String.valueOf(chars[i - 1]));
 
-        if (i > 1) {
-          int i2 = Integer.parseInt(String.valueOf(chars[i - 1]));
-
-          if (i2 > 26) {
-            f[i + 1] = f[i + 1] + 1;
-          }
-        }
+      if (i1 != 0) {
+        f[i] += f[i-1];
       }
     }
 
     return f[s.length()];
+  }
+
+  public static int numDecodings2(String s) {
+    if(s.length() == 0) {
+      return 0;
+    }
+
+    int[] dp = new int[s.length() + 1];
+    // 初始化第一种解码方式
+    dp[0] = 1;
+    // 如果第一位是0，则无法解码
+    dp[1] = s.charAt(0) == '0' ? 0 : 1;
+    for (int i = 2; i <= s.length(); i++) {
+      // 如果字符串的第i-1位和第i位能组成一个10到26的数字，说明我们可以在第i-2位的解码方法上继续解码
+      String i2 = s.substring(i - 2, i);
+      if(Integer.parseInt(i2) <= 26 && Integer.parseInt(i2) >= 10){
+        dp[i] += dp[i - 2];
+      }
+      // 如果字符串的第i-1位和第i位不能组成有效二位数字，在第i-1位的解码方法上继续解码
+      String i1 = s.substring(i - 1, i);
+      if(Integer.parseInt(i1) != 0){
+        dp[i] += dp[i - 1];
+      }
+    }
+    return dp[s.length()];
   }
 }
