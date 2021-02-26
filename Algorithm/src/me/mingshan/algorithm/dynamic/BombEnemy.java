@@ -132,10 +132,6 @@ public class BombEnemy {
       }
     }
 
-    if (grid[row][col] == 'E') {
-      result++;
-    }
-
     System.out.println("result: " + result);
     return result;
   }
