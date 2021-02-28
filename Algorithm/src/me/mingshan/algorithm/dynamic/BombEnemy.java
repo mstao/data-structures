@@ -26,10 +26,13 @@ public class BombEnemy {
     };
 
 
+    // ["W00000EEEEEEEE000000WWW0WWW00W0W0WEEEE0000EW00W"]
+    char[][] grid3 = {{'W', '0', '0', '0', '0', '0', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E', 'E'}};
+
 //    System.out.println(maxKilledEnemies(grid1));
 //    System.out.println(maxKilledEnemies2(grid1));
 //    System.out.println(maxKilledEnemies(grid2));
-    System.out.println(maxKilledEnemies2(grid2));
+    System.out.println(maxKilledEnemies2(grid3));
   }
 
   /**
@@ -176,7 +179,7 @@ public class BombEnemy {
             f[i][j] = 1;
           }
           if (i > 0) {
-            f[i][j] = f[i-1][j];
+            f[i][j] += f[i-1][j];
           }
         }
 
@@ -196,7 +199,7 @@ public class BombEnemy {
             f[i][j] = 1;
           }
           if ((i+1) < m) {
-            f[i][j] = f[i+1][j];
+            f[i][j] += f[i+1][j];
           }
         }
 
@@ -216,7 +219,7 @@ public class BombEnemy {
             f[i][j] = 1;
           }
           if (j > 0) {
-            f[i][j] = f[i][j-1];
+            f[i][j] += f[i][j-1];
           }
         }
 
@@ -236,7 +239,7 @@ public class BombEnemy {
             f[i][j] = 1;
           }
           if ((j+1) < n) {
-            f[i][j] = f[i][j+1];
+            f[i][j] += f[i][j+1];
           }
         }
 
