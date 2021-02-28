@@ -26,8 +26,10 @@ public class BombEnemy {
     };
 
 
-    //System.out.println(maxKilledEnemies(grid1));
-    System.out.println(maxKilledEnemies(grid2));
+//    System.out.println(maxKilledEnemies(grid1));
+//    System.out.println(maxKilledEnemies2(grid1));
+//    System.out.println(maxKilledEnemies(grid2));
+    System.out.println(maxKilledEnemies2(grid2));
   }
 
   /**
@@ -73,8 +75,6 @@ public class BombEnemy {
     if (grid[row][col] != '0') {
       return 0;
     }
-
-    System.out.println("row: " + row + ", col: " + col);
 
     // 行数
     int m = grid.length;
@@ -122,7 +122,6 @@ public class BombEnemy {
     // 往右，从左往右计算
     for (int i = col + 1; i < n; i++) {
       char curr = grid[row][i];
-      System.out.println("curr: " + curr);
       if (curr == 'W') {
         break;
       }
@@ -132,7 +131,134 @@ public class BombEnemy {
       }
     }
 
-    System.out.println("result: " + result);
     return result;
   }
+
+
+  /**
+   * 动态规划：
+   *
+   * 1. 确定状态
+   *   假设任何一格都可以放炸弹，但对于特殊情况
+   *      1. 当前格为墙，那么不能炸死任何人
+   *      2. 当前格为E(有一个敌人)，那么炸死的人 为相邻的格炸死人数 + 1
+   *      3. 如果为空地，那么炸死的人数为为相邻的格炸死人数
+   *
+   *
+   *
+   * @param grid: Given a 2D grid, each cell is either 'W', 'E' or '0'
+   * @return: an integer, the maximum enemies you can kill using one bomb
+   */
+  public static int maxKilledEnemies2(char[][] grid) {
+    // write your code here
+    if (grid == null || grid.length == 0 || grid[0].length == 0) {
+      return 0;
+    }
+
+    // 行数
+    int m = grid.length;
+    // 列数
+    int n = grid[0].length;
+
+    // f[i][j]，代表i,j位置炸死的敌人数
+    int[][] f = new int[m][n];
+    int[][] results = new int[m][n];
+
+    // 计算上（从上往下算）
+    for (int i = 0; i < m; i++) {
+      for (int j = 0; j < n; j++) {
+        char curr = grid[i][j];
+        if (curr == 'W') {
+          f[i][j] = 0;
+        } else {
+          f[i][j] = 0;
+          if (curr == 'E') {
+            f[i][j] = 1;
+          }
+          if (i > 0) {
+            f[i][j] = f[i-1][j];
+          }
+        }
+
+        results[i][j] += f[i][j];
+      }
+    }
+
+    // 计算下（从下往上算）
+    for (int i = m-1 ; i >= 0; i--) {
+      for (int j = 0; j < n; j++) {
+        char curr = grid[i][j];
+        if (curr == 'W') {
+          f[i][j] = 0;
+        } else {
+          f[i][j] = 0;
+          if (curr == 'E') {
+            f[i][j] = 1;
+          }
+          if ((i+1) < m) {
+            f[i][j] = f[i+1][j];
+          }
+        }
+
+        results[i][j] += f[i][j];
+      }
+    }
+
+    // 计算左（从左往右算）
+    for (int i = 0; i < m; i++) {
+      for (int j = 0; j < n; j++) {
+        char curr = grid[i][j];
+        if (curr == 'W') {
+          f[i][j] = 0;
+        } else {
+          f[i][j] = 0;
+          if (curr == 'E') {
+            f[i][j] = 1;
+          }
+          if (j > 0) {
+            f[i][j] = f[i][j-1];
+          }
+        }
+
+        results[i][j] += f[i][j];
+      }
+    }
+
+    // 计算右（从右往左算）
+    for (int i = 0; i < m; i++) {
+      for (int j = n - 1; j >= 0 ; j--) {
+        char curr = grid[i][j];
+        if (curr == 'W') {
+          f[i][j] = 0;
+        } else {
+          f[i][j] = 0;
+          if (curr == 'E') {
+            f[i][j] = 1;
+          }
+          if ((j+1) < n) {
+            f[i][j] = f[i][j+1];
+          }
+        }
+
+        results[i][j] += f[i][j];
+      }
+    }
+
+    int result = 0;
+    for (int i = 0; i < m; i++) {
+      for (int j = 0; j < n; j++) {
+        char curr = grid[i][j];
+        if (curr == '0') {
+          int currResult = results[i][j];
+          if (currResult > result) {
+            result = currResult;
+          }
+        }
+      }
+    }
+
+    // 计算
+    return result;
+  }
+
 }
