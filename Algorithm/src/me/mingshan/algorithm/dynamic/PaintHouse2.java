@@ -18,17 +18,13 @@ public class PaintHouse2 {
 
     System.out.println(minCostII2(cost)); // 10
 
-    test();
   }
 
-  public static void test() {
-    int[] m = {1,2,3,4};
-    int[] m2 = {4,3,2,1};
-    int[] m3 = {4,3,2,5,1};
-
-    if (m.length == 0) {
+  public static void test(int[] m) {
+    if (m == null || m.length == 0) {
       return;
     }
+
     // 第一小， 第二小
     int min1 = Integer.MAX_VALUE, min2 = Integer.MAX_VALUE;
     // 第一小颜色位置， 第二小颜色位置
@@ -54,30 +50,29 @@ public class PaintHouse2 {
         min2 = curr1;
         k2 = 1;
       }
-    }
 
-    // 算出{f[i-1][0], f[i-1][2] ... f[i-1][k]} 的第一小，记录哪个颜色，第二小，记录哪个颜色，下面可以直接用
-    for (int q = 2; q < m.length; q++) {
-      int curr = m[q];
+      for (int q = 2; q < m.length; q++) {
+        int curr = m[q];
 
-      // 选判断是否比次小值小
-      int oldMin1 = min1;
-      int oldK1 = k1;
-      if (curr < min1) {
-        min1 = curr;
-        k1 = q;
-      }
+        // 选判断是否比次小值小
+        int oldMin1 = min1;
+        int oldK1 = k1;
+        if (curr < min1) {
+          min1 = curr;
+          k1 = q;
+        }
 
-      // 最小值无更新，且旧的min2大于当前值
-      if (oldK1 == k1 && min2 > curr) {
-        min2 = curr;
-        k2 = q;
-      }
+        // 最小值无更新，且min2大于当前值
+        if (oldK1 == k1 && min2 > curr) {
+          min2 = curr;
+          k2 = q;
+        }
 
-      // 最小值有更新，那么原来的值就是第二小
-      if (oldK1 != k1) {
-        min2 = oldMin1;
-        k2 = oldK1;
+        // 最小值有更新，那么原来的值就是第二小
+        if (oldK1 != k1) {
+          min2 = oldMin1;
+          k2 = oldK1;
+        }
       }
     }
 
@@ -161,14 +156,12 @@ public class PaintHouse2 {
       // 第一小颜色位置， 第二小颜色位置
       int k1 = 0, k2 = 0;
 
-      int mA = f[i-1][0];
-
-      if (f[i-1].length == 1) {
+      if (k == 1) {
         min1 = min2 = f[i-1][0];
         k1 = k2 = 0;
       }
 
-      if (mA.length >= 2) {
+      if (k >= 2) {
         int curr0 = f[i-1][0];
         int curr1 = f[i-1][1];
 
@@ -183,34 +176,32 @@ public class PaintHouse2 {
           min2 = curr1;
           k2 = 1;
         }
+
+        // 算出{f[i-1][0], f[i-1][2] ... f[i-1][k]} 的第一小，记录哪个颜色，第二小，记录哪个颜色，下面可以直接用
+        for (int q = 2; q < k; q++) {
+          int curr = f[i-1][q];
+
+          // 选判断是否比次小值小
+          int oldMin1 = min1;
+          int oldK1 = k1;
+          if (curr < min1) {
+            min1 = curr;
+            k1 = q;
+          }
+
+          // 最小值无更新，且min2大于当前值
+          if (oldK1 == k1 && min2 > curr) {
+            min2 = curr;
+            k2 = q;
+          }
+
+          // 最小值有更新，那么原来的值就是第二小
+          if (oldK1 != k1) {
+            min2 = oldMin1;
+            k2 = oldK1;
+          }
+        }
       }
-
-      // 算出{f[i-1][0], f[i-1][2] ... f[i-1][k]} 的第一小，记录哪个颜色，第二小，记录哪个颜色，下面可以直接用
-      for (int q = 2; q < m.length; q++) {
-        int curr = m[q];
-
-        // 选判断是否比次小值小
-        int oldMin1 = min1;
-        int oldK1 = k1;
-        if (curr < min1) {
-          min1 = curr;
-          k1 = q;
-        }
-
-        // 最小值无更新，且旧的min2大于当前值
-        if (oldK1 == k1 && min2 > curr) {
-          min2 = curr;
-          k2 = q;
-        }
-
-        // 最小值有更新，那么原来的值就是第二小
-        if (oldK1 != k1) {
-          min2 = oldMin1;
-          k2 = oldK1;
-        }
-      }
-
-
 
       for (int j = 0; j < k; j++) {
         f[i][j] = Integer.MAX_VALUE;
