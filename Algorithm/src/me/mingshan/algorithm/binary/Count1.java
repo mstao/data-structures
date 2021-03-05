@@ -30,4 +30,21 @@ public class Count1 {
 
     return result;
   }
+
+  /**
+   * 动态规划
+   *
+   * @param num
+   * @return
+   */
+  public int[] solution2(int num) {
+    // write your code here
+    int[] f = new int[num+1];
+
+    for (int i = 0; i <= num; i++) {
+      f[i] = f[i >> 1] + (i & 1);
+    }
+
+    return f;
+  }
 }
