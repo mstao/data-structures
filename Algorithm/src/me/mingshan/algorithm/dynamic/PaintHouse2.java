@@ -20,6 +20,11 @@ public class PaintHouse2 {
 
   }
 
+  /**
+   * 求解数组m的最小值，次小值
+   *
+   * @param m
+   */
   public static void test(int[] m) {
     if (m == null || m.length == 0) {
       return;
