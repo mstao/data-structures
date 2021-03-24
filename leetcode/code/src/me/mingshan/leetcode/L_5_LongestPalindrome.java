@@ -9,19 +9,64 @@ package me.mingshan.leetcode;
  */
 public class L_5_LongestPalindrome {
 
-    public static void main(String[] args) {
-        L_5_LongestPalindrome obj = new L_5_LongestPalindrome();
-        obj.longestPalindrome("weeww");
+  public static void main(String[] args) {
+    System.out.println(longestPalindrome("weeww"));
+    System.out.println(longestPalindrome("babad"));
+    System.out.println(longestPalindrome("cbbd"));
+    System.out.println(longestPalindrome("a"));
+    System.out.println(longestPalindrome("acd"));
+    System.out.println(longestPalindrome("vaomxdtiuwqlwhgutkhxxhccsgvyoaccuicgybnqnslogtqhblegfudagpxfvjdacsxgevvepuwthdtybgflsxjdmmfumyqgpxatvdypjmlapccaxwkuxkilqqgpihyepkilhlfkdrbsefinitdcaghqmhylnixidrygdnzmgubeybczjceiybowglkywrpkfcwpsjbkcpnvfbxnpuqzhotzspgebptnhwevbkcueyzecdrjpbpxemagnwmtwikmkpqluwmvyswvxghajknjxfazshsvjkstkezdlbnkwxawlwkqnxghjzyigkvqpapvsntojnxlmtywdrommoltpbvxwqyijpkirvndwpgufgjelqvwffpuycqfwenhzrbzbdtupyutgccdjyvhptnuhxdwbmdcbpfvxvtfryszhaakwshrjseonfvjrrdefyxefqfvadlwmedpvnozobftnnsutegrtxhwitrwdpfienhdbvvykoynrsbpmzjtotjxbvemgoxreiveakmmbbvbmfbbnyfxwrueswdlxvuelbkrdxlutyukppkzjnmfmclqpkwzyylwlzsvriwomchzzqwqglpflaepoxcnnewzstvegyaowwhgvcwjhbbstvzhhvghigoazbjiikglbqlxlccrwqvyqxpbtpoqjliziwmdkzfsrqtqdkeniulsavsfqsjwnvpprvczcujihoqeanobhlsvbzmgflhykndfydbxatskf"));
+  }
+
+  public static String longestPalindrome(String s) {
+    if (s == null || "".equals(s)) {
+      return "";
     }
 
-    public String longestPalindrome(String s) {
-        if (s == null || "".equals(s)) {
-            return "";
+    String result = "";
+
+    for (int i = 0; i < s.length(); i++) {
+      for (int j = i; j < s.length(); j++) {
+        String substring = s.substring(i, j + 1);
+        boolean palindrome = isPalindrome(substring);
+
+        if (palindrome) {
+          if (substring.length() > result.length()) {
+            result = substring;
+          }
         }
-
-        char[] arr = s.toCharArray();
-        
-
-        return "";
+      }
     }
+
+    return result;
+  }
+
+  private static boolean isPalindrome(String str) {
+    if (str == null || str.length() == 0) {
+      return false;
+    }
+
+    char[] chars = str.toCharArray();
+
+    for (int i = 0; i < str.length() / 2; i++) {
+      char first = chars[i];
+      char last = chars[str.length() - 1 - i];
+
+      if (first != last) {
+        return false;
+      }
+    }
+
+    if (str.length() % 2 == 0) {
+      char before = chars[str.length() / 2 - 1];
+      char next = chars[str.length() / 2];
+      if (before == next) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+
+    return true;
+  }
 }
