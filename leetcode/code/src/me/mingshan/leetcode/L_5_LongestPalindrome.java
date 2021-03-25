@@ -69,4 +69,44 @@ public class L_5_LongestPalindrome {
 
     return true;
   }
+
+  /**
+   * 中心扩散法
+   *
+   * @param s
+   * @return
+   */
+  public static String longestPalindrome2(String s) {
+    if (s == null || "".equals(s)) {
+      return "";
+    }
+
+    String result = "";
+
+    for (int i = 0; i < s.length() - 1; i++) {
+
+    }
+
+    return result;
+  }
+
+  /**
+   * 动态规划算法
+   *
+   * @param s
+   * @return
+   */
+  public static String longestPalindrome3(String s) {
+    if (s == null || "".equals(s)) {
+      return "";
+    }
+
+    String result = "";
+
+    for (int i = 0; i < s.length() - 1; i++) {
+      //
+    }
+
+    return result;
+  }
 }

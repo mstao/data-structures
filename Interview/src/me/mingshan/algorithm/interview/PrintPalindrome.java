@@ -55,4 +55,19 @@ public class PrintPalindrome {
 
     return true;
   }
+
+  /**
+   * 从中心扩散法
+   *
+   * @param s
+   */
+  public static void printPalindrome2(String s) {
+    if (s == null || "".equals(s)) {
+      return;
+    }
+
+
+
+
+  }
 }
