@@ -28,24 +28,12 @@ public class L_136_SingleNumber {
       return 0;
     }
 
+    int result = 0;
+
     for (int i = 0; i < nums.length; i++) {
-      boolean exist = false;
-
-      for (int j = 0; j < nums.length; j++) {
-        if (i == j) {
-          continue;
-        }
-
-        if (nums[i] == nums[j]) {
-          exist = true;
-        }
-      }
-
-      if (exist == false) {
-        return nums[i];
-      }
+      result ^= nums[i];
     }
 
-    return -1;
+    return result;
   }
 }

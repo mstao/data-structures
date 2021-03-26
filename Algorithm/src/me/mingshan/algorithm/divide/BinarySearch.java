@@ -10,10 +10,13 @@ public class BinarySearch {
   public static void main(String[] args) {
     int[] source = {1, 3, 4, 5, 7, 9};
     System.out.println(search(source, 90, 0, source.length - 1));
+
   }
 
   public static int search(int[] source, int target, int low, int high) {
     int mid = (low + high) / 2;
+
+    System.out.println(mid);
 
     if (low == high) {
       return target != source[low] ? -1 : low;
