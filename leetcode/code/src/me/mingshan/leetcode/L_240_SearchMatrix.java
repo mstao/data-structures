@@ -11,7 +11,61 @@ package me.mingshan.leetcode;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class L_240_SearchMatrix {
-  public boolean searchMatrix(int[][] matrix, int target) {
+  public static void main(String[] args) {
+//    int[][] matrix = {{1,4,7,11},{2,5,8,12},{3,6,9,16},{10,13,14,17},{18,21,23,26}};
+//
+//    System.out.println(searchMatrix(matrix, 20)); // false
+//
+//    int[][] matrix2 = {{20}};
+//
+//    System.out.println(searchMatrix(matrix2, 20)); //true
+//
+//    int[][] matrix3 = {{1,1}};
+//
+//    System.out.println(searchMatrix(matrix3, 0)); // false
+//
+//
+//    int[][] matrix4 = {{1}, {2}};
+//
+//    System.out.println(searchMatrix(matrix4, 2)); // true
+//
+//    int[][] matrix5 = {{1,2,3,4,5},{6,7,8,9,10},{11,12,13,14,15},{16,17,18,19,20},{21,22,23,24,25}};
+//    System.out.println(searchMatrix(matrix5, 20)); // true
+
+//    int[][] matrix6 = {{1,4},{2,5}};
+//    System.out.println(searchMatrix(matrix6, 5)); // true
+
+    int[][] matrix7 = {{5,6,10,14},{6,10,13,18},{10,13,18,19}};
+    System.out.println(searchMatrix(matrix7, 14)); // true
+  }
+
+  public static boolean searchMatrix(int[][] matrix, int target) {
+    if (matrix == null || matrix.length == 0) {
+      return false;
+    }
+
+    int m = 0;
+    int n = matrix[0].length - 1;
+    while (m < matrix.length && n >= 0) {
+      if (matrix[m][n] == target) {
+        return true;
+      } else if (matrix[m][n] > target) {
+        n--;
+      } else {
+        m++;
+      }
+    }
+    return false;
+  }
+
+  /**
+   * 解法错误
+   *
+   * @param matrix
+   * @param target
+   * @return
+   */
+  public static boolean searchMatrix2(int[][] matrix, int target) {
     if (matrix == null || matrix.length == 0) {
       return false;
     }
@@ -21,14 +75,82 @@ public class L_240_SearchMatrix {
     // 列
     int n = matrix[0].length;
 
-    if (n == m) {
-
-
-    } else {
-
+    if (m == 1 && n == 1) {
+      return target == matrix[0][0];
     }
 
+    return search(matrix, target, 0, 0, m - 1, n -1);
+  }
 
-    return false;
+  private static boolean search(int[][] matrix, int target, int lowRow, int lowCol, int heightRow, int heightCol) {
+    if (matrix == null || matrix.length == 0) {
+      return false;
+    }
+
+    if (lowRow < 0 || lowCol < 0) {
+      return false;
+    }
+
+    if (lowRow == 0 && lowCol == 0 && heightRow == 0 && heightCol == 0) {
+      return target == matrix[0][0];
+    }
+
+    if (matrix[lowRow][lowCol] == target || matrix[heightRow][heightCol] == target) {
+      return true;
+    }
+
+    if ((heightRow - lowRow == 1 && heightCol - lowCol == 1)) {
+      // 从最小的往后
+
+      for (int i = lowCol; i < matrix[0].length; i++) {
+        if (matrix[lowRow][i] == target) {
+          return true;
+        }
+      }
+
+      // 从最大的往前，全部遍历
+      for (int i = 0; i < heightCol; i++) {
+        if (matrix[heightRow][i] == target) {
+          return true;
+        }
+      }
+
+      return false;
+    }
+
+    if ((lowRow == heightRow) && (heightCol - lowCol == 1)) {
+      return matrix[lowRow][lowCol] == target || matrix[lowRow][heightCol] == target;
+    }
+
+    if ((lowCol == heightCol) && (heightRow - lowRow == 1)) {
+      return matrix[lowRow][lowCol] == target || matrix[heightRow][lowCol] == target;
+    }
+
+    int midRow = (lowRow + heightRow) / 2;
+
+    int midCol = (lowCol + heightCol) / 2;
+
+    if (matrix[midRow][midCol] == target) {
+      return true;
+    } else if (matrix[midRow][midCol] > target) {
+      // 说明midRow， midCol的处在方框最右下端，值最大
+      for (int i = 0; i < heightCol; i++) {
+        if (matrix[heightRow][i] == target) {
+          return true;
+        }
+      }
+
+      return search(matrix, target, lowRow, lowCol, midRow, midCol);
+    } else {
+      // 说明midRow， midCol的处在方框最左上端，值最小
+      // 缩小范围之前，需要先判断原先最小的，有没有值比较大
+      for (int i = lowCol; i < matrix[0].length; i++) {
+        if (matrix[lowRow][i] == target) {
+          return true;
+        }
+      }
+
+      return search(matrix, target, midRow, midCol, heightRow, heightCol);
+    }
   }
 }
