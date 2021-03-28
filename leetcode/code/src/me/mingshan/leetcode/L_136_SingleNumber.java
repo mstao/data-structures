@@ -23,6 +23,12 @@ public class L_136_SingleNumber {
     System.out.println(singleNumber(nums1));
   }
 
+  /**
+   * 二进制题目，异或运算
+   *
+   * @param nums
+   * @return
+   */
   public static int singleNumber(int[] nums) {
     if (nums == null || nums.length == 0) {
       return 0;
