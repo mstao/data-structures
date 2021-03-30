@@ -10,6 +10,19 @@ package me.mingshan.leetcode;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class L_82_DeleteDuplicates {
+
+  public static void main(String[] args) {
+//    ListNode next5 = new ListNode(4, null);
+//    ListNode next4 = new ListNode(3, next5);
+    ListNode next3 = new ListNode(1, null);
+    ListNode next2 = new ListNode(1, next3);
+    ListNode next1 = new ListNode(1, next2);
+    ListNode head = new ListNode(1, next1);
+
+    System.out.println(deleteDuplicates(head));
+  }
+
+
   /**
    * 思路：
    *
@@ -21,28 +34,69 @@ public class L_82_DeleteDuplicates {
    * @param head
    * @return
    */
-  public ListNode deleteDuplicates(ListNode head) {
+  public static ListNode deleteDuplicates(ListNode head) {
     if (head == null) {
       return null;
     }
 
-    ListNode curr = head;
+    // iNode的上一个节点
+    ListNode aNode = null;
+    // iNode表示重复的第一个节点
+    ListNode iNode = head;
+    // jNode表示重复的最后一个节点
+    ListNode jNode = head.next;
+    
+    int distance = 0;
 
-    ListNode iNode = curr;
-    ListNode jNode = curr;
+    while (jNode != null) {
+      if (iNode.val != jNode.val) {
+        // 进行
+        if (distance >= 1) {
+          if (aNode == null) {
+            head = jNode;
+          } else {
+            aNode.next = jNode;
+          }
 
-    while (head.next != null) {
-      
+          iNode = jNode;
+          jNode = jNode.next;
+          distance = 0;
+        } else {
+          aNode = iNode;
+          iNode = jNode;
+          jNode = jNode.next;
+        }
+      } else {
+        jNode = jNode.next;
+        distance++;
+
+        // 最后一个还是在重复区间
+        if (jNode == null) {
+          if (aNode != null) {
+            aNode.next = null;
+          } else {
+            head = null;
+          }
+        }
+      }
     }
 
     return head;
   }
 
-  public class ListNode {
+  public static class ListNode {
       int val;
       ListNode next;
       ListNode() {}
       ListNode(int val) { this.val = val; }
       ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+
+    @Override
+    public String toString() {
+      return "ListNode{" +
+          "val=" + val +
+          ", next=" + next +
+          '}';
+    }
   }
 }
