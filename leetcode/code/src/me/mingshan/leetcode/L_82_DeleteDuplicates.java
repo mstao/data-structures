@@ -43,7 +43,7 @@ public class L_82_DeleteDuplicates {
     ListNode aNode = null;
     // iNode表示重复的第一个节点
     ListNode iNode = head;
-    // jNode表示重复的最后一个节点
+    // jNode表示重复的最后一个节点下一个节点
     ListNode jNode = head.next;
     
     int distance = 0;
@@ -81,6 +81,24 @@ public class L_82_DeleteDuplicates {
       }
     }
 
+    return head;
+  }
+
+  public ListNode deleteDuplicates2(ListNode head) {
+    //剑指offer题目
+    if(head==null||head.next==null){
+      return head;
+    }
+    //头结点和下一个结点相同 直至到不相同
+    if(head.val==head.next.val){
+      while(head!=null && head.next!=null&&head.val==head.next.val){
+        head=head.next;
+      }
+      //调用递归判断更新的头结点
+      return deleteDuplicates(head.next);
+    }else{
+      head.next=deleteDuplicates(head.next);
+    }
     return head;
   }
 
