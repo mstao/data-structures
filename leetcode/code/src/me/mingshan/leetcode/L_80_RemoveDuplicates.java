@@ -23,56 +23,31 @@ import java.util.Arrays;
 public class L_80_RemoveDuplicates {
 
   public static void main(String[] args) {
-    int[] nums = {1, 1, 1, 2, 2, 3};
-    System.out.println(removeDuplicates(nums));
+//    int[] nums = {1, 1, 1, 2, 2, 3};
+//    System.out.println(removeDuplicates(nums));
 
-//    int[] nums2 = {0,0,1,1,1,1,2,3,3};
-//    System.out.println(removeDuplicates(nums2));
+    int[] nums2 = {0,0,1,1,1,1,2,3,3};
+    System.out.println(removeDuplicates(nums2));
   }
 
+  /**
+   * TODO 待实现
+   *
+   * @param nums
+   * @return
+   */
   public static int removeDuplicates(int[] nums) {
     if (nums == null || nums.length == 0) {
       return 0;
     }
 
-    // 指向处理过元素的最后一个
-    int x = 0;
+    for (int i = 0; i < nums.length; i++) {
 
-    // 代表重复区间的起始点
-    int i = 0;
-    // 向探测指针
-    int j = 0;
-
-    // 重复元素的长度，超过1个就需要处理
-    int distance = 0;
-
-    while (j < nums.length) {
-      if (nums[i] == nums[j]) {
-        boolean p = false;
-        if (distance > 1) {
-          x++;
-          distance = 0;
-          p = true;
-        } else {
-          distance++;
-        }
-
-        j++;
-        if (p) {
-          i = j;
-        }
-      } else {
-        if (distance == 2) {
-          nums[x + 1] = nums[i];
-          nums[x + 2] = nums[i + 1];
-        }
-
-        x++;
-      }
     }
 
     System.out.println(Arrays.toString(nums));
 
-    return x + 1;
+    return 0;
   }
+
 }
