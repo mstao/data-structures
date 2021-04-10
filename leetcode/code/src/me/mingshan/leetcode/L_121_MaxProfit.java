@@ -21,6 +21,15 @@ public class L_121_MaxProfit {
     System.out.println(maxProfit2(prices2));
   }
 
+  /**
+   * 计算方式：
+   *
+   * 找到一个最小值，然后再找到一个一直上升的最大值，一旦当前的最小值被更新，值也随之被更新
+   *
+   *
+   * @param prices
+   * @return
+   */
   public static int maxProfit2(int[] prices) {
     if (prices == null || prices.length == 0) {
       return 0;

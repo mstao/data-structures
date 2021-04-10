@@ -18,6 +18,11 @@ I use [this tool](https://www.draw.io/) to draw structure diagrams, thanks.
 
 ## 动态规划
 
+- 最大子序和，[代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_53_MaxSubArray.java), 
+ LeetCode：[53. 最大子序和](https://leetcode-cn.com/problems/maximum-subarray/)
+- 爬楼梯，[代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_70_ClimbStairs.java),
+ LeetCode：[70. 爬楼梯](https://leetcode-cn.com/problems/climbing-stairs/)
+
 ## 位运算
 
 ## 二叉树
