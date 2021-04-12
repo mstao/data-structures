@@ -1,5 +1,6 @@
 package me.mingshan.leetcode;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,22 +22,22 @@ public class L_53_MaxSubArray {
 
   public static void main(String[] args) {
     int[] nums = {-2,1,-3,4,-1,2,1,-5,4};
-    System.out.println(maxSubArray(nums));
+    System.out.println(maxSubArray2(nums)); // 6
 
-    int[] nums2 = {0};
-    System.out.println(maxSubArray(nums2));
-
-    int[] nums3 = {0, 1};
-    System.out.println(maxSubArray(nums3));
-
-    int[] nums4 = {0, -1};
-    System.out.println(maxSubArray(nums4));
-
-    int[] nums5 = {-1, 2};
-    System.out.println(maxSubArray(nums5));
-
-    int[] nums6 = {-1, -1};
-    System.out.println(maxSubArray(nums6));
+//    int[] nums2 = {0};
+//    System.out.println(maxSubArray2(nums2)); // 0
+//
+//    int[] nums3 = {0, 1};
+//    System.out.println(maxSubArray2(nums3)); // 1
+//
+//    int[] nums4 = {0, -1};
+//    System.out.println(maxSubArray2(nums4)); // 0
+//
+//    int[] nums5 = {-1, 2};
+//    System.out.println(maxSubArray2(nums5)); // 2
+//
+//    int[] nums6 = {-1, -1};
+//    System.out.println(maxSubArray2(nums6)); // -1
   }
 
   /**
@@ -80,7 +81,9 @@ public class L_53_MaxSubArray {
   /**
    * 解法2：
    *
+   *  利用动态规划思想，假设 f[i] 代表 以i为结尾的最长和
    *
+   *  f[i] = max{f[i-1] + nums[i], nums[i]}
    *
    * @param nums
    * @return
@@ -90,7 +93,24 @@ public class L_53_MaxSubArray {
       return 0;
     }
 
+    int len = nums.length;
+
+    // f[i] = max{f[i-1] + nums[i], nums[i]}
+    int[] f = new int[len];
+
+    f[0] = nums[0];
+
+    for (int i = 1; i < len; i++) {
+      f[i] = Math.max(f[i-1] + nums[i], nums[i]);
+    }
+
     int result = Integer.MIN_VALUE;
+
+    for (int i = 0; i < len; i++) {
+      if (f[i] > result) {
+        result = f[i];
+      }
+    }
 
     return result;
   }
