@@ -1,5 +1,10 @@
 package me.mingshan.leetcode;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * 给定一个链表，判断链表中是否有环。
  *
@@ -9,9 +14,7 @@ package me.mingshan.leetcode;
  *
  * 如果链表中存在环，则返回 true 。 否则，返回 false 。
  *
- *  
- *
- * 进阶：
+ * TODO 进阶：
  *
  * 你能用 O(1)（即，常量）内存解决此问题吗？
  *
@@ -20,9 +23,44 @@ package me.mingshan.leetcode;
  * 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
 public class L_141_HasCycle {
-  public boolean hasCycle(ListNode head) {
+
+  public static void main(String[] args) {
+    ListNode head = new ListNode(1);
+    ListNode next1 = new ListNode(2);
+    ListNode next2 = new ListNode(1);
+
+    head.setNext(next1);
+    next1.setNext(next2);
+    next2.setNext(head);
+
+    System.out.println(hasCycle(head));
+  }
+
+  /**
+   * 记录访问过的节点，如果当前节点的下一个节点是以前访问过的节点，那么就是环
+   *
+   * @param head
+   * @return
+   */
+  public static boolean hasCycle(ListNode head) {
     if (head == null) {
       return false;
+    }
+
+    // 已经访问过的索引
+    List<ListNode> visited = new ArrayList<>();
+
+    ListNode curr = head;
+
+    while (curr != null) {
+      for (ListNode visit : visited) {
+        if (visit.equals(curr.next)) {
+          return true;
+        }
+      }
+      visited.add(curr);
+
+      curr = curr.next;
     }
 
     return false;
@@ -30,10 +68,12 @@ public class L_141_HasCycle {
 
   public static class ListNode {
     int val;
-    L_82_DeleteDuplicates.ListNode next;
-    ListNode() {}
+    ListNode next;
     ListNode(int val) { this.val = val; }
-    ListNode(int val, L_82_DeleteDuplicates.ListNode next) { this.val = val; this.next = next; }
+
+    public void setNext(ListNode next) {
+      this.next = next;
+    }
 
     @Override
     public String toString() {
