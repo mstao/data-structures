@@ -16,8 +16,7 @@ I use [this tool](https://www.draw.io/) to draw structure diagrams, thanks.
 
 题名 | 代码链接 | LeetCode链接
 ---|---|---
-判断环形链表  | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_141_HasCycle.java)
- | [141. 环形链表](https://leetcode-cn.com/problems/linked-list-cycle)
+判断环形链表  | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_141_HasCycle.java) | [141. 环形链表](https://leetcode-cn.com/problems/linked-list-cycle)
 
 ## 栈
 
