@@ -12,16 +12,18 @@ I use [this tool](https://www.draw.io/) to draw structure diagrams, thanks.
 
 ## 数组
 
-26. 删除有序数组中的重复项    | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_26_RemoveDuplicates.java) | [链接](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
-80. 删除有序数组中的重复项 II    | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_80_RemoveDuplicates.java) | [链接](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii/)
+题名 | 代码链接 | LeetCode链接
+---|---|---
+26.删除有序数组中的重复项    | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_26_RemoveDuplicates.java) | [链接](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
+80.删除有序数组中的重复项 II    | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_80_RemoveDuplicates.java) | [链接](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii/)
 
 ## 链表
 
 题名 | 代码链接 | LeetCode链接
 ---|---|---
-141. 环形链表  | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_141_HasCycle.java) | [链接](https://leetcode-cn.com/problems/linked-list-cycle)
-82. 删除排序链表中的重复元素 II  | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_82_DeleteDuplicates.java) | [链接](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/)
-83. 删除排序链表中的重复元素     | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_83_DeleteDuplicates.java) | [链接](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
+141.环形链表  | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_141_HasCycle.java) | [链接](https://leetcode-cn.com/problems/linked-list-cycle)
+82.删除排序链表中的重复元素 II  | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_82_DeleteDuplicates.java) | [链接](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/)
+83.删除排序链表中的重复元素     | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_83_DeleteDuplicates.java) | [链接](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
 
 ## 栈
 
@@ -29,8 +31,8 @@ I use [this tool](https://www.draw.io/) to draw structure diagrams, thanks.
 
 题名 | 代码链接 | LeetCode链接
 ---|---|---
-53. 最大子序和 | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_53_MaxSubArray.java) | [链接](https://leetcode-cn.com/problems/maximum-subarray/)
-70. 爬楼梯     | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_70_ClimbStairs.java)  | [链接](https://leetcode-cn.com/problems/climbing-stairs/)
+53.最大子序和 | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_53_MaxSubArray.java) | [链接](https://leetcode-cn.com/problems/maximum-subarray/)
+70.爬楼梯     | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_70_ClimbStairs.java)  | [链接](https://leetcode-cn.com/problems/climbing-stairs/)
 
 ## 位运算
 
