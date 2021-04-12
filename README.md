@@ -14,14 +14,21 @@ I use [this tool](https://www.draw.io/) to draw structure diagrams, thanks.
 
 ## 链表
 
+题名 | 代码链接 | LeetCode链接
+---|---|---
+判断环形链表  | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_141_HasCycle.java)
+ | [141. 环形链表](https://leetcode-cn.com/problems/linked-list-cycle)
+
 ## 栈
 
 ## 动态规划
 
-- 最大子序和，[代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_53_MaxSubArray.java), 
- LeetCode：[53. 最大子序和](https://leetcode-cn.com/problems/maximum-subarray/)
-- 爬楼梯，[代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_70_ClimbStairs.java),
- LeetCode：[70. 爬楼梯](https://leetcode-cn.com/problems/climbing-stairs/)
+题名 | 代码链接 | LeetCode链接
+---|---|---
+最大子序和  | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_53_MaxSubArray.java)
+ | [53. 最大子序和](https://leetcode-cn.com/problems/maximum-subarray/)
+爬楼梯     | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_70_ClimbStairs.java)
+ | [70. 爬楼梯](https://leetcode-cn.com/problems/climbing-stairs/)
 
 ## 位运算
 
