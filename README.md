@@ -15,8 +15,6 @@ I use [this tool](https://www.draw.io/) to draw structure diagrams, thanks.
 26. 删除有序数组中的重复项    | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_26_RemoveDuplicates.java) | [链接](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array/)
 80. 删除有序数组中的重复项 II    | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_80_RemoveDuplicates.java) | [链接](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-array-ii/)
 
-L_80_RemoveDuplicates
-
 ## 链表
 
 题名 | 代码链接 | LeetCode链接
