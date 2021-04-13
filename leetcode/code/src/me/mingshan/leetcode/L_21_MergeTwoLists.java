@@ -4,7 +4,7 @@ import com.sun.security.auth.NTUserPrincipal;
 
 /**
  * 将两个升序链表合并为一个新的 升序 链表并返回。新链表是通过拼接给定的两个链表的所有节点组成的。
- *
+ * <p>
  * https://leetcode-cn.com/problems/merge-two-sorted-lists/
  */
 public class L_21_MergeTwoLists {
@@ -22,7 +22,13 @@ public class L_21_MergeTwoLists {
     System.out.println(mergeTwoLists(head, head1));
   }
 
-
+  /**
+   * 依次比较两个链表的值，谁的值小，谁的指针向前，最后将某一个链表剩余的元素全部拷贝过去即可
+   *
+   * @param l1
+   * @param l2
+   * @return
+   */
   public static ListNode mergeTwoLists(ListNode l1, ListNode l2) {
     if (l1 == null) {
       return l2;
@@ -38,7 +44,7 @@ public class L_21_MergeTwoLists {
     ListNode l1Next = l1;
     ListNode l2Next = l2;
 
-    while (l1Next != null && l2Next!= null) {
+    while (l1Next != null && l2Next != null) {
       if (l1Next.val > l2Next.val) {
         if (next == null) {
           next = new ListNode(l2Next.val);
@@ -86,11 +92,20 @@ public class L_21_MergeTwoLists {
   }
 
   public static class ListNode {
-      int val;
-      ListNode next;
-      ListNode() {}
-      ListNode(int val) { this.val = val; }
-      ListNode(int val, ListNode next) { this.val = val; this.next = next; }
+    int val;
+    ListNode next;
+
+    ListNode() {
+    }
+
+    ListNode(int val) {
+      this.val = val;
+    }
+
+    ListNode(int val, ListNode next) {
+      this.val = val;
+      this.next = next;
+    }
 
     @Override
     public String toString() {

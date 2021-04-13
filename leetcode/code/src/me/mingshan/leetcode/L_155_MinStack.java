@@ -1,5 +1,8 @@
 package me.mingshan.leetcode;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
 import java.util.Stack;
 
 /**
@@ -21,43 +24,74 @@ public class L_155_MinStack {
 
   public static void main(String[] args) {
     L_155_MinStack obj = new L_155_MinStack();
+    obj.push(5);
+    obj.push(3);
     obj.push(1);
-    obj.pop();
+    System.out.println(obj.top());
+    System.out.println(obj.getMin());
 
-    int param_3 = obj.top();
-    int param_4 = obj.getMin();
+    obj.pop();
+    System.out.println(obj.getMin());
+    obj.push(7);
+    obj.push(2);
+    System.out.println(obj.top());
+    System.out.println(obj.getMin());
+
   }
 
   private Integer minValue = null;
-  private Integer secondMinValue = null;
 
-  private Stack<Integer> stack;
+  private List<Integer> dataStack;
 
   /** initialize your data structure here. */
   public L_155_MinStack() {
-    stack = new Stack<>();
+    dataStack = new ArrayList<>();
   }
 
   public void push(int val) {
-    if (val < minValue) {
+    if (minValue == null || val < minValue) {
       minValue = val;
     }
 
-    stack.push(val);
+    dataStack.add(val);
   }
 
   public void pop() {
-    Integer popValue = stack.pop();
+    Integer popValue = dataStack.remove(dataStack.size() - 1);
+
     if (popValue.equals(minValue)) {
-      minValue = secondMinValue;
+      if (dataStack.isEmpty()) {
+        minValue = null;
+      } else {
+        minValue = findMinValue();
+      }
     }
   }
 
+  private int findMinValue() {
+    int minValue = Integer.MAX_VALUE;
+    for (Integer item : dataStack) {
+      if (item < minValue) {
+        minValue = item;
+      }
+    }
+
+    return minValue;
+  }
+
   public int top() {
-    return stack.peek();
+    if (dataStack.isEmpty()) {
+      throw new RuntimeException();
+    }
+
+    return dataStack.get(dataStack.size() - 1);
   }
 
   public int getMin() {
+    if (dataStack.isEmpty()) {
+      throw new RuntimeException();
+    }
+
     return minValue;
   }
 }
