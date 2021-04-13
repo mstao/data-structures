@@ -33,8 +33,18 @@ public class L_155_MinStack {
     obj.push(2);
     System.out.println(obj.top());
     System.out.println(obj.getMin());
-
   }
+
+  /**
+   *  如果所有操作都在O(1）中执行的话，需要两个栈，一个数据栈，存放数据，
+   *  另一个栈存放当前的的最小元素，同时有一个变量记录最小值
+   *
+   *  入栈时，用当前值与最小值比较，如果比最小值还小，那么将最小值改为当前值，同时将该值入最小值栈
+   *
+   *  出栈时，如果当前出的值等于最小值，那么将最小值栈顶元素弹出，获取最小值栈新的栈顶元素，然后将
+   *  该值赋值给最小值
+   */
+
 
   private Integer minValue = null;
 

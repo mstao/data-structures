@@ -21,11 +21,17 @@ I use [this tool](https://www.draw.io/) to draw structure diagrams, thanks.
 
 题名 | 代码链接 | LeetCode链接
 ---|---|---
-141.环形链表  | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_141_HasCycle.java) | [链接](https://leetcode-cn.com/problems/linked-list-cycle)
+21.合并两个有序链表           | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_21_MergeTwoLists.java) | [链接](https://leetcode-cn.com/problems/merge-two-sorted-lists/)
 82.删除排序链表中的重复元素 II  | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_82_DeleteDuplicates.java) | [链接](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list-ii/)
 83.删除排序链表中的重复元素     | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_83_DeleteDuplicates.java) | [链接](https://leetcode-cn.com/problems/remove-duplicates-from-sorted-list/)
+141.环形链表                 | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_141_HasCycle.java) | [链接](https://leetcode-cn.com/problems/linked-list-cycle)
 
 ## 栈
+
+题名 | 代码链接 | LeetCode链接
+---|---|---
+155.最小栈         | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_155_MinStack.java) | [链接](https://leetcode-cn.com/problems/min-stack)
+232.用栈实现队列    | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_232_MyQueue.java) | [链接](https://leetcode-cn.com/problems/implement-queue-using-stacks/)
 
 ## 动态规划
 
