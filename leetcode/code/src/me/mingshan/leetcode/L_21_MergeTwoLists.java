@@ -91,6 +91,17 @@ public class L_21_MergeTwoLists {
     return head;
   }
 
+  /**
+   * TODO 递归版
+   *
+   * @param l1
+   * @param l2
+   * @return
+   */
+  public static ListNode mergeTwoLists2(ListNode l1, ListNode l2) {
+    return null;
+  }
+
   public static class ListNode {
     int val;
     ListNode next;

@@ -32,7 +32,7 @@ public class L_206_ReverseList {
     node2.next = node3;
     node3.next = node4;
 
-    System.out.println(reverseList(head));
+    System.out.println(reverseList3(head));
   }
 
   /**
@@ -63,12 +63,18 @@ public class L_206_ReverseList {
       return head;
     }
 
-    ListNode listNode = reverseList(head.next);
-    head.next.next = head;
-    head.next = null;
-    return listNode;
+    return reverse(null, head);
   }
 
+  private static ListNode reverse(ListNode pre, ListNode cur) {
+    if (cur == null) {
+      return pre;
+    }
+
+    ListNode next = cur.next;
+    cur.next = pre;
+    return reverse(cur, next);
+  }
 
   private static void reverse(ListNode node) {
     if (node.next.next == null) {
