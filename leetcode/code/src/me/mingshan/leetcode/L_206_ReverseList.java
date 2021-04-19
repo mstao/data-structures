@@ -38,6 +38,9 @@ public class L_206_ReverseList {
   /**
    * 递归版
    *
+   * 
+   *
+   *
    * @param head
    * @return
    */
@@ -66,6 +69,13 @@ public class L_206_ReverseList {
     return reverse(null, head);
   }
 
+  /**
+   * 改变
+   *
+   * @param pre
+   * @param cur
+   * @return
+   */
   private static ListNode reverse(ListNode pre, ListNode cur) {
     if (cur == null) {
       return pre;
@@ -87,7 +97,9 @@ public class L_206_ReverseList {
   }
 
   /**
-   * 迭代版
+   * 迭代版:
+   *
+   * 用一个栈记录访问过的节点，然后从后往前遍历即可
    *
    * @param head
    */
