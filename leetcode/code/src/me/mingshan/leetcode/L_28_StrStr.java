@@ -59,7 +59,8 @@ public class L_28_StrStr {
    *
    * 思路：
    *
-   * 向前匹配，该算法耗时比较大
+   * 1. 直接暴力
+   * 2. TODO kmp解法
    *
    * @param haystack
    * @param needle
@@ -107,4 +108,5 @@ public class L_28_StrStr {
 
     return -1;
   }
+
 }
