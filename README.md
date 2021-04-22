@@ -6,7 +6,9 @@ A collection of data-structures with java, I also wrote a series of articles：
 
 I use [this tool](https://www.draw.io/) to draw structure diagrams, thanks.
 
-# LeetCode Category
+# Data Structure Category
+
+# Algorithm Category
 
 ## 字符串
 
