@@ -38,25 +38,28 @@ public class L_206_ReverseList {
   /**
    * 递归版
    *
-   * 
-   *
-   *
-   * @param head
-   * @return
+   * 将头节点head反转，返回反转后的头节点
    */
-  public static ListNode reverseList(ListNode head) {
+  public ListNode reverseList(ListNode head) {
     if (head == null || head.next == null) {
       return head;
     }
 
-    ListNode listNode = reverseList(head.next);
+    // 将head的下一个节点作为头节点进行反转
+    ListNode node = reverseList(head.next);
+    // 将当前节点的下一个节点指向当前节点head
     head.next.next = head;
+    // 当前节点head 指向null即可
     head.next = null;
-    return listNode;
+    return node;
   }
 
   /**
    * 尾递归
+   *
+   * 每次递归都传入当前节点的上一个节点prev，与当前节点curr，
+   * 然后让当前节点的下一个节点指向pre： pre= curr.next
+   *
    *
    * @param head
    * @return
@@ -70,7 +73,10 @@ public class L_206_ReverseList {
   }
 
   /**
-   * 改变
+   * 每次递归都传入当前节点的上一个节点prev，与当前节点curr，
+   * 然后让当前节点的下一个节点指向pre： pre= curr.next
+   *
+   * 函数返回最后一个节点
    *
    * @param pre
    * @param cur
@@ -84,16 +90,6 @@ public class L_206_ReverseList {
     ListNode next = cur.next;
     cur.next = pre;
     return reverse(cur, next);
-  }
-
-  private static void reverse(ListNode node) {
-    if (node.next.next == null) {
-      ListNode last = node.next;
-      node.next = null;
-      last.next = node;
-    } else {
-      reverse(node);
-    }
   }
 
   /**
