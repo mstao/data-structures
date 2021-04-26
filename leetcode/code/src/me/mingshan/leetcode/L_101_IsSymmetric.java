@@ -43,6 +43,8 @@ public class L_101_IsSymmetric {
     node2.right = node6;
 
     System.out.println(isSymmetric(root));
+
+    System.out.println(isSymmetric2(root));
   }
 
   /**
@@ -138,13 +140,54 @@ public class L_101_IsSymmetric {
 
 
   /**
-   * TODO 递归版
+   * 递归版
+   *
+   * 在[迭代层次遍历](https://leetcode-cn.com/problems/symmetric-tree/solution/die-dai-ceng-ci-bian-li-by-mingshan-kiz7/)中介绍了迭代的解法，
+   * 代码比较多，但逻辑是比较明确的，下面说递归思路：
+   *
+   * 1. 如果根节点是null，直接返回true；
+   * 2. 接着就要判断根节点的左右子树是否为对称
+   * 3. 那么如何判断左右子树是否对称呢？如果左右子树的根节点不相等，那么肯定不对称，无需考虑其子树。这时我们自己画下图就可以得出信息，就是左子树根节点的左子树 与 右子树根节点的 右子树，
+   * 左子树根节点的右子树 与 右子树根节点的 左子树，两个都是对称的，原先的两个子树才对称；
+   * 4. 那么如何判断左子树根节点的左子树 与 右子树根节点的 右子树 对称呢？ 其实此时又回到第三步了，就是如何判断两个树是否对称，满足递归的基本条件
+   *
+   * 上面的分析过程已经包含了递归返回的条件：
+   *
+   * 1. 两个树的根节点都为空，此时返回true
+   * 2. 两个树的根节点值不同（一个为空，一个不为空；值不相等），返回false
    *
    * @param root
    * @return
    */
   public static boolean isSymmetric2(TreeNode root) {
-    return false;
+    if (root == null) {
+      return true;
+    }
+
+    return isSymmetric3(root.left, root.right);
+  }
+
+  /**
+   * 判断两个树是否对称
+   *
+   * @param left
+   * @param right
+   * @return
+   */
+  private static boolean isSymmetric3(TreeNode left, TreeNode right) {
+    if (left == null && right == null) {
+      return true;
+    }
+
+    if (left == null || right == null) {
+      return false;
+    }
+
+    if (left.val != right.val) {
+      return false;
+    }
+
+    return isSymmetric3(left.left, right.right) && isSymmetric3(left.right, right.left);
   }
 
   static class TreeNode {
