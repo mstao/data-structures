@@ -53,8 +53,10 @@ I use [this tool](https://www.draw.io/) to draw structure diagrams, thanks.
 
 题名 | 代码链接 | LeetCode链接
 ---|---|---
-206.反转链表      | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_206_ReverseList.java) | [链接](https://leetcode-cn.com/problems/reverse-linked-list)
-101.对称二叉树   | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_101_IsSymmetric.java) | [链接](https://leetcode-cn.com/problems/symmetric-tree/)
+206.反转链表          | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_206_ReverseList.java) | [链接](https://leetcode-cn.com/problems/reverse-linked-list)
+101.对称二叉树        | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_101_IsSymmetric.java) | [链接](https://leetcode-cn.com/problems/symmetric-tree/)
+104.二叉树的最大深度   | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_104_MaxDepth.java) | [链接](https://leetcode-cn.com/problems/maximum-depth-of-binary-tree)
+226.翻转二叉树        | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_226_InvertTree.java) | [链接](https://leetcode-cn.com/problems/invert-binary-tree)
 
 ## 动态规划
 
