@@ -65,6 +65,8 @@ I use [this tool](https://www.draw.io/) to draw structure diagrams, thanks.
 
 ## 位运算
 
+题名 | 代码链接 | LeetCode链接
+---|---|---
 461.汉明距离   | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_461_HammingDistance.java)  | [链接](https://leetcode-cn.com/problems/hamming-distance)
 
 ## 搜索
