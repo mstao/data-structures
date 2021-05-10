@@ -1,5 +1,7 @@
 package me.mingshan.sort;
 
+import java.util.Arrays;
+
 /**
  * 归并排序
  *
@@ -9,7 +11,7 @@ package me.mingshan.sort;
  */
 public class MergeSort {
   public static void main(String[] args) {
-    int[] source = new int[100];
+    int[] source = new int[6];
     source[0] = 1;
     source[1] = 4;
     source[1] = 3;
@@ -19,6 +21,7 @@ public class MergeSort {
 
     int[] temp = new int[source.length];
     sort(source, 0, source.length - 1, temp);
+    System.out.println(Arrays.toString(source));
   }
 
   public static void sort(int[] source, int low, int high, int[] temp) {

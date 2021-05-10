@@ -28,6 +28,12 @@ public class L_148_SortList {
     System.out.println(sortList(head));
   }
 
+  /**
+   * TODO
+   *
+   * @param head
+   * @return
+   */
   public static ListNode sortList(ListNode head) {
     if (head == null) {
       return null;

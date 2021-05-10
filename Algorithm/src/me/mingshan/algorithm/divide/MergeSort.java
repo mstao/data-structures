@@ -16,22 +16,23 @@ public class MergeSort {
     int[] source = new int[6];
     source[0] = 1;
     source[1] = 4;
-    source[1] = 3;
-    source[1] = 5;
-    source[1] = 9;
-    source[1] = 7;
+    source[2] = 3;
+    source[3] = 5;
+    source[4] = 9;
+    source[5] = 7;
 
-    sort(source, 0, source.length - 1);
+    int[] temp = new int[source.length];
+    sort(source, 0, source.length - 1, temp);
 
     System.out.println(Arrays.toString(source));
   }
 
-  public static void sort(int[] source, int low, int high) {
+  public static void sort(int[] source, int low, int high, int[] temp) {
     if (low < high) {
       int mid = (low + high) / 2;
-      sort(source, low, mid);
-      sort(source, mid + 1, high);
-      merge(source, low, mid, high);
+      sort(source, low, mid, temp);
+      sort(source, mid + 1, high, temp);
+      merge(source, low, mid, high, temp);
     }
   }
 
@@ -47,12 +48,10 @@ public class MergeSort {
    * @param mid 低位和高位的中间位置
    * @param high 高位
    */
-  private static void merge(int[] source, int low, int mid, int high) {
+  private static void merge(int[] source, int low, int mid, int high, int[] temp) {
     int i = low;
     int j = mid + 1;
     int k = 0;
-
-    int[] temp = new int[high-low+1];
 
     // 将两个数组的元素依次比较，记录在temp 数组里面
     while (i <= mid && j <= high) {
@@ -73,8 +72,10 @@ public class MergeSort {
       temp[k++] = source[j++];
     }
 
-    // 使用内部数组copy，提高性能
-    System.arraycopy(temp, 0, source, low, high - low + 1);
+    // 将temp数组的元素移动原数组
+    for (i = 0; i < k; i++) {
+      source[low + i] = temp[i];
+    }
   }
 
   /**
