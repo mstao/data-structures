@@ -29,12 +29,82 @@ public class L_148_SortList {
   }
 
   /**
-   * TODO
    *
    * @param head
    * @return
    */
   public static ListNode sortList(ListNode head) {
+    if (head == null || head.next == null) {
+      return head;
+    }
+
+    // 先统计总节点数
+    int nodeCount = 0;
+
+    ListNode curr = head;
+    while (curr != null) {
+      nodeCount++;
+      curr = curr.next;
+    }
+
+    // 获取中间节点位置
+    int mid = nodeCount % 2 == 0 ? nodeCount / 2 : nodeCount / 2 + 1;
+
+    // 找到中间节点
+    int count = 1;
+    curr = head;
+    while (count != mid) {
+      count++;
+      curr = curr.next;
+    }
+
+    // 下一个链表的头结点
+    ListNode nextHead = curr.next;
+    // 引用置空
+    curr.next = null;
+
+    // 原来的头结点到中间位置的链表排序，返回新的头结点
+    ListNode listNode1 = sortList(head);
+    // 中间到末尾的节点排序，返回新的头结点
+    ListNode listNode2 = sortList(nextHead);
+
+    // 合并两个已排序的链表
+    return merge(listNode1, listNode2);
+  }
+
+  /**
+   * 合并两个排序链表
+   *
+   * @param head
+   * @param nextHead
+   * @return
+   */
+  private static ListNode merge(ListNode head, ListNode nextHead) {
+    if (head == null) {
+      return nextHead;
+    }
+
+    if (nextHead == null) {
+      return head;
+    }
+
+    if (head.val > nextHead.val) {
+      nextHead.next = merge(nextHead.next, head);
+      return nextHead;
+    } else {
+      head.next = merge(nextHead, head.next);
+      return head;
+    }
+  }
+
+
+  /**
+   * TODO
+   *
+   * @param head
+   * @return
+   */
+  public static ListNode sortList2(ListNode head) {
     if (head == null) {
       return null;
     }
