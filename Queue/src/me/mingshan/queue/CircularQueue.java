@@ -61,7 +61,7 @@ public class CircularQueue<E> implements Queue<E>, Serializable {
     public boolean add(E e) {
         Objects.requireNonNull(e);
         // 判断队列是否满了
-        if ((tail + 1) % capacity == head) {
+        if (isFull()) {
             throw new IllegalStateException("Queue full");
         }
 
@@ -70,11 +70,15 @@ public class CircularQueue<E> implements Queue<E>, Serializable {
         return true;
     }
 
+    private boolean isFull() {
+        return (tail + 1) % capacity == head;
+    }
+
     @Override
     public boolean offer(E e) {
         Objects.requireNonNull(e);
         // 判断队列是否满了
-        if ((tail + 1) % capacity == head) {
+        if (isFull()) {
             return false;
         }
 
