@@ -77,6 +77,16 @@ I use [this tool](https://www.draw.io/) to draw structure diagrams, thanks.
 
 ## 搜索
 
+题名 | 代码链接 | LeetCode链接
+---|---|---
+74.搜索二维矩阵 | | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_240_SearchMatrix.java)  | [链接](https://leetcode-cn.com/problems/search-a-2d-matrix-ii)
+240.搜索二维矩阵 II  | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_240_SearchMatrix.java)  | [链接](https://leetcode-cn.com/problems/search-a-2d-matrix-ii)
+
+## 盛水容器
+
+题名 | 代码链接 | LeetCode链接
+---|---|---
+240.搜索二维矩阵 II  | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_面试题17_21_Trap.java)  | [链接](https://leetcode-cn.com/problems/volume-of-histogram-lcci/)
 
 ## 简单题不易做
 
