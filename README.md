@@ -38,8 +38,9 @@ I use [this tool](https://www.draw.io/) to draw structure diagrams, thanks.
 
 题名 | 代码链接 | LeetCode链接
 ---|---|---
-155.最小栈         | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_155_MinStack.java) | [链接](https://leetcode-cn.com/problems/min-stack)
-232.用栈实现队列    | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_232_MyQueue.java) | [链接](https://leetcode-cn.com/problems/implement-queue-using-stacks/)
+155.最小栈          | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_155_MinStack.java) | [链接](https://leetcode-cn.com/problems/min-stack)
+232.用栈实现队列     | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_232_MyQueue.java) | [链接](https://leetcode-cn.com/problems/implement-queue-using-stacks/)
+20.有效的括号       | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_20_IsValid.java) | [链接](https://leetcode-cn.com/problems/valid-parentheses/)
 
 ## 二叉树
 
