@@ -17,7 +17,7 @@ public class Convert {
   public static void main(String[] args) {
     System.out.println(convert(14, 2));
 
-    System.out.println(convert10("0xACDC233"));
+    System.out.println(convert10("0x76E"));
   }
 
   /**
@@ -81,8 +81,8 @@ public class Convert {
     while (i >= 0) {
       char aChar = chars[i];
 
-      int bit = toInteger(aChar);
       // 将char转化为数字
+      int bit = toInteger(aChar);
 
       result += bit * Math.pow(16, length - 1 - i);
       i--;
