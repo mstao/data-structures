@@ -29,11 +29,12 @@ public class L_141_HasCycle {
     ListNode next1 = new ListNode(2);
     ListNode next2 = new ListNode(1);
 
-    head.setNext(next1);
-    next1.setNext(next2);
-    next2.setNext(head);
+//    head.setNext(next1);
+//    next1.setNext(next2);
+//    next2.setNext(head);
 
     System.out.println(hasCycle(head));
+    System.out.println(hasCycle2(head));
   }
 
   /**
@@ -64,6 +65,45 @@ public class L_141_HasCycle {
     }
 
     return false;
+  }
+
+  /**
+   * 快慢指针，如果有环，那么快的必然能碰见慢的
+   *
+   * @param head
+   * @return
+   */
+  public static boolean hasCycle2(ListNode head) {
+    if (head == null) {
+      return false;
+    }
+
+    // 快的每次走两步
+    ListNode fast = head.next;
+    // 慢的每次走一步
+    ListNode slow = head;
+
+    // 相差步数
+    int step = 1;
+
+    while (true) {
+      // 出现节点为空，证明非环
+      if (fast == null) {
+        return false;
+      }
+
+      if (fast.equals(slow)) {
+        return true;
+      }
+
+      fast = fast.next;
+      step++;
+
+      if (step == 2) {
+        slow = slow.next;
+        step = 0;
+      }
+    }
   }
 
   public static class ListNode {
