@@ -92,14 +92,33 @@ public class L_21_MergeTwoLists {
   }
 
   /**
-   * TODO 递归版
+   * 递归版:
+   *
+   * 思路：比较两个链表的当前节点，如果l1的节点小于l2的节点，那么我们需要合并l1.next 和l2,
+   * 两个合并之后再作为一个链表，且l1.next指向该链表
+   *
    *
    * @param l1
    * @param l2
    * @return
    */
   public static ListNode mergeTwoLists2(ListNode l1, ListNode l2) {
-    return null;
+    if (l1 == null) {
+      return l2;
+    }
+
+    if (l2 == null) {
+      return l1;
+    }
+
+    // 谁小谁前进
+    if (l1.val < l2.val) {
+      l1.next = mergeTwoLists2(l1.next, l2);
+      return l1;
+    } else {
+      l2.next = mergeTwoLists2(l1, l2.next);
+      return l2;
+    }
   }
 
   public static class ListNode {

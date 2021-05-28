@@ -104,12 +104,15 @@ public class L_206_ReverseList {
       return head;
     }
 
+    // 申请一个空间
     Stack<ListNode> stack = new Stack<>();
 
     ListNode curr = head;
 
+    // 新的链表头结点
     ListNode last = null;
 
+    // 原链表入栈
     while (curr != null) {
       if (curr.next == null) {
         last = curr;
@@ -120,8 +123,10 @@ public class L_206_ReverseList {
       }
     }
 
+    // 指向当前操作的节点下一个
     ListNode prev = last;
 
+    // 从后往前遍历原链表
     while (!stack.isEmpty()) {
       ListNode node = stack.pop();
       node.next = null;

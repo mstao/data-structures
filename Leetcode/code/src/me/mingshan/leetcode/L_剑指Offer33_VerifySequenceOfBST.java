@@ -1,24 +1,41 @@
-package me.mingshan.algorithm.tree;
+package me.mingshan.leetcode;
 
 /**
- * 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历的结果。如果是则返回true，否则返回 false。假设输入的数组的任意两个数字都互不相同
+ * 输入一个整数数组，判断该数组是不是某二叉搜索树的后序遍历结果。如果是则返回 true，否则返回 false。假设输入的数组的任意两个数字都互不相同。
  *
  * https://leetcode-cn.com/problems/er-cha-sou-suo-shu-de-hou-xu-bian-li-xu-lie-lcof/
+ *
  */
-public class VerifySequenceOfBST {
+public class L_剑指Offer33_VerifySequenceOfBST {
+
+  public static void main(String[] args) {
+    System.out.println(verifyPostorder(new int[]{1,6,3,2,5})); // false
+
+    System.out.println(verifyPostorder(new int[]{1,3,2,6,5})); // true
+    System.out.println(verifyPostorder(new int[]{1,2,3,4})); // true
+    System.out.println(verifyPostorder(new int[]{6,8,9,5})); // true
+  }
 
   /**
    *
+   * 思路：
+   *
+   * 二叉树后序遍历，最后一个节点是根节点，根据二叉搜索树的特性，根节点左边的，必然小于根节点；右边的，必然大于根节点。
+   *
+   * 由于 二叉树后序遍历 先输出左子树，后输出右子树，最后根节点，所以在数组中，必然左子树输出是连续的，右子树输出是连续的，
+   * 我们可以找到第一个大于根节点的节点，当前节点就是左子树与右子树的分隔点
+   *
+   * 对于左子树和右子树同样也要判断，可以使用递归
    *
    * @param data
    * @return
    */
-  public boolean solution(int[] data) {
+  public static boolean verifyPostorder(int[] data) {
     if (data == null || data.length == 0) {
-      return true;
+      return false;
     }
 
-    return verify(data, 0, data.length);
+    return verify(data, 0, data.length - 1);
   }
 
   /**
@@ -78,4 +95,5 @@ public class VerifySequenceOfBST {
       }
     }
   }
+
 }
