@@ -20,15 +20,15 @@ public class MergeSort {
     source[1] = 7;
 
     int[] temp = new int[source.length];
-    sort(source, 0, source.length - 1, temp);
+    mergeSort(source, 0, source.length - 1, temp);
     System.out.println(Arrays.toString(source));
   }
 
-  public static void sort(int[] source, int low, int high, int[] temp) {
+  public static void mergeSort(int[] source, int low, int high, int[] temp) {
     if (low < high) {
       int mid = (low + high) / 2;
-      sort(source, low, mid, temp);
-      sort(source, mid + 1, high, temp);
+      mergeSort(source, low, mid, temp);
+      mergeSort(source, mid + 1, high, temp);
       merge(source, low, mid, high, temp);
     }
   }

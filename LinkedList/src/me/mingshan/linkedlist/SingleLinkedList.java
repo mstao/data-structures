@@ -44,6 +44,7 @@ public class SingleLinkedList<E> implements LinkedList<E> {
             temp = temp.next;
         }
 
+
         return null;
     }
 
@@ -59,7 +60,7 @@ public class SingleLinkedList<E> implements LinkedList<E> {
 
         Node<E> temp = head;
         // 从头结点向后遍历，获取链表最后一个节点
-        while (temp.next != null) {
+        while (temp != null && temp.next != null) {
             // temp 始终指向下一个节点
             temp = temp.next;
         }
@@ -70,6 +71,29 @@ public class SingleLinkedList<E> implements LinkedList<E> {
         // 计数加一
         size++;
         return true;
+    }
+
+    public void add2(int index, E data) {
+        if (head == null) {
+            head = new Node<E>(data);
+            return;
+        }
+
+        Node<E> temp = head;
+        // 从头结点向后遍历，获取链表最后一个节点
+
+        // index = 1
+        int count=1;
+        while (temp != null && count<index+1) {
+            // temp 始终指向下一个节点
+            temp = temp.next;
+            count++;
+        }
+
+        Node<E> tempAfter=temp.next;
+        Node<E> tempNew=new Node<E>(data);
+        tempNew.next=tempAfter;
+        temp.next=tempNew;
     }
 
     /**

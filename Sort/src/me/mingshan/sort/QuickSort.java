@@ -7,6 +7,13 @@ import java.util.Arrays;
  * <p>
  * 利用分治思想
  * <p>
+ *
+ *   关于快速排序法为什么一定要哨兵j 先出动的原因？
+ *
+ *   如果选取最左边的数arr[left]作为基准数，那么先从右边开始可保证i,j在相遇时，相遇数是小于基准数的，
+ *   交换之后temp所在位置的左边都小于temp。但先从左边开始,相遇数是大于基准数的，无法满足temp左边的数都小于它。
+ *   所以进行扫描，要从基准数的对面开始。（注：左右相对来说，也可前后）
+ *
  * https://www.jianshu.com/p/2b2f1f79984e
  * https://www.jianshu.com/p/36ef33ed59ba
  *
@@ -16,12 +23,12 @@ public class QuickSort {
 
   public static void main(String[] args) {
     int[] source = {1, 4, 3, 5, 9, 7};
-    sort(source, 0, source.length - 1);
+    quickSort(source, 0, source.length - 1);
 
     System.out.println(Arrays.toString(source));
   }
 
-  public static void sort(int[] source, int low, int high) {
+  public static void quickSort(int[] source, int low, int high) {
     if (low < high) {
       int i = low;
       int j = high;
@@ -50,9 +57,9 @@ public class QuickSort {
       swap(source, low, i);
 
       // 当前位置左边的数都比基准小，递归
-      sort(source, low, i - 1);
+      quickSort(source, low, i - 1);
       // 当前位置右边的数都比基准大，递归
-      sort(source, i + 1, high);
+      quickSort(source, i + 1, high);
     }
   }
 

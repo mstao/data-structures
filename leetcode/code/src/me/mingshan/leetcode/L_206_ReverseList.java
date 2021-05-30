@@ -32,12 +32,12 @@ public class L_206_ReverseList {
     node2.next = node3;
     node3.next = node4;
 
-    System.out.println(reverseList3(head));
+    System.out.println(reverseList2(head));
   }
 
   /**
    * 递归版
-   *
+   * <p>
    * 将头节点head反转，返回反转后的头节点
    */
   public ListNode reverseList(ListNode head) {
@@ -56,10 +56,9 @@ public class L_206_ReverseList {
 
   /**
    * 尾递归
-   *
+   * <p>
    * 每次递归都传入当前节点的上一个节点prev，与当前节点curr，
    * 然后让当前节点的下一个节点指向pre： pre= curr.next
-   *
    *
    * @param head
    * @return
@@ -75,7 +74,7 @@ public class L_206_ReverseList {
   /**
    * 每次递归都传入当前节点的上一个节点prev，与当前节点curr，
    * 然后让当前节点的下一个节点指向pre： pre= curr.next
-   *
+   * <p>
    * 函数返回最后一个节点
    *
    * @param pre
@@ -94,7 +93,7 @@ public class L_206_ReverseList {
 
   /**
    * 迭代版:
-   *
+   * <p>
    * 用一个栈记录访问过的节点，然后从后往前遍历即可
    *
    * @param head
@@ -137,6 +136,29 @@ public class L_206_ReverseList {
     return last;
   }
 
+  /**
+   * 构建新节点
+   *
+   * @param node
+   * @return
+   */
+  public static ListNode reverse2(ListNode node) {
+    if (node == null) {
+      return null;
+    }
+
+    ListNode newNode = null;
+    while (node.next != null) {
+      if (newNode == null) {
+        newNode = new ListNode(node.val, null);
+      } else {
+        newNode = new ListNode(node.val, newNode);
+      }
+      node = node.next;
+    }
+    newNode = new ListNode(node.val, newNode);
+    return newNode;
+  }
 
   public static class ListNode {
     int val;
