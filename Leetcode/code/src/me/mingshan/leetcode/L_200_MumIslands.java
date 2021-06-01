@@ -64,9 +64,9 @@ public class L_200_MumIslands {
   /**
    * 从i，j开始向左，向右，向下开始探测，遇到0该方向停止
    *
-   * @param grid
-   * @param i
-   * @param j
+   * @param grid 表格
+   * @param i 行
+   * @param j 列
    */
   private static void find(char[][] grid, int i, int j) {
     // 行数
