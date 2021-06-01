@@ -25,7 +25,18 @@ package me.mingshan.leetcode;
  */
 public class L_200_MumIslands {
 
-  public int numIslands(char[][] grid) {
+  public static void main(String[] args) {
+    char[][] grid = {
+        {'1', '1', '1', '1', '0'},
+        {'1', '1', '0', '1', '0'},
+        {'1', '1', '0', '0', '0'},
+        {'0', '0', '0', '0', '0'}
+    };
+
+    System.out.println(numIslands(grid));
+  }
+
+  public static int numIslands(char[][] grid) {
     if (grid == null || grid.length == 0 || grid[0].length == 0) {
       return 0;
     }
@@ -40,7 +51,7 @@ public class L_200_MumIslands {
     // 从上往下探测
     for (int i = 0; i < rowNum; i++) {
       for (int j = 0; j < colNum; j++) {
-        if (grid[i][0] == 1) {
+        if (grid[i][j] == '1') {
           find(grid, i, j);
           result++;
         }
@@ -57,7 +68,22 @@ public class L_200_MumIslands {
    * @param i
    * @param j
    */
-  private void find(char[][] grid, int i, int j) {
+  private static void find(char[][] grid, int i, int j) {
+    // 行数
+    int rowNum = grid.length;
+    // 列数
+    int colNum = grid[0].length;
+
+    if (i < 0 || j < 0 || i >= rowNum || j >= colNum || grid[i][j] == '0') {
+      return;
+    }
+
+    grid[i][j] = '0';
+    
+    find(grid, i, j + 1);
+    find(grid, i, j - 1);
+    find(grid, i + 1, j);
+    find(grid, i - 1, j);
   }
 
 }
