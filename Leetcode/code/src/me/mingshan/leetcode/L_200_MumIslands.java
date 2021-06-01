@@ -26,6 +26,38 @@ package me.mingshan.leetcode;
 public class L_200_MumIslands {
 
   public int numIslands(char[][] grid) {
-    return 0;
+    if (grid == null || grid.length == 0 || grid[0].length == 0) {
+      return 0;
+    }
+
+    // 行数
+    int rowNum = grid.length;
+    // 列数
+    int colNum = grid[0].length;
+    int result = 0;
+
+    // 采用dfs遍历，每一个遍历过的，全部置为0
+    // 从上往下探测
+    for (int i = 0; i < rowNum; i++) {
+      for (int j = 0; j < colNum; j++) {
+        if (grid[i][0] == 1) {
+          find(grid, i, j);
+          result++;
+        }
+      }
+    }
+
+    return result;
   }
+
+  /**
+   * 从i，j开始向左，向右，向下开始探测，遇到0该方向停止
+   *
+   * @param grid
+   * @param i
+   * @param j
+   */
+  private void find(char[][] grid, int i, int j) {
+  }
+
 }
