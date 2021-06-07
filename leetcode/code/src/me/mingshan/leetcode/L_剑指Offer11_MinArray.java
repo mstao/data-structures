@@ -15,26 +15,39 @@ package me.mingshan.leetcode;
 public class L_剑指Offer11_MinArray {
 
   public static void main(String[] args) {
-//    int[] num1 = {4,5,1,2,3};
-//    System.out.println(minArray2(num1));
+    int[] num1 = {4,5,1,2,3};
+    System.out.println(minArray(num1));
 
     int[] num3 = {1,2,3,4,5};
-    System.out.println(minArray2(num3));
+    System.out.println(minArray(num3));
 
     int[] num4 = {3,4,5,1,2};
-    System.out.println(minArray2(num4));
+    System.out.println(minArray(num4));
 
     int[] num5 = {2,2,2,0,1};
-    System.out.println(minArray2(num5));
+    System.out.println(minArray(num5));
 
     int[] num6 = {3,3,3,1};
-    System.out.println(minArray2(num6));
+    System.out.println(minArray(num6));
 
     int[] num7 = {2,2,0,0,1,1};
-    System.out.println(minArray2(num7));
+    System.out.println(minArray(num7));
 
     int[] num8 = {1,1,2,2,0,0};
-    System.out.println(minArray2(num8));
+    System.out.println(minArray(num8));
+
+    int[] num9 = {2,2,0,0,0,1,1,1};
+    System.out.println(minArray(num9));
+
+    int[] num10 = {10,10,10,10,1};
+    System.out.println(minArray(num10));
+
+
+    int[] num11 = {0,1,2,2};
+    System.out.println(minArray(num11));
+
+    int[] num12 = { 2,2,2,0,1};
+    System.out.println(minArray(num12));
   }
 
   /**
@@ -89,10 +102,16 @@ public class L_剑指Offer11_MinArray {
   }
 
   private static Integer findMin(int[] numbers, int low, int high) {
-    int mid = low + high / 2;
+    int mid = (low + high) / 2;
 
-    if (mid == low || mid == high) {
+    if (low > high) {
       return null;
+    }
+
+    if (low == mid || high == mid) {
+      if (numbers[low] > numbers[high]) {
+        return numbers[high];
+      }
     }
 
     if ((mid - 1) >= 0 && (mid + 1) <= high) {
@@ -106,17 +125,12 @@ public class L_剑指Offer11_MinArray {
         return numbers[mid];
       }
 
-      Integer min1 = findMin(numbers, low, mid);
-      Integer min2 = findMin(numbers, low + 1, high);
-      if (min1 == null) {
-        return min2;
-      }
-
-      if (min2 == null) {
+      Integer min1 = findMin(numbers, mid + 1, high);
+      if (min1 != null) {
         return min1;
       }
 
-      return Math.min(min1, min2);
+      return findMin(numbers, low, mid - 1);
     }
 
     return null;
