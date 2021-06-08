@@ -13,7 +13,7 @@ package me.mingshan.leetcode;
 public class L_50_Pow {
 
   public static void main(String[] args) {
-    System.out.println(myPow2(2, 10));
+    System.out.println(myPow(2, 11));
     System.out.println(myPow2(2.1, 3));
     System.out.println(myPow2(2, -2));
   }
@@ -52,6 +52,16 @@ public class L_50_Pow {
     return result;
   }
 
+  /**
+   * 二分：
+   *
+   * 该题 O(N)时间复杂度不会通过，可以使用二分：
+   * 即 5的10次方可以由两个5的5次方相乘计算得到。
+   *
+   * @param x
+   * @param n
+   * @return
+   */
   public static double myPow2(double x, int n) {
     if (x == 0 && n < 0) {
       throw new IllegalArgumentException("无效的参数");
@@ -59,6 +69,18 @@ public class L_50_Pow {
 
     if (n == 0) {
       return 1;
+    }
+
+    if (x == 1) {
+      return x;
+    }
+
+    if (x == -1) {
+      if (n % 2 == 0) {
+        return 1;
+      } else {
+        return -1;
+      }
     }
 
     int c = n;
@@ -82,12 +104,11 @@ public class L_50_Pow {
       return x;
     }
 
-    boolean even = n % 2 == 0;
-
-    if (even) {
-      return cPow(x, n / 2) * 2;
+    double result = cPow(x, n / 2);
+    if (n % 2 == 0) {
+      return result * result;
     } else {
-      return x * (cPow(x, (n - 1) / 2) * 2);
+      return x * result * result;
     }
   }
 }
