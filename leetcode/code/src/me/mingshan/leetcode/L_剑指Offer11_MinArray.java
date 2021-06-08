@@ -98,7 +98,7 @@ public class L_剑指Offer11_MinArray {
       return min;
     }
 
-    return Math.min(numbers[0], numbers[1]);
+    return numbers[0];
   }
 
   private static Integer findMin(int[] numbers, int low, int high) {
