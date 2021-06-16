@@ -31,7 +31,7 @@ I use [this tool](https://www.draw.io/) to draw structure diagrams, thanks.
 141.环形链表                 | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_141_HasCycle.java) | [链接](https://leetcode-cn.com/problems/linked-list-cycle)
 160.相交链表                 | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_160_GetIntersectionNode.java) | [链接](https://leetcode-cn.com/problems/intersection-of-two-linked-lists)
 206.反转链表                 | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_206_ReverseList.java) | [链接](https://leetcode-cn.com/problems/reverse-linked-list)
-92. 反转链表 II                 | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_92_ReverseBetween.java) | [链接](https://leetcode-cn.com/problems/reverse-linked-list-ii/)
+92. 反转链表II                 | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_92_ReverseBetween.java) | [链接](https://leetcode-cn.com/problems/reverse-linked-list-ii/)
 234.回文链表                | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_234_IsPalindrome.java) | [链接](https://leetcode-cn.com/problems/palindrome-linked-list)
 148.排序链表               | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_148_SortList.java) | [链接](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof/)
 剑指Offer22.链表中倒数第k个节点 | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_剑指Offer22_GetKthFromEnd.java) | [链接](https://leetcode-cn.com/problems/lian-biao-zhong-dao-shu-di-kge-jie-dian-lcof)
@@ -87,7 +87,7 @@ I use [this tool](https://www.draw.io/) to draw structure diagrams, thanks.
 
 题名 | 代码链接 | LeetCode链接
 ---|---|---
-74.搜索二维矩阵 | | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_240_SearchMatrix.java)  | [链接](https://leetcode-cn.com/problems/search-a-2d-matrix-ii)
+74.搜索二维矩阵 | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_240_SearchMatrix.java)  | [链接](https://leetcode-cn.com/problems/search-a-2d-matrix-ii)
 240.搜索二维矩阵 II  | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_240_SearchMatrix.java)  | [链接](https://leetcode-cn.com/problems/search-a-2d-matrix-ii)
 
 ## 盛水容器
