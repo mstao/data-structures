@@ -17,21 +17,41 @@ public class LongestIncreasingContinuousSubsequence {
 
   public static void main(String[] args) {
     int[] nums = new int[]{1, 2, 3, 4};
-    reverse(nums);
-    System.out.println(Arrays.toString(nums));
 
-    System.out.println(longestIncreasingContinuousSubsequence(nums));
+    //System.out.println(longestIncreasingContinuousSubsequence(nums));
+    System.out.println(longestIncreasingContinuousSubsequence2(nums));
 
     int[] nums2 = new int[]{2,2,2,2,2};
-    System.out.println(longestIncreasingContinuousSubsequence(nums2));
+    //System.out.println(longestIncreasingContinuousSubsequence(nums2));
+    System.out.println(longestIncreasingContinuousSubsequence2(nums2));
   }
 
   /**
+   * 该题用动态规划思路去解比较简单，因为是连续递增子序列，那么对于任意一个以nums[j]的结尾的最长递增子序列，其最长递增子序列有两种情况：
+   * 假设j的上一位为i (i + 1 = j)
+   *
+   * 如果出现 nums[i] < nums[j]， 那么就可以转化为以nums[i]结尾的最长子序列的长度 + 1
+   * 否则以nums[j] 结尾的最长子序列长度就是当前本身，即为1
+   * 根据上面的逻辑我们可以得到转移方程：
+   *
+   * 设f[j] 代表以nums[j] 结尾的最长递增子序列的长度
+   *
+   *
+   * f[j] = {
+   *         1,  nums[i] >= nums[j] && (i + 1 == j)
+   *         f[i] + 1, nums[i] < nums[j] && (i + 1 == j)
+   * }
+   * 最终结果就是f数组里面的最大值。
+   *
+   * 作者：mingshan
+   * 链接：https://leetcode-cn.com/problems/longest-continuous-increasing-subsequence/solution/dong-tai-gui-hua-si-xiang-by-mingshan-ipox/
+   * 来源：力扣（LeetCode）
+   * 著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。
    *
    * @param nums
    * @return
    */
-  public static int longestIncreasingContinuousSubsequence(int[] nums) {
+  public static int longestIncreasingContinuousSubsequence2(int[] nums) {
     if (nums == null) {
       return 0;
     }
@@ -40,54 +60,25 @@ public class LongestIncreasingContinuousSubsequence {
       return nums.length;
     }
 
-    int result1 = calcu(nums);
-
-    reverse(nums);
-
-    int result2 = calcu(nums);
-
-    return Math.max(result1, result2);
-  }
-
-  /**
-   * 数组反转
-   *
-   * @param nums 数组
-   */
-  private static void reverse(int[] nums) {
-    int i = 0;
-    int j = nums.length - 1;
-
-    while (i != j && i <= j) {
-      int t = nums[i];
-      nums[i] = nums[j];
-      nums[j] = t;
-      i++;
-      j--;
-    }
-  }
-
-  private static int calcu(int[] nums) {
+    int len = nums.length;
     int result = 1;
 
-    int[] f = new int[nums.length];
+    int[] f = new int[len + 1];
 
-    for (int i = 0; i < nums.length; i++) {
-      f[i] = 1;
+    f[0] = 0;
+    f[1] = 1;
 
-      if (i == 0) {
-        continue;
+    for (int i = 1; i < len; i++) {
+      if (nums[i] > nums[i - 1]) {
+        f[i + 1] = f[i] + 1;
+      } else {
+        f[i + 1] = 1;
       }
 
-      if (nums[i - 1] < nums[i]) {
-        f[i] = f[i - 1] + 1;
-      }
-
-      if (f[i] > result) {
-        result = f[i];
-      }
+      result = Math.max(result, f[i+1]);
     }
 
     return result;
   }
+
 }
