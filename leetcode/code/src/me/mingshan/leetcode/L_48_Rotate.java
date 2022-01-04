@@ -1,5 +1,7 @@
 package me.mingshan.leetcode;
 
+import java.util.Arrays;
+
 /**
  *
  * 给定一个 n x n 的二维矩阵matrix 表示一个图像。请你将图像顺时针旋转 90 度。
@@ -16,6 +18,14 @@ package me.mingshan.leetcode;
  * @date 2022/1/3
  */
 public class L_48_Rotate {
+    public static void main(String[] args) {
+        int[][] ma = {{5,1,9,11}, {2,4,8,10}, {13,3,6,7}, {15,14,12,16}};
+        System.out.println(Arrays.deepToString(ma));
+        rotate(ma);
+
+        System.out.println(Arrays.deepToString(ma));
+    }
+
     /**
      * 解题思路：
      *
@@ -24,7 +34,7 @@ public class L_48_Rotate {
      *
      * @param matrix
      */
-    public void rotate(int[][] matrix) {
+    public static void rotate(int[][] matrix) {
         if (matrix == null || matrix.length == 0) {
             return;
         }
@@ -32,21 +42,48 @@ public class L_48_Rotate {
         // 行数 / 列数
         int m = matrix.length;
 
-        for (int i = 0; i < m; i++) {
+        for (int i = 0; i < m / 2; i++) {
+            rotateCirce(matrix, i);
+        }
+    }
+
+    /**
+     *
+     * @param matrix
+     * @param c 第多少圈
+     */
+    public static void rotateCirce(int[][] matrix, int c) {
+        // 行数 / 列数
+        int m = matrix.length;
+
+        for (int i = c; i < m - 1; i++) {
             // 第一行当前元素
-            int currItem = matrix[i][0];
+            int currItem = matrix[c][i];
 
             // 左边的元素
-            int leftItem = matrix[0][m - 1 - i];
+            int leftItem = matrix[m - 1 - i][c];
 
             // 下边的元素
-            int downItem = matrix[m-1][m - 1 - i];
+            int downItem = matrix[m-1][m - 1 - i- c];
 
             // 右边的元素
-            int rightItem = matrix[i][m-1];
+            int rightItem = matrix[i][m-1-c];
 
             // 先交换四个位置元素
+            // 更新右
+            matrix[i][m-1-c] = currItem;
+            int temp = rightItem;
 
+            // 更新下
+            matrix[m-1][m - 1 - i - c] = temp;
+            temp = downItem;
+
+            // 更新左
+            matrix[m - 1 - i - c][c] = temp;
+            temp = leftItem;
+
+            // 更新上
+            matrix[c][i] = temp;
         }
     }
 }
