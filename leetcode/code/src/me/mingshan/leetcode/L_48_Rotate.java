@@ -32,7 +32,7 @@ public class L_48_Rotate {
      * 仔细观察几个图可知，当我们每次要计算一个位置上元素旋转后的另一个位置，都有上下左右四个方向的元素相互影响，这四个点形成一个新的正方形，
      * 所有我们每次都以四个点为整体来移动，那么当第一行的元素全部移动完成，整个矩阵也旋转完成。
      *
-     * @param matrix
+     * @param matrix 正方形
      */
     public static void rotate(int[][] matrix) {
         if (matrix == null || matrix.length == 0) {
