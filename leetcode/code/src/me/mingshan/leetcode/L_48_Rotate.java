@@ -46,7 +46,6 @@ public class L_48_Rotate {
 
         System.out.println("-------------------------------");
 
-        //[[5,1,9,11],[2,4,8,10],[13,3,6,7],[15,14,12,16]]
     }
 
     /**
@@ -102,11 +101,11 @@ public class L_48_Rotate {
             int temp = rightItem;
 
             // 更新下
-            matrix[bottom][right - i] = temp;
+            matrix[bottom][right - i + c] = temp;
             temp = downItem;
 
             // 更新左
-            matrix[bottom - i][left] = temp;
+            matrix[bottom - i + c][left] = temp;
             temp = leftItem;
 
             // 更新上
