@@ -1,6 +1,7 @@
 package me.mingshan.leetcode;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * 以数组 intervals 表示若干个区间的集合，其中单个区间为 intervals[i] = [starti, endi] 。请你合并所有重叠的区间，并返回一个不重叠的区间数组，该数组需恰好覆盖输入中的所有区间。
@@ -28,7 +29,12 @@ public class L_56_Merge {
         int[][] a3 = {{1, 3}, {2, 6}, {8, 11}, {10, 18}};
 
         System.out.println("-------------------");
-        System.out.println(Arrays.deepToString(merge(a3)));
+        System.out.println(Arrays.deepToString(merge(a3))); // [[1, 6], [8, 18]]
+
+        int[][] a4 = {{1, 4}, {2, 3}};
+
+        System.out.println("-------------------");
+        System.out.println(Arrays.deepToString(merge(a4))); // [[1, 4]]
     }
 
     /**
@@ -68,8 +74,6 @@ public class L_56_Merge {
             }
         });
 
-        List<List<Integer>> result = new ArrayList<>();
-
         int len = source.size();
 
         for (int i = 0; i < len; i++) {
@@ -78,26 +82,45 @@ public class L_56_Merge {
             if (i + 1 < len) {
                 List<Integer> integers2 = source.get(i + 1);
                 int lastItem = integers1.get(integers1.size() - 1);
+                int nextFirstItem = integers2.get(0);
+                // 可以合并的条件
+                // 1. 第一个区间的最后一位大于等于第二个区间最后一位
                 int nextLastItem = integers2.get(integers2.size() - 1);
-                if (lastItem <= nextLastItem) {
-                    // 合并区间
+                if (lastItem >= nextLastItem) {
+                    // 生成合并区间
+                    List<Integer> currResult = new ArrayList<>();
+                    currResult.add(integers1.get(0));
+                    currResult.add(lastItem);
+
+                    // 删掉原始两个区间
+                    source.set(i, null);
+                    source.set(i + 1, currResult);
+                } else if (nextFirstItem <= lastItem) {
+                    // 1. 第二个区间第一个变量 小于等于 第一个区间 的 最后一个变量
+                    // 生成合并区间
                     List<Integer> currResult = new ArrayList<>();
                     currResult.add(integers1.get(0));
                     currResult.add(integers2.get(integers2.size() - 1));
 
-                    result.add(currResult);
-                } else {
-                    result.add(integers1);
+                    // 删掉原始两个区间
+                    source.set(i, null);
+                    source.set(i + 1, currResult);
                 }
+
             }
 
         }
 
-        int[][] resultArr = new int[result.size()][result.get(0).size()];
+        source = source.stream().filter(Objects::nonNull).collect(Collectors.toList());
 
-        for (int i = 0; i < result.size(); i++) {
-            List<Integer> integers1 = result.get(i);
-            for (int j = 0; j < integers1.size(); j++)  {
+        int[][] resultArr = new int[source.size()][source.get(0).size()];
+
+        for (int i = 0; i < source.size(); i++) {
+            List<Integer> integers1 = source.get(i);
+            if (integers1 == null) {
+                continue;
+            }
+            for (int j = 0; j < integers1.size(); j++) {
                 resultArr[i][j] = integers1.get(j);
             }
         }
