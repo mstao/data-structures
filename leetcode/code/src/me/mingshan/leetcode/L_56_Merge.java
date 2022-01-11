@@ -46,6 +46,8 @@ public class L_56_Merge {
      * 按照每个区间的第一个元素将区间从小到达排列
      *
      *
+     * TODO 位图解法
+     *
      * @param intervals
      * @return
      */
