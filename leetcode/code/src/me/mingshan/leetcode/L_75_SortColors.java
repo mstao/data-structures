@@ -19,8 +19,24 @@ import static me.mingshan.leetcode.L_912_SortArray.swap;
 public class L_75_SortColors {
     public static void main(String[] args) {
         int[] nums1 = {2, 0, 2, 1, 1, 0};
-        sortColors(nums1);
+        // 022110
+        sortColors2(nums1);
         System.out.println(Arrays.toString(nums1)); // [0,0,1,1,2,2]
+
+        System.out.println("----------------");
+
+        int[] nums2 = {0, 0};
+        // 022110
+        sortColors2(nums2);
+        System.out.println(Arrays.toString(nums2)); // [0,0,1,1,2,2]
+
+        System.out.println("----------------");
+
+        int[] nums3 = {1, 2, 0};
+        // 022110
+        sortColors2(nums3);
+        System.out.println(Arrays.toString(nums3)); // [0,0,1,1,2,2]
+
     }
 
     /**
@@ -47,6 +63,10 @@ public class L_75_SortColors {
 
     /**
      * 仅使用常数空间的一趟扫描算法
+     * <p>
+     * 逻辑：
+     * <p>
+     * 碰到0，直接放到数组前面，遇到2，直接放到数组尾部
      *
      * @param nums
      */
@@ -57,32 +77,55 @@ public class L_75_SortColors {
 
         int len = nums.length;
 
-        int minIndex = 0;
-        int minLen = 0;
-
-        int secondIndex = 0;
-        int secondLen = 0;
-
-        int thirdIndex = 0;
-        int thirdLen = 0;
+        int zeroIndex = -1;
+        int twoIndex = -1;
 
         for (int i = 0; i < len; i++) {
-            if (i + 1 < len) {
-                // 后一位比前一位小
-                if (nums[i+1] < nums[i]) {
-                    // 检查 上一位是否有多个连续的
-                    if (nums[i] == 1) {
+            int currValue = nums[i];
 
-                        swap(nums, i, i+1);
-
-
-                    }
-
-                    // 将两者交换位置
-
+            if (currValue == 1) {
+                int j = i;
+                while (j < len && nums[j] != 0) {
+                    j++;
                 }
+
+                if (j )
+
+                if (j != i) {
+                    swap(nums, i, j);
+                }
+            }
+
+            if (currValue == 2) {
+                if (twoIndex == -1) {
+                    twoIndex = len - 1;
+                }
+                while (twoIndex >= 0 && nums[twoIndex] == 2) {
+                    twoIndex--;
+                }
+
+                // 无需处理
+                if (twoIndex <= i) {
+                    continue;
+                }
+
+                swap(nums, i, twoIndex);
+            }
+
+            if (currValue == 0) {
+                if (zeroIndex == -1) {
+                    zeroIndex = 0;
+                }
+                while (zeroIndex < len && nums[zeroIndex] == 0) {
+                    zeroIndex++;
+                }
+                // 无需处理
+                if (zeroIndex >= i) {
+                    continue;
+                }
+
+                swap(nums, i, zeroIndex);
             }
         }
     }
-
 }
