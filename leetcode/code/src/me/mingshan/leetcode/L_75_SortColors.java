@@ -62,6 +62,9 @@ public class L_75_SortColors {
     }
 
     /**
+     *
+     * TODO
+     *
      * 仅使用常数空间的一趟扫描算法
      * <p>
      * 逻辑：
@@ -89,7 +92,9 @@ public class L_75_SortColors {
                     j++;
                 }
 
-                if (j )
+                if (j >= len) {
+                    continue;
+                }
 
                 if (j != i) {
                     swap(nums, i, j);
