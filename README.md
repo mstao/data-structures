@@ -26,7 +26,7 @@ I use [this tool](https://www.draw.io/) to draw structure diagrams, thanks.
 
 题名 | 代码链接 | LeetCode链接
 ---|---|---
-31. 下一个排列  | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_31_NextPermutation.java) | [链接](https://leetcode-cn.com/problems/next-permutation)
+31.下一个排列  | [代码](https://github.com/mstao/data-structures/blob/master/leetcode/code/src/me/mingshan/leetcode/L_31_NextPermutation.java) | [链接](https://leetcode-cn.com/problems/next-permutation)
 
 ## 链表
 
