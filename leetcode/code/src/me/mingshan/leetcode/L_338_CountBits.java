@@ -67,6 +67,8 @@ public class L_338_CountBits {
      *  0010  2
      *  0011  3
      *
+     *  1110
+     *
      * @param num
      * @return
      */
