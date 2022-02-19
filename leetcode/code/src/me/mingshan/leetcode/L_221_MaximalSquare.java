@@ -20,9 +20,13 @@ public class L_221_MaximalSquare {
 //        System.out.println(i2);
 
 
-        char[][] a3 = {{ '1', '0'}};
-        int i3 = maximalSquare(a3);
-        System.out.println(i3);
+//        char[][] a3 = {{ '1', '0'}};
+//        int i3 = maximalSquare(a3);
+//        System.out.println(i3);
+
+        char[][] a4 = {{ '1', '1'}, { '1', '1'}};
+        int i4 = maximalSquare(a4);
+        System.out.println(i4);
     }
 
     /**
@@ -64,6 +68,8 @@ public class L_221_MaximalSquare {
                         // 缩短 tempLen
                         tempLen = j == endJ ? 0 :  tempLen - (j - endJ - 1);
                     }
+
+                    result = Math.max(result, 1);
                 } else {
                     tempLen = 0;
                 }
