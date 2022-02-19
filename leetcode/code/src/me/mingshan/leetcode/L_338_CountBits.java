@@ -13,10 +13,20 @@ import java.util.Arrays;
 public class L_338_CountBits {
 
     public static void main(String[] args) {
-        int[] ints = countBits(5);
+        int[] ints = solution2(5);
         System.out.println(Arrays.toString(ints));
+
+        for (int i = 10; i >= 0; i--) {
+            System.out.println("i = " + i + ", 右移一位：" + (i >> 1));
+        }
     }
 
+    /**
+     * 普通解法
+     *
+     * @param n
+     * @return
+     */
     public static int[] countBits(int n) {
         if (n < 0) {
             return null;
@@ -45,5 +55,30 @@ public class L_338_CountBits {
         }
 
         return result;
+    }
+
+    /**
+     * 动态规划:
+     *
+     * 思路：
+     *
+     *  0000  0
+     *  0001  1
+     *  0010  2
+     *  0011  3
+     *
+     * @param num
+     * @return
+     */
+    public static int[] solution2(int num) {
+        // write your code here
+        int[] f = new int[num+1];
+
+        for (int i = 0; i <= num; i++) {
+            int i1 = i >> 1;
+            f[i] = f[i1] + (i & 1);
+        }
+
+        return f;
     }
 }
