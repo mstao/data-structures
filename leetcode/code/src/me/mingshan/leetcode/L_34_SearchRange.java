@@ -68,6 +68,9 @@ public class L_34_SearchRange {
     /**
      * 二分搜索
      *
+     * 解题思路
+     * 利用二分快速搜索，如果匹配到，那么直接处理即可
+     *
      * @param nums
      * @param target
      * @return
