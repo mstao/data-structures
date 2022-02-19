@@ -14,19 +14,25 @@ public class L_221_MaximalSquare {
 //        char[][] a1 = {{'0', '1'}, {'1', '0'}};
 //        int i = maximalSquare(a1);
 //        System.out.println(i);
-
+//
 //        char[][] a2 = {{'1','0','1','0','0'},{'1','0','1','1','1'},{'1','1','1','1','1'},{'1','0','0','1','0'}};
 //        int i2 = maximalSquare(a2);
 //        System.out.println(i2);
-
-
+//
+//
 //        char[][] a3 = {{ '1', '0'}};
 //        int i3 = maximalSquare(a3);
 //        System.out.println(i3);
+//
+//        char[][] a4 = {{ '1', '1'}, { '1', '1'}};
+//        int i4 = maximalSquare(a4);
+//        System.out.println(i4);
 
-        char[][] a4 = {{ '1', '1'}, { '1', '1'}};
-        int i4 = maximalSquare(a4);
-        System.out.println(i4);
+        // [['1','1','1','1','1'],['1','1','1','1','1'],['0','0','0','0','0'],['1','1','1','1','1'],['1','1','1','1','1']]
+
+        char[][] a5 = {{'1','1','1','1','1'},{'1','1','1','1','1'},{'0','0','0','0','0'},{'1','1','1','1','1'},{'1','1','1','1','1'}};
+        int i5 = maximalSquare(a5);
+        System.out.println(i5);
     }
 
     /**
@@ -79,6 +85,15 @@ public class L_221_MaximalSquare {
         return result;
     }
 
+    /**
+     * 如果想是正方形，那么必须
+     *
+     * @param i
+     * @param j
+     * @param tempLen
+     * @param matrix
+     * @return
+     */
     private static Integer isSquare(int i, int j, int tempLen, char[][] matrix) {
         // 行
         int row = matrix.length;
@@ -98,7 +113,7 @@ public class L_221_MaximalSquare {
         int nextRowIndex = Math.min(i + tempLen - 1, row - 1);
 
         // 如果是最后一行
-        if (nextRowIndex == row - 1) {
+        if (i == row - 1) {
             return j;
         }
 
