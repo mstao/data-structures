@@ -20,7 +20,7 @@ public class L_221_MaximalSquare {
 //        System.out.println(i2);
 
 
-        char[][] a3 = {{ '1', '1'}};
+        char[][] a3 = {{ '1', '0'}};
         int i3 = maximalSquare(a3);
         System.out.println(i3);
     }
@@ -84,11 +84,17 @@ public class L_221_MaximalSquare {
             return null;
         }
 
+        // 开始的列
         int beginJ = j - tempLen + 1;
 
         Integer zeroJ = null;
 
         int nextRowIndex = Math.min(i + tempLen - 1, row - 1);
+
+        // 如果是最后一行
+        if (nextRowIndex == row - 1) {
+            return j;
+        }
 
         for (int x = i + 1; x <= nextRowIndex; x++) {
             for (int y = beginJ; y <= j; y++) {
