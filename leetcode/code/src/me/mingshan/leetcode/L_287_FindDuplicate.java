@@ -19,7 +19,10 @@ import java.util.Arrays;
 public class L_287_FindDuplicate {
     public static void main(String[] args) {
         int[] nums1 = {1,3,4,2,2};
-        System.out.println(findDuplicate(nums1));
+        System.out.println(findDuplicate2(nums1));
+
+        int[] nums2 = {2,2,2};
+        System.out.println(findDuplicate2(nums2));
     }
 
     /**
@@ -51,5 +54,40 @@ public class L_287_FindDuplicate {
         }
 
         return 0;
+    }
+
+    /**
+     * 取反法，可以将每一个位置上的数字，对应其相应的位置索引，将将其数据取反，如果当发现其数字已经是负数，证明已经出现重复了。
+     *
+     * @param nums
+     * @return
+     */
+    public static int findDuplicate2(int[] nums) {
+        if (nums == null || nums.length == 0) {
+            return 0;
+        }
+
+        int result = 0;
+
+        int len = nums.length;
+
+        for (int i = 0; i < len; i++) {
+            int value = nums[i];
+            int anooo = Math.abs(value);
+
+            int num = nums[anooo];
+            if (num < 0) {
+                result = Math.abs(value);
+                break;
+            } else {
+                nums[anooo] = -num;
+            }
+        }
+
+        for (int i = 0; i < len; i++) {
+            nums[i] = Math.abs(nums[i]);
+        }
+
+        return result;
     }
 }
