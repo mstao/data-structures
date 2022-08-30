@@ -25,6 +25,8 @@ public class L_287_FindDuplicate {
     /**
      * 先排序，再找出有两个相邻的
      *
+     * 不满足 【不修改数据】
+     *
      * @param nums
      * @return
      */
